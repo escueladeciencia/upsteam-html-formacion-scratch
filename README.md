@@ -1,104 +1,25 @@
 # Masclet a masclet · Formación para docentes
 
-Formación de autoaprendizaje (unas 5 horas) para docentes de 5.º y 6.º de primaria. Explica cómo crear con Scratch un videojuego inspirado en la mascletà para la categoría Gamers (nivel Juniors) de [Up! Steam](https://upsteam.es/).
+Formación web para docentes de 5.º y 6.º de primaria: cómo crear con Scratch un videojuego de ritmo inspirado en la mascletà para la categoría Gamers de [Up! Steam](https://upsteam.es/). La ha hecho [Escuela de Ciencia](https://escueladeciencia.com/), organizadora de Up! Steam, la competición del Consejo Social de la [Universitat Politècnica de València](https://www.upv.es/).
 
-Enseña el proceso real: la idea, los prototipos que no funcionaron, las imágenes y la música hechas con IA (con sus prompts) y el juego montado en Scratch en 10 pasos, escritos como lo haría un niño con la ayuda del docente. Incluye fichas para el alumnado, una por paso.
+**Ver la formación:** https://escueladeciencia.github.io/upsteam-html-formacion-scratch/
 
-Son presentaciones web 16:9 con los juegos de Scratch dentro de las diapositivas. La ha hecho [Escuela de Ciencia](https://escueladeciencia.com/), organizadora de [Up! Steam](https://upsteam.es/), la competición del Consejo Social de la [Universitat Politècnica de València](https://www.upv.es/).
+## Estructura del curso
 
-| Módulo | Contenido |
-|---|---|
-| 0 | Empieza aquí: el juego, Up! Steam, qué aprende la clase y cómo usar la formación |
-| 1 | De la idea al juego: la idea, juegos de ritmo, el boceto y 4 prototipos |
-| 2 | Imágenes y música con IA: prompts, herramientas y normas |
-| 3 | Scratch paso a paso: un petardo (pasos 1 a 5) |
-| 4 | Scratch paso a paso: la mascletà (pasos 6 a 10) |
-| 5 | Al aula y a Up! Steam: sesiones, roles, itch.io y vídeo |
-| Fichas | Los 10 pasos para el alumnado, para proyectar o imprimir |
-
-## Publicar en GitHub Pages
-
-Es una web estática: no necesita compilar nada.
-
-1. Crea un repositorio en GitHub (por ejemplo, `masclet-a-masclet`).
-2. Sube esta carpeta. Desde la terminal, dentro de ella:
-   ```
-   git init
-   git add .
-   git commit -m "Masclet a masclet: formación para docentes"
-   git branch -M main
-   git remote add origin https://github.com/TU-USUARIO/masclet-a-masclet.git
-   git push -u origin main
-   ```
-   El archivo `.gitignore` deja fuera lo que no hace falta (ver abajo).
-3. En GitHub: **Settings › Pages › Build and deployment › Source: Deploy from a branch**. Elige la rama **main** y la carpeta **/ (root)**. Pulsa **Save**.
-4. En uno o dos minutos estará en `https://TU-USUARIO.github.io/masclet-a-masclet/`.
-
-Detalles que ya están resueltos:
-
-- `.nojekyll` hace que GitHub Pages sirva los archivos tal cual.
-- `404.html` es la página que sale si un enlace no existe.
-- Todas las rutas son relativas, así que funciona en cualquier carpeta o dominio.
-- GitHub Pages distingue mayúsculas y minúsculas en las rutas: están comprobadas.
-
-### Qué se sube y qué no
-
-Se sube todo lo que usa la web y lo necesario para regenerar los proyectos. El `.gitignore` deja fuera:
-
-- `bocetos/` (unos 38 MB): los originales de las imágenes hechas con IA, el prototipo jugable en HTML y una versión antigua de los recursos. Solo se sube `bocetos/prototipo/fondo.webp`, que usa `herramientas/genera-recursos.js`.
-- Archivos del sistema y de editores, `node_modules/` y la configuración local de Claude Code.
-
-## Estructura
-
-```
-index.html          Portada: el juego completo para jugar, los módulos y las fichas
-404.html            Página de «no encontrada» para GitHub Pages
-assets/             Motor de diapositivas (deck-stage.js, cdc.js, cdc.css), estilos y componentes propios (tro.css, tro.js)
-assets/vendor/      scratchblocks (dibuja los bloques) y Scaffolding de TurboWarp (ejecuta los .sb3 en la página)
-assets/img/         Iconos generados (ia/), disfraces (sprites/), fondos, capturas del editor de Scratch (scratch/),
-                    fotos de las portadas (portadas/), de juegos de ritmo (juegos/) y de TurboWarp Packager (publicar/)
-assets/video/       El vídeo de osu! del módulo 1
-assets/audio/       El pasodoble
-tema0/ … tema5/     Un módulo por carpeta (index.html)
-fichas/             Las fichas del alumnado: los 10 pasos con palabras de 5.º y 6.º (una por página al imprimir)
-scratch/            paso-01.sb3 … paso-10.sb3, paso-03-error.sb3 (la primera idea del paso 3, con su error),
-                    plantilla.sb3 (el punto de partida del alumnado, sin programas), tiempos.txt
-                    y pasos.js (el código de cada paso, sus bloques y lo que añade cada uno)
-herramientas/       Generadores de recursos, de los pasos de Scratch y de las imágenes
-```
-
-## Ver la formación en local
-
-Los juegos de Scratch se cargan con `fetch`, así que hace falta un servidor (no basta con abrir el archivo):
-
-```
-python -m http.server 8000
-```
-
-y abre `http://localhost:8000/`. Teclas: flechas para avanzar, **B** para buscar, **P** pantalla completa.
-
-## Cómo se generan los proyectos de Scratch
-
-Los 10 pasos se definen una sola vez en `herramientas/construye-pasos.py`. De esa definición salen los `.sb3`, la plantilla y el código que se ve en las diapositivas y en las fichas (`scratch/pasos.js`), así que siempre coinciden.
-
-1. Recursos (disfraces, fondos, música y mapa de petardos), con Playwright y Chrome:
-   ```
-   node herramientas/genera-recursos.js <carpeta con node_modules/playwright> bocetos/prototipo/fondo.webp herramientas/recursos
-   ```
-   La música y los disfraces se dibujan y sintetizan con código (`herramientas/genera-recursos.html`). La música se codifica en MP3 con lamejs.
-2. Los pasos:
-   ```
-   python -I herramientas/construye-pasos.py herramientas/recursos scratch
-   ```
-3. Imágenes: `herramientas/recorta-iconos.py` (hojas de iconos → iconos sueltos) y `herramientas/coloca-imagenes.py` (capturas; necesita los originales de `bocetos/`, que no están en el repositorio).
-4. Fotos de Wikimedia Commons: `herramientas/fotos-portadas.py` (portadas de los módulos) y `herramientas/fotos-juegos.py` (juegos de ritmo y vídeo de osu!; necesita ffmpeg).
-
-Las imágenes generadas (iconos, fondo de la plaza y boceto) se hicieron con `openai/gpt-image-2.5-sunburst` en Replicate. Los prompts están en el módulo 2.
+| Módulo | Contenido | Duración |
+|---|---|---|
+| 0 · Empieza aquí | El juego, Up! Steam, qué aprende la clase y cómo usar la formación | 15 min |
+| 1 · De la idea al juego | La idea, juegos de ritmo, el boceto y 4 prototipos | 45 min |
+| 2 · Imágenes y música con IA | Prompts, herramientas y normas para primaria | 45 min |
+| 3 · Scratch: un petardo | Pasos 1 a 5: disfraces, bucles, eventos, variables y condiciones | 1 h |
+| 4 · Scratch: la mascletà | Pasos 6 a 10: clones, música, cronómetro, listas y modo pirotécnico | 1 h 30 min |
+| 5 · Al aula y a Up! Steam | Sesiones, roles, publicar en itch.io y el vídeo | 40 min |
+| Fichas para el alumnado | Los 10 pasos con palabras de 5.º y 6.º, para proyectar o imprimir | — |
 
 ## Licencia
 
-- **Contenido** (diapositivas, textos, fichas e imágenes propias): [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es). Texto completo en [`LICENSE-CONTENIDO.txt`](LICENSE-CONTENIDO.txt).
-- **Código propio** (`assets/tro.js`, `assets/tro.css`, `herramientas/`, los proyectos de `scratch/`): MIT. Texto en [`LICENSE`](LICENSE).
-- **Componentes y fotos de terceros** (motor de diapositivas, scratchblocks, Scaffolding, lamejs y las fotos de Wikimedia Commons): conservan su licencia. Lista completa con autores en [`TERCEROS.md`](TERCEROS.md).
+- **Contenido** (diapositivas, textos, fichas e imágenes propias): [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es). Ver [`LICENSE-CONTENIDO.txt`](LICENSE-CONTENIDO.txt).
+- **Código propio**: MIT. Ver [`LICENSE`](LICENSE).
+- **Componentes y fotos de terceros** (scratchblocks, Scaffolding de TurboWarp, lamejs y fotos de Wikimedia Commons): conservan su licencia. Ver [`TERCEROS.md`](TERCEROS.md).
 
 Scratch es un proyecto de la Scratch Foundation. Esta formación no está asociada a ella.
