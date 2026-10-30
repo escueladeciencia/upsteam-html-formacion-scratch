@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Módulo 4 · Scratch paso a paso: la mascletà</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Lilita+One&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../assets/cdc.css">
+<link rel="stylesheet" href="../assets/tro.css">
+<style>
+/* Estilos propios del módulo 4 (prefijo t4-) */
+.t4-tabla td, .t4-tabla th { text-align: center; }
+.t4-tabla td:first-child { color: var(--gris); }
+.t4-desfase { display: grid; grid-template-columns: 260px 1fr; gap: 14px 24px; align-items: center; font-size: var(--type-small); }
+.t4-desfase .fila { position: relative; height: 70px; background: var(--blanco); border-radius: 16px; box-shadow: var(--sombra); }
+.t4-desfase .fila i { position: absolute; top: 12px; width: 6px; height: 46px; border-radius: 3px; background: var(--area); }
+.t4-desfase .fila img { position: absolute; top: 6px; height: 58px; transform: translateX(-50%); }
+</style>
+</head>
+<body class="area-4">
+
+<deck-stage width="1920" height="1080">
+
+<!-- ======================= Portada e índice ======================= -->
+
+<section class="portada" data-label="Portada" style="background-image: linear-gradient(90deg, var(--fondo) 0 50%, transparent 50%), url(../assets/img/portadas/tema4.webp)">
+  <a class="marca" href="../">Masclet a masclet · Formación para docentes</a>
+  <p class="num">Módulo 4</p>
+  <h1>Scratch paso a paso: la mascletà</h1>
+  <p class="sub">Del petardo solo a una mascletà entera: clones, música, cronómetro y un modo para grabar tu propio mapa.</p>
+  <div class="datos"><span class="pill">Pasos 6 a 10</span><span class="pill clara">1 hora y media</span><span class="pill clara">Un .sb3 por paso</span></div>
+  <p class="pista-teclas"><kbd>←</kbd><kbd>→</kbd> para moverte <span>·</span> <kbd>B</kbd> buscar <span>·</span> <kbd>P</kbd> pantalla completa</p>
+  <p class="foto-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:La_atmosfera_despues_de_una_masclet%C3%A1_en_la_Plaza_del_Ayuntamiento,_Valencia_2017.jpg" target="_blank" rel="noopener">Maria19731008</a> · CC BY-SA 4.0 · Wikimedia Commons</p>
+</section>
+
+<section class="s" data-label="Índice">
+  <div class="cab"><p class="etq">Módulo 4</p><h2>De un petardo a una mascletà</h2><p class="entrada">Empezamos donde acabó el módulo 3: un petardo que explota si haces clic a tiempo. Como allí, lo nuevo de cada paso sale con <b style="color:#1E8E5A">borde verde</b> y al jugar se ilumina el bloque que se está ejecutando. Para tu clase, las <a href="../fichas/" target="_blank" rel="noopener">fichas para el alumnado</a> 6 a 10.</p></div>
+  <div class="cuerpo">
+    <div class="indice-comp tres">
+      <a href="#p6"><img class="ico" src="../assets/img/ia/clon.webp" alt=""><div><span class="n">Paso 6</span><h3>Muchos petardos</h3><span class="cap">Clones y posición al azar</span></div></a>
+      <a href="#p7"><img class="ico" src="../assets/img/ia/dolcaina.webp" alt=""><div><span class="n">Paso 7</span><h3>Con música</h3><span class="cap">El problema de «esperar»</span></div></a>
+      <a href="#p8"><img class="ico" src="../assets/img/ia/cronometro.webp" alt=""><div><span class="n">Paso 8</span><h3>Al ritmo</h3><span class="cap">Cronómetro y lista de tiempos</span></div></a>
+      <a href="#p9"><img class="ico" src="../assets/img/ia/grabar.webp" alt=""><div><span class="n">Paso 9</span><h3>Modo pirotécnico</h3><span class="cap">Graba tu propia mascletà</span></div></a>
+      <a href="#p10"><img class="ico" src="../assets/img/ia/trofeo.webp" alt=""><div><span class="n">Paso 10</span><h3>Remate</h3><span class="cap">Traca, pantallas y final</span></div></a>
+      <a href="#sincro"><img class="ico" src="../assets/img/ia/partitura.webp" alt=""><div><span class="n">Para curiosos</span><h3>Cómo cuadra con la música</h3><span class="cap">La sincronización, explicada</span></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Dónde lo dejamos" data-seccion="Repaso">
+  <div class="cab"><p class="etq">Repaso del módulo 3</p><h2>Dónde lo dejamos: la vida de un petardo</h2></div>
+  <div class="cuerpo">
+    <div class="flujo">
+      <div class="nodo"><img src="../assets/img/ia/inicio.webp" alt=""><b>Aparece</b>Bandera verde: va al centro y se muestra.</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/sprites/mecha5.png" alt=""><b>Se quema</b>8 disfraces en 1 segundo.</div>
+      <div class="fl"></div>
+      <div class="nodo destaca"><img src="../assets/img/ia/clic.webp" alt=""><b>¿Clic a tiempo?</b>Si el disfraz es mayor que 6…</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/sprites/pum.png" alt=""><b>¡PUM!</b>Suma 100 decibelios.</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/sprites/fallado.png" alt=""><b>Si no: fsss</b>El petardo falla.</div>
+    </div>
+    <p>Ahora queremos <b>muchos</b> petardos, por toda la plaza y al ritmo de la música.</p>
+  </div>
+</section>
+
+<!-- ======================= Paso 6 ======================= -->
+
+<section class="competencia" data-label="Paso 6 · Muchos petardos" data-seccion="Paso 6" data-deck-id="p6" data-deck-section="P6">
+  <div class="izq">
+    <p class="n">Paso 6</p>
+    <h2>Muchos petardos: clones</h2>
+    <p class="examen">Ideas nuevas: el clon y el número al azar.</p>
+    <img class="ico" src="../assets/img/ia/clon.webp" alt="">
+  </div>
+  <div class="dcha">
+    <h3>Qué vas a conseguir</h3>
+    <ol>
+      <li>Que salgan 20 petardos, uno cada segundo.</li>
+      <li>Cada uno en un sitio al azar de la plaza.</li>
+      <li>Que puedan estar varios en pantalla a la vez.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" data-label="Un objeto, un solo petardo" data-seccion="Paso 6">
+  <div class="cab"><p class="etq">Paso 6 · Muchos petardos</p><h2>Un objeto solo puede estar en un sitio</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="gap:56px">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <p>Con un solo objeto solo hay un petardo. Si queremos uno nuevo mientras el anterior aún se quema, necesitamos <b>copias</b>.</p>
+        <div class="def"><span class="t">Clon</span><p>Un clon es una copia de un objeto que se crea mientras el programa funciona. Tiene los mismos disfraces y programas, y vive por su cuenta.</p></div>
+      </div>
+      <div class="tarjetas" style="--n:1">
+        <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/clon.webp" alt=""><h3>Crear clon de mí mismo <span class="cat control">Control</span></h3><p class="peq">Hace una copia del objeto, en el sitio donde está.</p></div>
+        <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/inicio.webp" alt=""><h3>Al comenzar como clon <span class="cat control">Control</span></h3><p class="peq">El programa que hace cada copia al nacer.</p></div>
+        <div class="tarjeta sin-borde con-ico"><img src="../assets/img/sprites/pum.png" alt=""><h3>Eliminar este clon <span class="cat control">Control</span></h3><p class="peq">La copia desaparece del todo.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="La fábrica de petardos" data-seccion="Paso 6">
+  <div class="cab"><p class="etq">Paso 6 · Muchos petardos</p><h2>La fábrica de petardos</h2><p class="entrada">El objeto original se esconde y solo fabrica. Cada clon es un petardo de verdad.</p></div>
+  <div class="cuerpo">
+    <div class="flujo">
+      <div class="nodo"><img src="../assets/img/ia/clon.webp" alt=""><b>El original</b>Escondido. Cada segundo va a un sitio al azar y crea un clon.</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/ia/aleatorio.webp" alt=""><b>Al azar</b>«Número aleatorio entre −180 y 180» <span class="cat operadores">Operadores</span> para x; entre −80 y 80 para y.</div>
+      <div class="fl"></div>
+      <div class="nodo destaca"><img src="../assets/img/ia/petardo.webp" alt=""><b>Cada clon</b>Hace lo del módulo 3: aparece, quema la mecha, explota o falla.</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/sprites/fallado.png" alt=""><b>Y desaparece</b>«Eliminar este clon» en lugar de «esconder».</div>
+    </div>
+    <div class="caja examen"><span class="tt">Por qué funciona el clic</span>«Detener otros programas en el objeto» dentro de un clon solo para ese clon. La fábrica sigue fabricando.</div>
+  </div>
+</section>
+
+<section class="s" data-label="Los bloques del paso 6" data-seccion="Paso 6">
+  <div class="cab"><p class="etq">Paso 6 · Muchos petardos</p><h2>Los bloques del paso 6</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: auto auto 1fr; gap: 40px">
+      <div class="sb-col"><p class="sb-tit">La fábrica</p><div class="sb" data-paso="6" data-guion="bandera" data-escala="1.15"></div></div>
+      <div class="sb-col"><p class="sb-tit">Cada clon</p><div class="sb" data-paso="6" data-guion="clon" data-escala="1.0"></div></div>
+      <ul class="lista peq">
+        <li>El programa del petardo pasa de la bandera a <b>al comenzar como clon</b> <span class="cat control">Control</span>. En verde, lo que cambia respecto al paso 5.</li>
+        <li><b>Ir a capa trasera</b> <span class="cat apariencia">Apariencia</span>: el clon nuevo se pone detrás. Así, si dos se tocan, el que va a explotar antes queda delante y recibe el clic.</li>
+        <li>Lo descubrimos probando: sin ese bloque, algunos clics «se perdían».</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Pruébalo: paso 6" data-seccion="Paso 6">
+  <div class="cab"><p class="etq">Paso 6 · Muchos petardos</p><h2>Pruébalo: 20 petardos al azar</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 840px; gap: 48px">
+      <div class="sb-col">
+        <div style="display:flex;gap:24px;align-items:flex-start">
+          <div class="sb-col"><p class="sb-tit">La fábrica</p><div class="sb" data-paso="6" data-guion="bandera" data-escala="0.8"></div></div>
+          <div class="sb-col"><p class="sb-tit">Cada clon</p><div class="sb" data-paso="6" data-guion="clon" data-escala="0.8"></div></div>
+        </div>
+        <p class="peq">El programa del clic es el del paso 5, pero al final <b>elimina el clon</b>. Con la velocidad «Muy lenta» se ve cómo la fábrica crea cada clon y cómo cada uno quema su mecha por su cuenta.</p>
+      </div>
+      <div class="jugador" data-sb3="../scratch/paso-06.sb3" data-nota="Sale un petardo cada segundo en un sitio al azar."></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Paso 7 ======================= -->
+
+<section class="competencia" data-label="Paso 7 · Con música" data-seccion="Paso 7" data-deck-id="p7" data-deck-section="P7">
+  <div class="izq">
+    <p class="n">Paso 7</p>
+    <h2>Con música</h2>
+    <p class="examen">Ideas nuevas: el pulso de la música y el problema de «esperar».</p>
+    <img class="ico" src="../assets/img/ia/dolcaina.webp" alt="">
+  </div>
+  <div class="dcha">
+    <h3>Qué vas a conseguir</h3>
+    <ol>
+      <li>Que suene el pasodoble.</li>
+      <li>Un petardo en cada golpe de la música.</li>
+      <li>Descubrir por qué así no acaba de cuadrar.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" data-label="120 golpes por minuto" data-seccion="Paso 7">
+  <div class="cab"><p class="etq">Paso 7 · Con música</p><h2>120 golpes por minuto</h2><p class="entrada">El pasodoble va a <b>120 pulsaciones por minuto</b> (en inglés, <i>BPM</i>). 60 segundos ÷ 120 = <b>un golpe cada 0,5 segundos</b>.</p></div>
+  <div class="cuerpo">
+    <div class="tiempo">
+      <p class="lbl">Segundos de la canción</p>
+      <div class="onda"></div>
+      <div class="eje"></div>
+      <div class="marca" style="left:calc(60px + (100% - 120px) * 0)"><span>0 s</span></div>
+      <div class="marca" style="left:calc(60px + (100% - 120px) * 0.1667)"><span>1 s</span></div>
+      <div class="marca" style="left:calc(60px + (100% - 120px) * 0.3333)"><span>2 s</span></div>
+      <div class="marca" style="left:calc(60px + (100% - 120px) * 0.5)"><span>3 s</span></div>
+      <div class="marca" style="left:calc(60px + (100% - 120px) * 0.6667)"><span>4 s</span></div>
+      <div class="marca" style="left:calc(60px + (100% - 120px) * 0.8333)"><span>5 s</span></div>
+      <div class="marca" style="left:calc(60px + (100% - 120px) * 1)"><span>6 s</span></div>
+      <div class="pet" style="left:calc(60px + (100% - 120px) * 0.25)"><img src="../assets/img/ia/dolcaina.webp" alt=""><i>Intro</i></div>
+      <div class="pet" style="left:calc(60px + (100% - 120px) * 0.6667)"><img src="../assets/img/sprites/pum.png" alt=""><i>1.ª nota: 4 s</i></div>
+      <div class="pet" style="left:calc(60px + (100% - 120px) * 0.75)"><img src="../assets/img/sprites/mecha9.png" alt=""><i>4,5 s</i></div>
+      <div class="pet" style="left:calc(60px + (100% - 120px) * 0.8333)"><img src="../assets/img/sprites/mecha5.png" alt=""><i>5 s</i></div>
+      <div class="pet" style="left:calc(60px + (100% - 120px) * 0.9167)"><img src="../assets/img/sprites/mecha1.png" alt=""><i>5,5 s</i></div>
+    </div>
+    <ul class="lista peq">
+      <li>La canción tiene 4 segundos de entrada. La dolçaina empieza a los 4 segundos.</li>
+      <li>La mecha dura 1 segundo. Para que el primer petardo explote a los 4 s, tiene que aparecer a los <b>3 s</b>.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="s" data-label="Pruébalo: paso 7" data-seccion="Paso 7">
+  <div class="cab"><p class="etq">Paso 7 · Con música</p><h2>Pruébalo: un petardo en cada golpe</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 840px; gap: 48px">
+      <div class="sb-col">
+        <div class="sb" data-paso="7" data-guion="bandera" data-escala="1.2"></div>
+        <ul class="lista peq">
+          <li><b>Iniciar sonido pasodoble</b> <span class="cat sonido">Sonido</span> y <b>esperar 3 segundos</b> <span class="cat control">Control</span>: la entrada.</li>
+          <li>Después, un clon cada <b>0,5 segundos</b>.</li>
+        </ul>
+      </div>
+      <div class="jugador" data-sb3="../scratch/paso-07.sb3" data-nota="Con sonido. Fíjate si los petardos van con la melodía."></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="El problema: se va retrasando" data-seccion="Paso 7">
+  <div class="cab"><p class="etq">Paso 7 · Con música</p><h2>El problema: se va retrasando</h2></div>
+  <div class="cuerpo">
+    <div class="t4-desfase">
+      <b>Golpes de la música</b>
+      <div class="fila"><i style="left:5%"></i><i style="left:20%"></i><i style="left:35%"></i><i style="left:50%"></i><i style="left:65%"></i><i style="left:80%"></i><i style="left:95%"></i></div>
+      <b>Petardos con «esperar 0,5»</b>
+      <div class="fila"><img src="../assets/img/ia/petardo.webp" alt="" style="left:5%"><img src="../assets/img/ia/petardo.webp" alt="" style="left:21%"><img src="../assets/img/ia/petardo.webp" alt="" style="left:37.5%"><img src="../assets/img/ia/petardo.webp" alt="" style="left:54%"><img src="../assets/img/ia/petardo.webp" alt="" style="left:70.5%"><img src="../assets/img/ia/petardo.webp" alt="" style="left:87%"></div>
+    </div>
+    <div class="tarjetas" style="--n:2">
+      <div class="tarjeta"><h3>1. Se retrasa</h3><p class="peq">Cada «esperar» tarda un poco más de lo que pone: Scratch lo comprueba unas 30 veces por segundo. Con 100 esperas, el retraso puede pasar de 1 segundo.</p></div>
+      <div class="tarjeta"><h3>2. No sigue la melodía</h3><p class="peq">Sale un petardo en cada golpe, también donde la dolçaina no toca. La gracia es que exploten con las notas.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Paso 8 ======================= -->
+
+<section class="competencia" data-label="Paso 8 · Al ritmo" data-seccion="Paso 8" data-deck-id="p8" data-deck-section="P8">
+  <div class="izq">
+    <p class="n">Paso 8</p>
+    <h2>Al ritmo: cronómetro y lista</h2>
+    <p class="examen">Ideas nuevas: el cronómetro, la lista y el contador.</p>
+    <img class="ico" src="../assets/img/ia/cronometro.webp" alt="">
+  </div>
+  <div class="dcha">
+    <h3>Qué vas a conseguir</h3>
+    <ol>
+      <li>Que cada petardo explote con una nota de la dolçaina.</li>
+      <li>Que no se retrase aunque la canción dure un minuto.</li>
+      <li>Guardar los tiempos en una lista.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" data-label="El cronómetro y la lista" data-seccion="Paso 8">
+  <div class="cab"><p class="etq">Paso 8 · Al ritmo</p><h2>El cronómetro y la lista</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 1fr; gap: 48px">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div class="concepto"><img src="../assets/img/ia/cronometro.webp" alt=""><div><b>Cronómetro <span class="cat sensores">Sensores</span></b><p>Cuenta los segundos desde «reiniciar cronómetro». Si lo reinicias a la vez que empieza la música, <b>los dos van juntos</b> todo el rato.</p></div></div>
+        <div class="concepto"><img src="../assets/img/ia/lista.webp" alt=""><div><b>Lista <span class="cat variables">Variables</span></b><p>Una lista es una variable que guarda muchos valores en orden. La lista <b>tiempos</b> tiene el segundo en que explota cada petardo.</p></div></div>
+        <p class="peq">Se crea en <b>Variables › Crear una lista</b>. El .sb3 ya trae la lista llena: 99 tiempos, uno por cada nota de la dolçaina que cae en un golpe.</p>
+      </div>
+      <table class="tabla t4-tabla">
+        <tr><th>n</th><th>tiempos</th><th>Qué pasa</th></tr>
+        <tr><td>1</td><td>4.02</td><td>Aparece a los 3,02 s y explota a los 4,02 s</td></tr>
+        <tr><td>2</td><td>4.52</td><td>Medio segundo después</td></tr>
+        <tr><td>3</td><td>5.02</td><td>…</td></tr>
+        <tr><td>4</td><td>5.52</td><td></td></tr>
+        <tr><td>5</td><td>6.02</td><td></td></tr>
+        <tr><td>6</td><td>7.02</td><td>Aquí hay 1 segundo de hueco: la melodía para</td></tr>
+        <tr><td>…</td><td>…</td><td>Hasta el 99</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Los bloques del paso 8" data-seccion="Paso 8">
+  <div class="cab"><p class="etq">Paso 8 · Al ritmo</p><h2>Los bloques del paso 8</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: auto 1fr; gap: 48px">
+      <div class="sb" data-paso="8" data-guion="bandera" data-escala="1.1"></div>
+      <ol class="pasos peq">
+        <li><b>n</b> <span class="cat variables">Variables</span> es un contador: el número del petardo que toca. Empieza en 1.</li>
+        <li><b>Iniciar sonido</b> <span class="cat sonido">Sonido</span> y <b>reiniciar cronómetro</b> <span class="cat sensores">Sensores</span>, uno detrás de otro: la música y el cronómetro empiezan juntos.</li>
+        <li><b>Repetir (longitud de tiempos)</b> <span class="cat control">Control</span>: una vuelta por cada petardo de la lista.</li>
+        <li><b>Esperar hasta que cronómetro &gt; tiempo − 1</b> <span class="cat control">Control</span>: 1 segundo antes de su nota, se crea el clon.</li>
+        <li><b>Sumar a n 1</b> <span class="cat variables">Variables</span>: pasa al siguiente.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Pruébalo: paso 8" data-seccion="Paso 8">
+  <div class="cab"><p class="etq">Paso 8 · Al ritmo</p><h2>Pruébalo: ahora sí, con la melodía</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 840px; gap: 48px">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div class="sb" data-paso="8" data-guion="bandera" data-escala="0.8"></div>
+        <div class="caja examen"><span class="tt">«Esperar hasta que» no se retrasa</span>No cuenta medios segundos: mira la hora del cronómetro. Si un petardo llega un poco tarde, el siguiente ya no arrastra el retraso.</div>
+      </div>
+      <div class="jugador" data-sb3="../scratch/paso-08.sb3" data-nota="Con sonido. Cada petardo explota con una nota de la dolçaina: haz clic al ritmo de lo que oyes, no solo de lo que ves."></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Paso 9 ======================= -->
+
+<section class="competencia" data-label="Paso 9 · Modo pirotécnico" data-seccion="Paso 9" data-deck-id="p9" data-deck-section="P9">
+  <div class="izq">
+    <p class="n">Paso 9</p>
+    <h2>Modo pirotécnico: graba tu mascletà</h2>
+    <p class="examen">Ideas nuevas: eventos de teclado, posición del ratón y añadir a una lista.</p>
+    <img class="ico" src="../assets/img/ia/grabar.webp" alt="">
+  </div>
+  <div class="dcha">
+    <h3>Qué vas a conseguir</h3>
+    <ol>
+      <li>Que cada petardo salga en su sitio (listas x e y).</li>
+      <li>Grabar una mascletà nueva tocando al ritmo.</li>
+      <li>Que cada alumno pueda hacer su propio nivel.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" data-label="Grabar tu propia mascletà" data-seccion="Paso 9">
+  <div class="cab"><p class="etq">Paso 9 · Modo pirotécnico</p><h2>Grabar tu propia mascletà</h2><p class="entrada">El pirotécnico decide dónde y cuándo explota cada masclet. Aquí lo decide el alumnado, al ritmo de la música.</p></div>
+  <div class="cuerpo">
+    <div class="flujo">
+      <div class="nodo"><img src="../assets/img/ia/tecla.webp" alt=""><b>Tecla G</b>Borra el mapa y empieza la canción.</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/ia/clic.webp" alt=""><b>Ratón</b>Ponlo donde quieras el petardo.</div>
+      <div class="fl"></div>
+      <div class="nodo destaca"><img src="../assets/img/ia/tecla.webp" alt=""><b>Espacio</b>Púlsalo al ritmo, en cada nota.</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/ia/lista.webp" alt=""><b>Se guarda</b>El segundo en «tiempos»; el sitio en «x» e «y».</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/ia/inicio.webp" alt=""><b>Bandera verde</b>A jugar tu mascletà.</div>
+    </div>
+    <div class="caja examen"><span class="tt">En el aula</span>Cada alumno graba una mascletà y los compañeros intentan superarla. Se trabaja el pulso musical sin darse cuenta.</div>
+  </div>
+</section>
+
+<section class="s" data-label="Los bloques del modo pirotécnico" data-seccion="Paso 9">
+  <div class="cab"><p class="etq">Paso 9 · Modo pirotécnico</p><h2>Los bloques del modo pirotécnico</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: auto auto 1fr; gap: 40px">
+      <div class="sb-col"><p class="sb-tit">Tecla G: grabar <span class="cat eventos">Eventos</span></p><div class="sb" data-paso="9" data-guion="tecla g" data-escala="1.2"></div></div>
+      <div class="sb-col"><p class="sb-tit">Espacio: un petardo <span class="cat eventos">Eventos</span></p><div class="sb" data-paso="9" data-guion="tecla espacio" data-escala="1.2"></div></div>
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <p class="peq">Las listas, en <span class="cat variables">Variables</span>; el cronómetro y el ratón, en <span class="cat sensores">Sensores</span>. Y en la bandera verde, la posición sale de las listas:</p>
+        <pre class="sb" data-escala="1.15">go to x: (item (n :: variables) of [x v]) y: (item (n :: variables) of [y v])</pre>
+        <div class="caja aviso"><span class="tt">Cuidado</span>Para jugar, no pulses Espacio: añadiría petardos al mapa. Y guarda el proyecto después de grabar.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Pruébalo: paso 9" data-seccion="Paso 9">
+  <div class="cab"><p class="etq">Paso 9 · Modo pirotécnico</p><h2>Pruébalo: graba y juega</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 840px; gap: 48px">
+      <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <div class="sb" data-paso="9" data-guion="tecla g" data-escala="0.8"></div>
+        <div class="sb" data-paso="9" data-guion="tecla espacio" data-escala="0.8"></div>
+      </div>
+      <ol class="pasos peq">
+        <li>Pulsa <b>Probar</b>: se juega la mascletà que trae el proyecto.</li>
+        <li>Pulsa <b>Parar</b>. Con el juego marcado en amarillo, pulsa <kbd>G</kbd>.</li>
+        <li>Mueve el ratón por la plaza y pulsa <kbd>Espacio</kbd> en cada nota.</li>
+        <li>Cuando acabe la canción, pulsa <b>Empezar</b> y juega tu mascletà.</li>
+      </ol>
+      </div>
+      <div class="jugador" data-sb3="../scratch/paso-09.sb3" data-nota="Primero juega. Después pulsa Parar y G para grabar la tuya."></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Paso 10 ======================= -->
+
+<section class="competencia" data-label="Paso 10 · Remate" data-seccion="Paso 10" data-deck-id="p10" data-deck-section="P10">
+  <div class="izq">
+    <p class="n">Paso 10</p>
+    <h2>Remate: traca, pantallas y final</h2>
+    <p class="examen">Ideas nuevas: fondos del escenario y una variable que se reinicia.</p>
+    <img class="ico" src="../assets/img/ia/trofeo.webp" alt="">
+  </div>
+  <div class="dcha">
+    <h3>Qué vas a conseguir</h3>
+    <ol>
+      <li>Una pantalla de inicio y otra de final.</li>
+      <li>La traca: cuántos aciertos seguidos llevas.</li>
+      <li>El juego completo, listo para publicar.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" data-label="Pantallas de inicio y final" data-seccion="Paso 10">
+  <div class="cab"><p class="etq">Paso 10 · Remate</p><h2>Pantallas de inicio y final</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: auto 1fr; gap: 48px">
+      <div class="sb" data-paso="10" data-guion="bandera" data-escala="0.9"></div>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div class="tarjetas" style="--n:3">
+          <figure class="captura"><img src="../assets/img/fondos/fondo-inicio.jpg" alt="Fondo de inicio: MASCLET A MASCLET"></figure>
+          <figure class="captura"><img src="../assets/img/fondos/fondo-plaza.jpg" alt="Fondo de la plaza"></figure>
+          <figure class="captura"><img src="../assets/img/fondos/fondo-final.jpg" alt="Fondo final: FI DE LA MASCLETÀ"></figure>
+        </div>
+        <ul class="lista peq">
+          <li>El escenario tiene 3 fondos: <b>inicio</b>, <b>plaza</b> y <b>final</b>. Al abrir el proyecto se ve el de inicio.</li>
+          <li>Al pulsar la bandera: <b>cambiar fondo a plaza</b> <span class="cat apariencia">Apariencia</span>.</li>
+          <li>Cuando el cronómetro pasa de 62 segundos (ha acabado la canción): <b>cambiar fondo a final</b>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="La traca" data-seccion="Paso 10">
+  <div class="cab"><p class="etq">Paso 10 · Remate</p><h2>La traca: aciertos seguidos</h2><p class="entrada">Una <b>traca</b> es una fila de petardos que explotan uno detrás de otro. En el juego, cuenta los aciertos sin fallar.</p></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: auto auto 1fr; gap: 40px">
+      <div class="sb-col"><p class="sb-tit">Clic: suma 1</p><div class="sb" data-paso="10" data-guion="clic" data-escala="1.05"></div></div>
+      <div class="sb-col"><p class="sb-tit">Fallo: vuelve a 0</p><div class="sb" data-paso="10" data-guion="clon" data-escala="0.85"></div></div>
+      <ul class="lista peq">
+        <li><b>Sumar a traca 1</b> <span class="cat variables">Variables</span> en cada PUM.</li>
+        <li><b>Dar a traca el valor 0</b> <span class="cat variables">Variables</span> cuando un petardo falla.</li>
+        <li>Al empezar la partida también vale 0.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="El juego completo" data-seccion="Paso 10">
+  <div class="cab"><p class="etq">Paso 10 · Remate</p><h2>El juego completo</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 880px; gap: 48px">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <table class="tabla peq">
+          <tr><th>En el proyecto</th><th>Cuántos</th></tr>
+          <tr><td>Objetos</td><td>1: el Petardo</td></tr>
+          <tr><td>Disfraces</td><td>11</td></tr>
+          <tr><td>Fondos</td><td>3</td></tr>
+          <tr><td>Sonidos</td><td>3: pasodoble, pum y fsss</td></tr>
+          <tr><td>Variables</td><td>3: decibelios, traca y n</td></tr>
+          <tr><td>Listas</td><td>3: tiempos, x e y</td></tr>
+          <tr><td>Programas</td><td>5</td></tr>
+        </table>
+      </div>
+      <div class="jugador" data-sb3="../scratch/paso-10.sb3" data-nota="La mascletà completa: un minuto, 99 petardos."></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Así queda en Scratch" data-seccion="Paso 10">
+  <div class="cab"><p class="etq">Paso 10 · Remate</p><h2>Así queda en Scratch</h2></div>
+  <div class="cuerpo">
+    <div class="cols centro" style="grid-template-columns: 1180px 1fr; gap: 48px">
+      <figure class="captura" style="aspect-ratio:16/10"><img src="../assets/img/scratch/editor-paso10.webp" alt="El paso 10 abierto en el editor de Scratch, con la pantalla de inicio MASCLET A MASCLET"></figure>
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <p class="peq">Cada programa lleva una nota amarilla que explica lo que hace.</p>
+        <p class="peq">Si los programas se amontonan, clic derecho en el área de programas › <b>Ordenar bloques</b>.</p>
+        <div class="caja examen"><span class="tt">No es el código más corto</span>Es el que puede entender un niño de 11 años: cada idea se añadió en un paso y se probó.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Para curiosos: la sincronización ======================= -->
+
+<section class="s" data-label="Cómo cuadra con la música" data-seccion="Extra" data-deck-id="sincro" data-deck-section="Extra">
+  <div class="cab"><p class="etq">Para curiosos</p><h2>Cómo cuadra con la música</h2><p class="entrada">La música y la lista de tiempos salen de la misma partitura. Por eso coinciden.</p></div>
+  <div class="cuerpo">
+    <div class="flujo">
+      <div class="nodo"><img src="../assets/img/ia/partitura.webp" alt=""><b>1. Partitura</b>Las notas de la dolçaina, escritas como datos: compás, golpe y altura.</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/ia/dolcaina.webp" alt=""><b>2. Música</b>Con esas notas se genera el pasodoble (MP3).</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/ia/lista.webp" alt=""><b>3. Lista</b>Cada nota que cae en un golpe es un tiempo: golpe × 0,5 s.</div>
+      <div class="fl"></div>
+      <div class="nodo destaca"><img src="../assets/img/ia/cronometro.webp" alt=""><b>4. Cronómetro</b>Empieza a la vez que la música. Todo se compara con él.</div>
+    </div>
+    <div class="tarjetas" style="--n:2">
+      <div class="tarjeta"><h3>Con otra canción</h3><p class="peq">Si conoces sus BPM: tiempo = número de golpe × 60 ÷ BPM, más el segundo en que empieza. O grabas los tiempos con el modo pirotécnico.</p></div>
+      <div class="tarjeta"><h3>Si notas desfase</h3><p class="peq">El sonido puede llegar algo tarde (sobre todo con auriculares Bluetooth). Usa altavoces o suma un poco a cada tiempo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Resumen y cierre ======================= -->
+
+<section class="s" data-label="Resumen del módulo" data-seccion="R" data-deck-section="R">
+  <div class="cab"><p class="etq">Resumen del módulo 4</p><h2>Lo que has añadido</h2></div>
+  <div class="cuerpo">
+    <div class="tarjetas" style="--n:3">
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/clon.webp" alt=""><h3>Clones</h3><p class="peq">Un objeto que fabrica copias. Cada copia es un petardo.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/aleatorio.webp" alt=""><h3>Azar</h3><p class="peq">«Número aleatorio» para repartir petardos.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/dolcaina.webp" alt=""><h3>Pulso</h3><p class="peq">120 BPM: un golpe cada 0,5 s.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/cronometro.webp" alt=""><h3>Cronómetro</h3><p class="peq">«Esperar hasta que» no se retrasa.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/lista.webp" alt=""><h3>Listas</h3><p class="peq">tiempos, x e y: el mapa de la mascletà.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/tecla.webp" alt=""><h3>Teclado y ratón</h3><p class="peq">Para grabar tu propia mascletà.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s oscura" data-label="Fin del módulo 4" data-seccion="R">
+  <div class="cab"><p class="etq">Fin del módulo 4</p><h2>Ya tienes la mascletà</h2></div>
+  <div class="cuerpo" style="gap:36px">
+    <p>En el módulo 5 verás cómo llevarlo al aula, cómo hacerlo vuestro y cómo presentarlo a Up! Steam.</p>
+    <div class="botones"><a class="btn sec" href="../">Portada de la formación</a><a class="btn ciruela" href="#p6">Volver al paso 6</a><a class="btn sec" href="../tema5/">Módulo 5 · Al aula y a Up! Steam</a></div>
+  </div>
+</section>
+
+</deck-stage>
+<script src="../assets/deck-stage.js"></script>
+<script src="../assets/cdc.js"></script>
+<script src="../assets/vendor/scratchblocks.min.js"></script>
+<script src="../assets/vendor/scratchblocks-translations.js"></script>
+<script src="../scratch/pasos.js"></script>
+<script src="../assets/vendor/scaffolding-min.js"></script>
+<script src="../assets/tro.js"></script>
+</body>
+</html>

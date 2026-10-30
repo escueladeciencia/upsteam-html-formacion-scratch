@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Masclet a masclet · Formación para docentes</title>
+<meta name="description" content="Formación de autoaprendizaje para docentes de 5.º y 6.º de primaria: cómo crear con Scratch un videojuego inspirado en la mascletà para la categoría Gamers de Up! Steam, paso a paso y con ayuda de la IA.">
+<link rel="icon" href="assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Lilita+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tro.css">
+<style>
+  :root {
+    --tinta: #10203F; --texto: #10203F; --gris: #4F5B70; --linea: #C9D0DC; --fondo: #FFFFFF; --blanco: #fff;
+    --masclet: #DA121A; --rojo: #DA121A; --or: #FCDD09; --blau: #0F4C9C;
+    --a0: #10203F; --a1: #DA121A; --a2: #0F4C9C; --a3: #DA121A; --a4: #10203F; --a5: #0F4C9C;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Lexend', system-ui, sans-serif; color: var(--texto); background: var(--fondo); line-height: 1.5; }
+  a { color: inherit; }
+  /* La senyera, arriba: la franja azul y las cuatro barras rojas sobre amarillo */
+  body::before { content: ''; display: block; height: 36px; background: linear-gradient(90deg, var(--blau) 0 96px, transparent 96px), repeating-linear-gradient(180deg, var(--or) 0 4px, var(--rojo) 4px 8px); }
+  .hero { max-width: 1200px; margin: 0 auto; padding: 32px 16px 8px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+  .hero small { font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--rojo); }
+  .hero h1 { font-family: 'Lilita One', 'Lexend', sans-serif; font-weight: 400; font-size: clamp(44px, 7vw, 84px); line-height: .98; color: var(--tinta); margin: 12px 0 18px; letter-spacing: .01em; text-wrap: balance; }
+  .hero p { font-size: 19px; margin: 0 0 12px; max-width: 34em; }
+  /* El juego completo, con el jugador de las diapositivas en su versión mínima (tro.js): solo jugar */
+  .hero .jugador { align-self: center; } /* centrado con el texto de al lado */
+  .hero .jugador .j-play-icono { width: 88px; height: 88px; font-size: 38px; }
+  .hero .jugador .j-nota { font-size: 14px; max-width: none; margin: 0; }
+  .hero .jugador .j-aviso { font-size: 16px; padding: 24px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .pills span { background: var(--blanco); border: 2px solid var(--linea); border-radius: 3px; padding: 4px 14px; font-size: 15px; font-weight: 600; }
+  .empieza { display: inline-block; margin-top: 18px; background: var(--masclet); color: #fff; font-weight: 700; font-size: 19px; text-decoration: none; border-radius: 4px; padding: 12px 26px; }
+  .empieza:hover { background: var(--tinta); }
+  .empieza:focus-visible, .tema:focus-visible { outline: 3px solid var(--or); outline-offset: 3px; }
+  main { max-width: 1200px; margin: 0 auto; padding: 32px 16px 64px; }
+  h2 { font-family: 'Lilita One', 'Lexend', sans-serif; font-weight: 400; font-size: 36px; margin: 44px 0 18px; letter-spacing: .01em; }
+  .temas { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+  .tema { background: var(--blanco); border-radius: 6px; padding: 22px 24px; display: grid; grid-template-columns: 96px 1fr; gap: 18px; align-items: center; text-decoration: none; border: 2px solid var(--linea); border-top: 8px solid var(--c); transition: border-color .2s, transform .2s; }
+  .tema:hover { border-color: var(--c); transform: translateY(-2px); }
+  .tema img { width: 96px; height: 96px; object-fit: contain; }
+  .tema .n { font-size: 14px; font-weight: 700; color: var(--c); text-transform: uppercase; letter-spacing: .05em; }
+  .tema h3 { margin: 2px 0 6px; font-size: 21px; line-height: 1.25; }
+  .tema .info { font-size: 14px; color: var(--gris); }
+  .pasos { counter-reset: p; list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .pasos li { counter-increment: p; background: var(--blanco); border-radius: 6px; padding: 18px 20px 18px 70px; position: relative; border: 2px solid var(--linea); }
+  .pasos li::before { content: counter(p); position: absolute; left: 18px; top: 18px; width: 38px; height: 38px; border-radius: 4px; background: var(--tinta); color: #fff; font-weight: 700; display: grid; place-items: center; }
+  .aviso { background: var(--blanco); border: 2px solid var(--linea); border-left: 10px solid var(--tinta); border-radius: 6px; padding: 18px 22px; font-size: 16px; }
+  footer { border-top: 1px solid var(--linea); max-width: 1200px; margin: 0 auto; padding: 24px 16px 48px; font-size: 14px; color: var(--gris); }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
+  /* Las fichas del alumnado: un botón en la cabecera y un bloque propio después de los módulos */
+  .acciones-hero { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+  .acciones-hero .empieza { margin-top: 0; }
+  .empieza.sec { background: var(--blanco); color: var(--tinta); box-shadow: inset 0 0 0 2px var(--tinta); }
+  .empieza.sec:hover { background: var(--tinta); color: #fff; }
+  .fichas-bloque { margin-top: 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 36px; align-items: center; background: var(--blanco); border: 2px solid var(--linea); border-top: 8px solid var(--rojo); border-radius: 6px; padding: 28px 30px; }
+  .fichas-bloque small { font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--rojo); }
+  .fichas-bloque h2 { margin: 6px 0 12px; }
+  .fichas-bloque p { margin: 0 0 10px; }
+  .fichas-bloque ul { margin: 0 0 4px; padding-left: 1.2em; }
+  .fichas-bloque li { margin: 4px 0; }
+  .fichas-bloque .acciones-hero { margin-top: 18px; }
+  .fichas-bloque figure { margin: 0; }
+  .fichas-bloque img { display: block; width: 100%; height: auto; border: 2px solid var(--linea); border-radius: 6px; }
+  @media (max-width: 860px) { .fichas-bloque { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div>
+    <small>Formación de autoaprendizaje para docentes</small>
+    <h1>Masclet a masclet</h1>
+    <p>Crea con tu clase de 5.º o 6.º un videojuego de Scratch inspirado en la mascletà, para la categoría <b>Gamers</b> de <b>Up! Steam</b>.</p>
+    <p>Verás el proceso real: la idea, los prototipos que no funcionaron y las imágenes y la música hechas con IA. Y el juego, montado en Scratch en 10 pasos, como lo haría un niño.</p>
+    <div class="pills"><span>6 módulos</span><span>Unas 5 horas</span><span>Sin saber programar</span></div>
+    <div class="acciones-hero"><a class="empieza" href="tema0/">Empieza aquí</a><a class="empieza sec" href="fichas/">Fichas para el alumnado</a></div>
+  </div>
+  <div class="jugador minimo" data-sb3="scratch/paso-10.sb3" data-portada="assets/img/juego-completo.webp"></div>
+</header>
+
+<main>
+  <h2>Módulos</h2>
+  <div class="temas">
+    <a class="tema" href="tema0/" style="--c:var(--a0)"><img src="assets/img/ia/inicio.webp" alt=""><div><span class="n">Módulo 0</span><h3>Empieza aquí</h3><span class="info">15 min · el juego, Up! Steam y cómo usar la formación</span></div></a>
+    <a class="tema" href="tema1/" style="--c:var(--a1)"><img src="assets/img/ia/idea.webp" alt=""><div><span class="n">Módulo 1</span><h3>De la idea al juego</h3><span class="info">45 min · la idea, juegos de ritmo, el boceto y 4 prototipos</span></div></a>
+    <a class="tema" href="tema2/" style="--c:var(--a2)"><img src="assets/img/ia/arte.webp" alt=""><div><span class="n">Módulo 2</span><h3>Imágenes y música con IA</h3><span class="info">45 min · prompts, herramientas y normas</span></div></a>
+    <a class="tema" href="tema3/" style="--c:var(--a3)"><img src="assets/img/ia/petardo.webp" alt=""><div><span class="n">Módulo 3</span><h3>Scratch paso a paso: un petardo</h3><span class="info">1 h · pasos 1 a 5</span></div></a>
+    <a class="tema" href="tema4/" style="--c:var(--a4)"><img src="assets/img/ia/cuerda.webp" alt=""><div><span class="n">Módulo 4</span><h3>Scratch paso a paso: la mascletà</h3><span class="info">1 h 30 min · pasos 6 a 10</span></div></a>
+    <a class="tema" href="tema5/" style="--c:var(--a5)"><img src="assets/img/ia/trofeo.webp" alt=""><div><span class="n">Módulo 5</span><h3>Al aula y a Up! Steam</h3><span class="info">40 min · sesiones, itch.io y vídeo</span></div></a>
+  </div>
+
+  <section class="fichas-bloque" aria-labelledby="t-fichas">
+    <div>
+      <small>Para tu clase</small>
+      <h2 id="t-fichas">Fichas para el alumnado</h2>
+      <p>Los 10 pasos para montar el juego en Scratch, explicados con palabras de 5.º y 6.º. Una ficha por paso, para proyectar o imprimir.</p>
+      <ul>
+        <li>Qué vas a conseguir y qué bloques poner, paso a paso.</li>
+        <li>El dibujo de cómo tiene que quedar, con lo nuevo en verde.</li>
+        <li>Cómo probarlo, una palabra nueva y un pequeño reto.</li>
+      </ul>
+      <div class="acciones-hero"><a class="empieza" href="fichas/">Ver las fichas</a><a class="empieza sec" href="scratch/plantilla.sb3" download>Descargar la plantilla</a></div>
+    </div>
+    <figure><a href="fichas/#paso-2"><img src="assets/img/ficha-paso2.webp" width="1000" height="846" alt="Ejemplo: la ficha del paso 2, La mecha se quema, con los pasos, el programa y las cajas Pruébalo, Palabra nueva y ¿Te atreves?"></a></figure>
+  </section>
+
+  <h2>Cómo usar la formación</h2>
+  <ol class="pasos">
+    <li>Haz los módulos en orden. Avanza con las flechas del teclado. La tecla <b>B</b> busca dentro del módulo.</li>
+    <li>Pon sonido: es un juego de ritmo. En los juegos, pulsa <b>Probar</b>.</li>
+    <li>Cada paso de Scratch tiene su proyecto. Descárgalo y ábrelo en <a href="https://scratch.mit.edu/" target="_blank" rel="noopener">scratch.mit.edu</a> con <b>Archivo › Cargar desde tu ordenador</b>.</li>
+    <li>Los prompts de las imágenes tienen un botón para copiarlos.</li>
+  </ol>
+
+  <h2>Quién ha hecho esta formación</h2>
+  <p class="aviso">Esta formación la ha hecho <b><a href="https://escueladeciencia.com/" target="_blank" rel="noopener">Escuela de Ciencia</a></b>, organizadora de <b><a href="https://upsteam.es/" target="_blank" rel="noopener">Up! Steam</a></b>, la competición del Consejo Social de la <a href="https://www.upv.es/" target="_blank" rel="noopener">Universitat Politècnica de València</a>. Las reglas y fechas de cada edición están en <a href="https://upsteam.es/reglas" target="_blank" rel="noopener">upsteam.es</a>. Las imágenes, la música y parte del código se hicieron con ayuda de inteligencia artificial; el módulo 2 explica qué se hizo y con qué herramientas.</p>
+</main>
+
+<footer>
+  <p><b>Masclet a masclet · Formación para docentes</b>. <a href="https://escueladeciencia.com/" target="_blank" rel="noopener">Escuela de Ciencia</a>, organizadora de <a href="https://upsteam.es/" target="_blank" rel="noopener">Up! Steam</a> (Consejo Social de la <a href="https://www.upv.es/" target="_blank" rel="noopener">Universitat Politècnica de València</a>). Raúl Ibáñez, 2026, con la ayuda de Claude (Anthropic). Contenido con licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es">CC BY-NC-SA 4.0</a>; código propio con licencia MIT. No entran en estas licencias: el motor de diapositivas <i>deck-stage.js</i> (plantilla «omelette starter»), scratchblocks (MIT, Tim Radvan), Scaffolding de TurboWarp (MPL-2.0) y lamejs (LGPL), que conservan las suyas. Tampoco las fotos de las portadas ni las fotos y el vídeo de juegos de ritmo y de la mascletà del módulo 1: son de Wikimedia Commons y cada uno conserva su autor y su licencia, indicados donde aparecen. Los nombres de los juegos son marcas de sus dueños. Scratch es un proyecto de la Scratch Foundation.</p>
+</footer>
+<script src="assets/vendor/scaffolding-min.js"></script>
+<script src="assets/tro.js"></script>
+</body>
+</html>

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Módulo 3 · Scratch paso a paso: un petardo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Lilita+One&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../assets/cdc.css">
+<link rel="stylesheet" href="../assets/tro.css">
+<style>
+/* Estilos propios del módulo 3 (prefijo t3-) */
+/* Escenario de Scratch con los ejes x e y */
+.t3-ejes { position: relative; width: 720px; aspect-ratio: 4 / 3; border-radius: 18px; overflow: hidden; background: url(../assets/img/plaza.webp) center / cover; box-shadow: var(--sombra); flex: none; }
+.t3-ejes::before { content: ''; position: absolute; inset: 0; background: rgba(255, 248, 236, .55); }
+.t3-ejes .h, .t3-ejes .v { position: absolute; background: var(--tinta); }
+.t3-ejes .h { left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px; }
+.t3-ejes .v { top: 0; bottom: 0; left: 50%; width: 4px; margin-left: -2px; }
+.t3-ejes span { position: absolute; font-weight: 700; font-size: 24px; background: var(--blanco); border-radius: 10px; padding: 2px 10px; }
+.t3-ejes img { position: absolute; height: 130px; left: 50%; top: 50%; transform: translate(-50%, -62%); }
+</style>
+</head>
+<body class="area-3">
+
+<deck-stage width="1920" height="1080">
+
+<!-- ======================= Portada e índice ======================= -->
+
+<section class="portada" data-label="Portada" style="background-image: linear-gradient(90deg, var(--fondo) 0 50%, transparent 50%), url(../assets/img/portadas/tema3.webp)">
+  <a class="marca" href="../">Masclet a masclet · Formación para docentes</a>
+  <p class="num">Módulo 3</p>
+  <h1>Scratch paso a paso: un petardo</h1>
+  <p class="sub">Del primer bloque a un petardo que explota si haces clic a tiempo. Para quien no ha usado Scratch nunca.</p>
+  <div class="datos"><span class="pill">Pasos 1 a 5</span><span class="pill clara">1 hora</span><span class="pill clara">Un .sb3 por paso</span></div>
+  <p class="pista-teclas"><kbd>←</kbd><kbd>→</kbd> para moverte <span>·</span> <kbd>B</kbd> buscar <span>·</span> <kbd>P</kbd> pantalla completa</p>
+  <p class="foto-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Masclets_a_punt_d%27esclatar.jpg" target="_blank" rel="noopener">Acci0n from Sueca</a> · CC BY 2.0 · Wikimedia Commons</p>
+</section>
+
+<section class="s" data-label="Índice">
+  <div class="cab"><p class="etq">Módulo 3</p><h2>Cinco pasos, un petardo</h2><p class="entrada">Nadie monta un juego de golpe. Cada paso añade una sola idea nueva y se puede probar. En los bloques, lo nuevo de cada paso sale con <b style="color:#1E8E5A">borde verde</b>, y al jugar se ilumina el bloque que se está ejecutando. Para tu clase hay <a href="../fichas/" target="_blank" rel="noopener">fichas para el alumnado</a>.</p></div>
+  <div class="cuerpo">
+    <div class="indice-comp tres">
+      <a href="#scratch"><img class="ico" src="../assets/img/ia/inicio.webp" alt=""><div><span class="n">Antes</span><h3>La pantalla de Scratch</h3><span class="cap">Si no lo has abierto nunca, empieza aquí</span></div></a>
+      <a href="#p1"><img class="ico" src="../assets/img/ia/petardo.webp" alt=""><div><span class="n">Paso 1</span><h3>Un petardo en la plaza</h3><span class="cap">Objetos, disfraces y la bandera verde</span></div></a>
+      <a href="#p2"><img class="ico" src="../assets/img/ia/bucle.webp" alt=""><div><span class="n">Paso 2</span><h3>La mecha se quema</h3><span class="cap">Animación y el bucle «repetir»</span></div></a>
+      <a href="#p3"><img class="ico" src="../assets/img/ia/clic.webp" alt=""><div><span class="n">Paso 3</span><h3>¡PUM! al hacer clic</h3><span class="cap">Eventos, sonido y dos programas a la vez</span></div></a>
+      <a href="#p4"><img class="ico" src="../assets/img/ia/variable.webp" alt=""><div><span class="n">Paso 4</span><h3>Los decibelios</h3><span class="cap">Variables</span></div></a>
+      <a href="#p5"><img class="ico" src="../assets/img/ia/condicion.webp" alt=""><div><span class="n">Paso 5</span><h3>¿A tiempo o fallado?</h3><span class="cap">Condicionales</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Antes de empezar: Scratch ======================= -->
+
+<section class="s" data-label="La pantalla de Scratch" data-seccion="Scratch" data-deck-id="scratch" data-deck-section="Scratch">
+  <div class="cab"><p class="etq">Antes de empezar</p><h2>La pantalla de Scratch</h2></div>
+  <div class="cuerpo">
+    <div class="cols c-2-1 centro" style="grid-template-columns: 1180px 1fr; gap: 48px">
+      <figure class="captura" style="aspect-ratio:16/10">
+        <img src="../assets/img/scratch/editor-general.webp" alt="Editor de Scratch en castellano con el paso 5 cargado">
+        <span class="num-mark" style="left:6.3%;top:7.4%">1</span>
+        <span class="num-mark" style="left:4%;top:30%">2</span>
+        <span class="num-mark" style="left:15%;top:34%">3</span>
+        <span class="num-mark" style="left:51%;top:70%">4</span>
+        <span class="num-mark" style="left:68.4%;top:6.9%">5</span>
+        <span class="num-mark" style="left:84.4%;top:27%">6</span>
+        <span class="num-mark" style="left:77.5%;top:61%">7</span>
+        <span class="num-mark" style="left:95.5%;top:60%">8</span>
+      </figure>
+      <ol class="leyenda">
+        <li><span>1</span><div>Pestañas: <b>Código</b>, <b>Disfraces</b> y <b>Sonidos</b>.</div></li>
+        <li><span>2</span><div>Categorías de bloques, cada una de un color.</div></li>
+        <li><span>3</span><div>Bloques. Se arrastran al área de programas.</div></li>
+        <li><span>4</span><div>Área de programas del objeto elegido.</div></li>
+        <li><span>5</span><div><b>Bandera verde</b> (empezar) y <b>parar</b>.</div></li>
+        <li><span>6</span><div>Escenario: donde se ve el juego.</div></li>
+        <li><span>7</span><div>Objetos (en inglés, <i>sprites</i>).</div></li>
+        <li><span>8</span><div>Escenario y sus fondos.</div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Cómo funciona un programa de Scratch" data-seccion="Scratch">
+  <div class="cab"><p class="etq">Antes de empezar</p><h2>Cómo funciona un programa</h2></div>
+  <div class="cuerpo">
+    <div class="flujo">
+      <div class="nodo"><img src="../assets/img/ia/petardo.webp" alt=""><b>Objeto</b>Cada personaje o cosa del juego. Nuestro juego tiene uno: el Petardo.</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/ia/inicio.webp" alt=""><b>Evento</b>Un bloque con la parte de arriba redonda. Dice cuándo empieza el programa.</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/ia/lista.webp" alt=""><b>Bloques</b>Se encajan debajo como piezas. Se hacen de arriba abajo, uno detrás de otro.</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/ia/disfraz.webp" alt=""><b>Resultado</b>El objeto se mueve, cambia de disfraz o suena en el escenario.</div>
+    </div>
+    <div class="caja examen"><span class="tt">En el aula</span>Un objeto puede tener varios programas. Cada uno empieza con su evento y todos funcionan a la vez.</div>
+  </div>
+</section>
+
+<section class="s" data-label="Abrir los pasos en Scratch" data-seccion="Scratch">
+  <div class="cab"><p class="etq">Antes de empezar</p><h2>Abrir cada paso en Scratch</h2><p class="entrada">Cada paso tiene su proyecto: un archivo <b>.sb3</b>. Lo pruebas aquí mismo o lo abres en Scratch.</p></div>
+  <div class="cuerpo">
+    <div class="cols c-1-2 centro" style="grid-template-columns: 1fr 900px">
+      <ol class="pasos peq">
+        <li>Pulsa <b>Descargar .sb3</b> debajo del juego.</li>
+        <li>Entra en <b>scratch.mit.edu</b> y pulsa <b>Crear</b>. No hace falta cuenta para probar.</li>
+        <li>Menú <b>Archivo › Cargar desde tu ordenador</b>. En el Scratch en castellano a veces sale en inglés: <b>Load from your computer</b>.</li>
+        <li>Elige el archivo. Pulsa la <b>bandera verde</b>.</li>
+      </ol>
+      <figure class="captura" style="aspect-ratio:16/10">
+        <img src="../assets/img/scratch/editor-archivo.webp" alt="Menú Archivo de Scratch abierto: Nuevo, Load from your computer, Guardar en tu ordenador">
+        <span class="num-mark" style="left:27%;top:10.1%">3</span>
+      </figure>
+    </div>
+    <p class="peq"><b>Para guardar:</b> sin cuenta, <b>Archivo › Guardar en tu ordenador</b>. Con una cuenta de docente de Scratch, el alumnado guarda en la nube.</p>
+  </div>
+</section>
+
+<!-- ======================= Paso 1 ======================= -->
+
+<section class="competencia" data-label="Paso 1 · Un petardo en la plaza" data-seccion="Paso 1" data-deck-id="p1" data-deck-section="P1">
+  <div class="izq">
+    <p class="n">Paso 1</p>
+    <h2>Un petardo en la plaza</h2>
+    <p class="examen">Ideas nuevas: objeto, disfraz, coordenadas y la bandera verde.</p>
+    <img class="ico" src="../assets/img/ia/petardo.webp" alt="">
+  </div>
+  <div class="dcha">
+    <h3>Qué vas a conseguir</h3>
+    <ol>
+      <li>Poner el fondo de la plaza.</li>
+      <li>Tener un objeto, el Petardo, con sus disfraces.</li>
+      <li>Que al pulsar la bandera verde aparezca en el centro.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" data-label="Disfraces y fondos" data-seccion="Paso 1">
+  <div class="cab"><p class="etq">Paso 1 · Un petardo en la plaza</p><h2>Disfraces y fondos</h2><p class="entrada">Un <b>disfraz</b> es una de las imágenes de un objeto. Un <b>fondo</b> es una imagen del escenario.</p></div>
+  <div class="cuerpo">
+    <div class="tira">
+      <figure><img src="../assets/img/sprites/mecha1.png" alt=""><figcaption>mecha1<small>disfraz 1</small></figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha5.png" alt=""><figcaption>mecha5<small>disfraz 5</small></figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha9.png" alt=""><figcaption>mecha9<small>disfraz 9</small></figcaption></figure>
+      <figure><img src="../assets/img/sprites/pum.png" alt=""><figcaption>pum<small>disfraz 10</small></figcaption></figure>
+      <figure><img src="../assets/img/sprites/fallado.png" alt=""><figcaption>fallado<small>disfraz 11</small></figcaption></figure>
+    </div>
+    <ul class="lista peq">
+      <li>El Petardo tiene 11 disfraces: 9 de la mecha quemándose, la explosión y el petardo fallado.</li>
+      <li>Ya vienen dentro del .sb3. En el módulo 2 se explica cómo se hicieron y cómo hacer los tuyos.</li>
+      <li>Los ves en la pestaña <b>Disfraces</b>. Cada uno tiene un número y un nombre.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="s" data-label="Coordenadas: dónde está cada cosa" data-seccion="Paso 1">
+  <div class="cab"><p class="etq">Paso 1 · Un petardo en la plaza</p><h2>Coordenadas: dónde está cada cosa</h2></div>
+  <div class="cuerpo">
+    <div class="cols centro" style="grid-template-columns: 720px 1fr; gap: 64px">
+      <div class="t3-ejes">
+        <div class="h"></div><div class="v"></div>
+        <img src="../assets/img/sprites/mecha1.png" alt="">
+        <span style="left:12px;top:calc(50% + 10px)">x: −240</span>
+        <span style="right:12px;top:calc(50% + 10px)">x: 240</span>
+        <span style="left:calc(50% + 10px);top:12px">y: 180</span>
+        <span style="left:calc(50% + 10px);bottom:12px">y: −180</span>
+        <span style="left:calc(50% + 10px);top:calc(50% + 10px)">(0, 0)</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <p>El escenario mide <b>480 × 360</b>. El centro es <b>x: 0, y: 0</b>.</p>
+        <ul class="lista peq">
+          <li><b>x</b> va de izquierda (−240) a derecha (240).</li>
+          <li><b>y</b> va de abajo (−180) a arriba (180).</li>
+          <li>Los petardos de nuestro juego salen entre x: −180 y 180, y entre y: −80 y 80, para no taparse con el público.</li>
+        </ul>
+        <div class="caja examen"><span class="tt">En el aula</span>Es el plano cartesiano de Matemáticas, con números negativos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Pruébalo: paso 1" data-seccion="Paso 1">
+  <div class="cab"><p class="etq">Paso 1 · Un petardo en la plaza</p><h2>El primer programa</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 840px; gap: 56px">
+      <div class="sb-col">
+        <div class="sb" data-paso="1" data-guion="bandera" data-escala="2"></div>
+        <ul class="lista peq">
+          <li><b>Al hacer clic en ⚑</b> <span class="cat eventos">Eventos</span>: el programa empieza al pulsar la bandera verde.</li>
+          <li><b>Ir a x: 0 y: 0</b> <span class="cat movimiento">Movimiento</span>: va al centro.</li>
+          <li><b>Cambiar disfraz a mecha1</b> <span class="cat apariencia">Apariencia</span>: la mecha entera.</li>
+          <li><b>Mostrar</b> <span class="cat apariencia">Apariencia</span>: el objeto se ve (estaba escondido).</li>
+        </ul>
+      </div>
+      <div class="jugador" data-sb3="../scratch/paso-01.sb3" data-nota="Pulsa Probar: el petardo aparece en el centro de la plaza."></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Paso 2 ======================= -->
+
+<section class="competencia" data-label="Paso 2 · La mecha se quema" data-seccion="Paso 2" data-deck-id="p2" data-deck-section="P2">
+  <div class="izq">
+    <p class="n">Paso 2</p>
+    <h2>La mecha se quema</h2>
+    <p class="examen">Ideas nuevas: animación y el bucle «repetir».</p>
+    <img class="ico" src="../assets/img/ia/bucle.webp" alt="">
+  </div>
+  <div class="dcha">
+    <h3>Qué vas a conseguir</h3>
+    <ol>
+      <li>Que la mecha se queme poco a poco.</li>
+      <li>Que tarde justo 1 segundo.</li>
+      <li>Usar un bucle en vez de copiar bloques.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" data-label="Animar es cambiar de disfraz" data-seccion="Paso 2">
+  <div class="cab"><p class="etq">Paso 2 · La mecha se quema</p><h2>Animar es cambiar de disfraz</h2><p class="entrada">Si cambias de disfraz cada poco tiempo, parece que la mecha se quema. Como los dibujos de un libro que pasas rápido.</p></div>
+  <div class="cuerpo">
+    <div class="tira">
+      <figure><img src="../assets/img/sprites/mecha1.png" alt=""><figcaption>1<small>0 s</small></figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha2.png" alt=""><figcaption>2<small>0,125 s</small></figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha3.png" alt=""><figcaption>3<small>0,25 s</small></figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha4.png" alt=""><figcaption>4<small>0,375 s</small></figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha5.png" alt=""><figcaption>5<small>0,5 s</small></figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha6.png" alt=""><figcaption>6<small>0,625 s</small></figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha7.png" alt=""><figcaption>7<small>0,75 s</small></figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha8.png" alt=""><figcaption>8<small>0,875 s</small></figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha9.png" alt=""><figcaption>9<small>1 s</small></figcaption></figure>
+    </div>
+    <p class="peq">Hay 8 cambios: del 1 al 9. Si cada uno espera 0,125 segundos, la mecha dura <b>8 × 0,125 = 1 segundo</b>. Así luego cuadra con la música.</p>
+  </div>
+</section>
+
+<section class="s" data-label="Así lo haría primero un niño" data-seccion="Paso 2">
+  <div class="cab"><p class="etq">Paso 2 · La mecha se quema</p><h2>Primero, a mano. Después, con un bucle</h2></div>
+  <div class="cuerpo">
+    <div class="comparar">
+      <div>
+        <h3><span class="pill clara">Primera versión</span> Copiar y pegar</h3>
+        <div class="sb-dos">
+          <pre class="sb sin-marco" data-escala="1.1">wait (0.125) seconds
+next costume
+wait (0.125) seconds
+next costume
+wait (0.125) seconds
+next costume
+wait (0.125) seconds
+next costume</pre>
+          <pre class="sb sin-marco" data-escala="1.1">wait (0.125) seconds
+next costume
+wait (0.125) seconds
+next costume
+wait (0.125) seconds
+next costume
+wait (0.125) seconds
+next costume</pre>
+        </div>
+        <p class="peq">16 bloques, uno debajo de otro. Es normal empezar así. Cuando funcione, pregunta: «¿Y si fueran 100 cambios?».</p>
+      </div>
+      <div>
+        <h3><span class="pill">Mejor así</span> Un bucle</h3>
+        <pre class="sb" data-escala="1.7">repeat (8)
+  wait (0.125) seconds
+  next costume
+end</pre>
+        <div class="def"><span class="t">Bucle</span><p>Un bucle repite los bloques de dentro. «Repetir 8» <span class="cat control">Control</span> los hace 8 veces.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Pruébalo: paso 2" data-seccion="Paso 2">
+  <div class="cab"><p class="etq">Paso 2 · La mecha se quema</p><h2>Pruébalo: la mecha se quema</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 840px; gap: 56px">
+      <div class="sb-col">
+        <div class="sb" data-paso="2" data-guion="bandera" data-escala="1.4"></div>
+        <p class="peq">Es el programa del paso 1 con el bucle debajo. Al acabar, el petardo se queda con la mecha consumida (disfraz 9).</p>
+      </div>
+      <div class="jugador" data-sb3="../scratch/paso-02.sb3" data-nota="Mira cómo se quema la mecha en 1 segundo."></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Paso 3 ======================= -->
+
+<section class="competencia" data-label="Paso 3 · ¡PUM! al hacer clic" data-seccion="Paso 3" data-deck-id="p3" data-deck-section="P3">
+  <div class="izq">
+    <p class="n">Paso 3</p>
+    <h2>¡PUM! al hacer clic</h2>
+    <p class="examen">Ideas nuevas: el evento de clic, el sonido y dos programas a la vez.</p>
+    <img class="ico" src="../assets/img/ia/clic.webp" alt="">
+  </div>
+  <div class="dcha">
+    <h3>Qué vas a conseguir</h3>
+    <ol>
+      <li>Que el petardo explote al hacer clic.</li>
+      <li>Que suene «pum».</li>
+      <li>Arreglar el primer error de verdad: la mecha sigue quemándose.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" data-label="Un segundo programa" data-seccion="Paso 3">
+  <div class="cab"><p class="etq">Paso 3 · ¡PUM! al hacer clic</p><h2>Un segundo programa</h2><p class="entrada">El mismo objeto tiene ahora dos programas. Cada uno empieza con su evento.</p></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 1fr; gap: 56px">
+      <div class="sb-col">
+        <p class="sb-tit">La primera idea</p>
+        <div class="sb" data-paso="3-error" data-guion="clic" data-escala="1.7"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <ul class="lista peq">
+          <li><b>Al hacer clic en este objeto</b> <span class="cat eventos">Eventos</span>: el programa empieza cuando haces clic en el petardo.</li>
+          <li><b>Iniciar sonido</b> <span class="cat sonido">Sonido</span>: suena y el programa sigue sin esperar.</li>
+          <li><b>Esperar 0,3 segundos</b> <span class="cat control">Control</span>: deja ver la explosión.</li>
+          <li><b>Esconder</b> <span class="cat apariencia">Apariencia</span>: el petardo desaparece.</li>
+        </ul>
+        <div class="caja aviso"><span class="tt">Pruébalo en la diapositiva siguiente</span>Si haces clic pronto, sale «PUM» un momento… y vuelve la mecha. ¿Por qué?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Pruébalo: la primera idea" data-seccion="Paso 3">
+  <div class="cab"><p class="etq">Paso 3 · ¡PUM! al hacer clic</p><h2>Pruébalo: la primera idea</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 840px; gap: 48px">
+      <div class="sb-col">
+        <div style="display:flex;gap:28px;align-items:flex-start">
+          <div class="sb" data-paso="3-error" data-guion="bandera" data-escala="1.15"></div>
+          <div class="sb" data-paso="3-error" data-guion="clic" data-escala="1.15"></div>
+        </div>
+        <div class="caja aviso"><span class="tt">Mira bien</span>Haz clic con la mecha aún larga. Sale «PUM» un momento… y vuelve la mecha. Fíjate en qué programas se iluminan: <b>los dos siguen a la vez</b>.</div>
+      </div>
+      <div class="jugador" data-sb3="../scratch/paso-03-error.sb3" data-nota="Haz clic en el petardo pronto, con la mecha larga. Prueba también la velocidad «Muy lenta»."></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="El error: la mecha sigue quemándose" data-seccion="Paso 3">
+  <div class="cab"><p class="etq">Paso 3 · ¡PUM! al hacer clic</p><h2>El error: la mecha sigue quemándose</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 1fr; gap: 56px">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <p>Los dos programas funcionan <b>a la vez</b>. El de la mecha no sabe que ha habido un clic: sigue cambiando de disfraz y tapa la explosión.</p>
+        <div class="def"><span class="t">La solución</span><p>El bloque <b>detener otros programas en el objeto</b> <span class="cat control">Control</span>, al principio del clic, para la mecha.</p></div>
+        <p class="peq">Este error sale siempre en clase. Es un buen momento para hablar de programas que van en paralelo.</p>
+      </div>
+      <div class="sb-col">
+        <p class="sb-tit">Así queda</p>
+        <div class="sb" data-paso="3" data-guion="clic" data-escala="1.7" data-nuevos="p10" data-etiqueta="La solución"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Pruébalo: paso 3" data-seccion="Paso 3">
+  <div class="cab"><p class="etq">Paso 3 · ¡PUM! al hacer clic</p><h2>Pruébalo: haz clic en el petardo</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 840px; gap: 48px">
+      <div class="sb-col" style="flex-direction:row;gap:28px;align-items:flex-start">
+        <div class="sb" data-paso="3" data-guion="bandera" data-escala="1.15"></div>
+        <div class="sb" data-paso="3" data-guion="clic" data-escala="1.15"></div>
+      </div>
+      <div class="jugador" data-sb3="../scratch/paso-03.sb3" data-nota="Haz clic en el petardo mientras se quema la mecha."></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Paso 4 ======================= -->
+
+<section class="competencia" data-label="Paso 4 · Los decibelios" data-seccion="Paso 4" data-deck-id="p4" data-deck-section="P4">
+  <div class="izq">
+    <p class="n">Paso 4</p>
+    <h2>Los decibelios: una variable</h2>
+    <p class="examen">Idea nueva: la variable.</p>
+    <img class="ico" src="../assets/img/ia/variable.webp" alt="">
+  </div>
+  <div class="dcha">
+    <h3>Qué vas a conseguir</h3>
+    <ol>
+      <li>Crear la variable «decibelios».</li>
+      <li>Ponerla a 0 al empezar.</li>
+      <li>Sumar 100 con cada PUM.</li>
+      <li>Verla en el escenario como marcador.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" data-label="Qué es una variable" data-seccion="Paso 4">
+  <div class="cab"><p class="etq">Paso 4 · Los decibelios</p><h2>Qué es una variable</h2></div>
+  <div class="cuerpo">
+    <div class="cols centro" style="grid-template-columns: 1fr 980px; gap: 48px">
+      <div style="display:flex;flex-direction:column;gap:26px">
+        <div class="def"><span class="t">Variable</span><p>Una variable es una caja con nombre que guarda un número o un texto. El programa puede cambiar lo que hay dentro.</p></div>
+        <ol class="pasos peq">
+          <li>Categoría <b>Variables › Crear una variable</b>.</li>
+          <li>Nombre: <b>decibelios</b>. Marca <b>Para todos los objetos</b>.</li>
+          <li>Con la casilla marcada, se ve en el escenario.</li>
+        </ol>
+      </div>
+      <figure class="captura" style="aspect-ratio:16/10">
+        <img src="../assets/img/scratch/editor-variables.webp" alt="Categoría Variables de Scratch con el botón Crear una variable y la variable decibelios">
+        <span class="num-mark" style="left:20%;top:13.3%">1</span>
+        <span class="num-mark" style="left:3.5%;top:16.9%">3</span>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Pruébalo: paso 4" data-seccion="Paso 4">
+  <div class="cab"><p class="etq">Paso 4 · Los decibelios</p><h2>Pruébalo: cada PUM suma 100</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 840px; gap: 48px">
+      <div class="sb-col">
+        <div style="display:flex;gap:28px;align-items:flex-start">
+          <div class="sb" data-paso="4" data-guion="bandera" data-escala="1.1"></div>
+          <div class="sb" data-paso="4" data-guion="clic" data-escala="1.1"></div>
+        </div>
+        <ul class="lista peq">
+          <li><b>Dar a decibelios el valor 0</b> <span class="cat variables">Variables</span>, al empezar: si no, se acumula de la partida anterior.</li>
+          <li><b>Sumar a decibelios 100</b> <span class="cat variables">Variables</span>, en cada PUM.</li>
+        </ul>
+      </div>
+      <div class="jugador" data-sb3="../scratch/paso-04.sb3" data-nota="Haz clic en el petardo y mira el marcador de arriba a la izquierda."></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Paso 5 ======================= -->
+
+<section class="competencia" data-label="Paso 5 · ¿A tiempo o fallado?" data-seccion="Paso 5" data-deck-id="p5" data-deck-section="P5">
+  <div class="izq">
+    <p class="n">Paso 5</p>
+    <h2>¿A tiempo o fallado?</h2>
+    <p class="examen">Idea nueva: la condición «si… entonces».</p>
+    <img class="ico" src="../assets/img/ia/condicion.webp" alt="">
+  </div>
+  <div class="dcha">
+    <h3>Qué vas a conseguir</h3>
+    <ol>
+      <li>Que solo explote si haces clic cuando la mecha está casi acabada.</li>
+      <li>Que, si nadie hace clic, el petardo falle: «fsss».</li>
+      <li>Tener ya el juego de un petardo completo.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" data-label="Cuándo es a tiempo" data-seccion="Paso 5">
+  <div class="cab"><p class="etq">Paso 5 · ¿A tiempo o fallado?</p><h2>¿Cuándo es «a tiempo»?</h2><p class="entrada">Cuando la mecha está casi acabada: los disfraces 7, 8 y 9. Es decir, cuando el número de disfraz es mayor que 6.</p></div>
+  <div class="cuerpo">
+    <div class="tira">
+      <figure><img src="../assets/img/sprites/mecha1.png" alt=""><figcaption>1</figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha2.png" alt=""><figcaption>2</figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha3.png" alt=""><figcaption>3</figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha4.png" alt=""><figcaption>4</figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha5.png" alt=""><figcaption>5</figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha6.png" alt=""><figcaption>6</figcaption></figure>
+      <figure class="ok"><img src="../assets/img/sprites/mecha7.png" alt=""><figcaption>7<small>¡PUM!</small></figcaption></figure>
+      <figure class="ok"><img src="../assets/img/sprites/mecha8.png" alt=""><figcaption>8<small>¡PUM!</small></figcaption></figure>
+      <figure class="ok"><img src="../assets/img/sprites/mecha9.png" alt=""><figcaption>9<small>¡PUM!</small></figcaption></figure>
+    </div>
+    <div class="cols centro" style="grid-template-columns: auto 1fr; gap: 48px">
+      <pre class="sb" data-escala="1.6">if &lt;(costume [number v]) &gt; (6)&gt; then
+end</pre>
+      <p class="peq">Un niño no necesita medir el tiempo: mira <b>en qué disfraz está</b> la mecha. El bloque redondo <b>disfraz (número)</b> está en <span class="cat apariencia">Apariencia</span>, el hexagonal <b>&gt;</b> en <span class="cat operadores">Operadores</span> y el <b>si… entonces</b> en <span class="cat control">Control</span>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Si nadie hace clic: fallado" data-seccion="Paso 5">
+  <div class="cab"><p class="etq">Paso 5 · ¿A tiempo o fallado?</p><h2>Si nadie hace clic: fallado</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 1fr; gap: 56px">
+      <div class="sb-col">
+        <p class="sb-tit">Programa de la bandera</p>
+        <div class="sb" data-paso="5" data-guion="bandera" data-escala="0.98"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <p>Después de la mecha, el programa espera 0,2 segundos más y se pone el disfraz <b>fallado</b>.</p>
+        <p>Si ha habido un clic a tiempo, este final no llega a pasar: el clic lo ha parado con <b>detener otros programas en el objeto</b>.</p>
+        <div class="caja examen"><span class="tt">El margen</span>Puedes hacer clic desde 0,25 segundos antes del final de la mecha hasta 0,2 segundos después. Para 10-12 años, va bien.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Pruébalo: paso 5" data-seccion="Paso 5">
+  <div class="cab"><p class="etq">Paso 5 · ¿A tiempo o fallado?</p><h2>Pruébalo: un petardo completo</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 840px; gap: 48px">
+      <div class="sb-col" style="flex-direction:row;gap:24px;align-items:flex-start">
+        <div class="sb" data-paso="5" data-guion="bandera" data-escala="0.9"></div>
+        <div class="sb" data-paso="5" data-guion="clic" data-escala="0.9"></div>
+      </div>
+      <div class="jugador" data-sb3="../scratch/paso-05.sb3" data-nota="Prueba tres cosas: clic muy pronto (no pasa nada), clic al final (PUM) y no hacer clic (fsss)."></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Resumen y cierre ======================= -->
+
+<section class="s" data-label="Cuando algo no funciona" data-seccion="R">
+  <div class="cab"><p class="etq">Para el docente</p><h2>Cuando algo no funciona en clase</h2><p class="entrada">Equivocarse es parte de programar. Los fallos que más salen, y qué preguntar para que lo encuentren ellos.</p></div>
+  <div class="cuerpo">
+    <table class="tabla peq compacta">
+      <tr><th>Lo que pasa</th><th>Por qué suele pasar</th><th>Qué preguntar</th></tr>
+      <tr><td>Pulso la bandera y no pasa nada</td><td>Falta «al hacer clic en ⚑», o hay un bloque sin encajar</td><td>«¿Con qué bloque empieza? ¿Está todo pegado?»</td></tr>
+      <tr><td>No veo el petardo</td><td>Falta «mostrar», o el programa está en el escenario</td><td>«¿Qué objeto tienes elegido?»</td></tr>
+      <tr><td>La mecha no dura 1 segundo</td><td>El decimal va con coma. En Scratch, con punto: <b>0.125</b></td><td>«¿Cómo has escrito el número?»</td></tr>
+      <tr><td>Los decibelios no vuelven a 0</td><td>Falta «dar a decibelios el valor 0» al empezar</td><td>«¿Cuánto vale al empezar la partida?»</td></tr>
+      <tr><td>Explota aunque llegue pronto</td><td>Los bloques del PUM están fuera del «si»</td><td>«¿Qué bloques están dentro del si?»</td></tr>
+      <tr><td>He perdido mi trabajo</td><td>No se guardó</td><td>Guardar al acabar cada paso</td></tr>
+    </table>
+    <div class="caja examen"><span class="tt">Depurar también se aprende</span>Que expliquen su programa en voz alta, bloque a bloque, al compañero: muchas veces encuentran el error solos. Las <a href="../fichas/" target="_blank" rel="noopener">fichas para el alumnado</a> traen el dibujo de cómo tiene que quedar cada paso.</div>
+  </div>
+</section>
+
+<section class="s" data-label="Resumen del módulo" data-seccion="R" data-deck-section="R">
+  <div class="cab"><p class="etq">Resumen del módulo 3</p><h2>Lo que ya sabe hacer tu petardo</h2></div>
+  <div class="cuerpo">
+    <div class="tarjetas" style="--n:3">
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/inicio.webp" alt=""><h3>Eventos</h3><p class="peq">«Al hacer clic en ⚑» y «al hacer clic en este objeto».</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/disfraz.webp" alt=""><h3>Disfraces</h3><p class="peq">Animar es cambiar de disfraz cada poco tiempo.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/bucle.webp" alt=""><h3>Bucles</h3><p class="peq">«Repetir 8» en vez de copiar 16 bloques.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/sonido.webp" alt=""><h3>Sonido</h3><p class="peq">«Iniciar sonido» suena sin parar el programa.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/variable.webp" alt=""><h3>Variables</h3><p class="peq">«decibelios» empieza en 0 y suma 100.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/condicion.webp" alt=""><h3>Condiciones</h3><p class="peq">Solo explota si el disfraz es mayor que 6.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s oscura" data-label="Fin del módulo 3" data-seccion="R">
+  <div class="cab"><p class="etq">Fin del módulo 3</p><h2>Tienes un petardo. Ahora, una mascletà</h2></div>
+  <div class="cuerpo" style="gap:36px">
+    <p>En el módulo 4 el petardo se multiplica con clones, suena la música y los petardos explotan a su ritmo.</p>
+    <div class="botones"><a class="btn sec" href="../">Portada de la formación</a><a class="btn ciruela" href="#p1">Volver al paso 1</a><a class="btn sec" href="../tema4/">Módulo 4 · La mascletà</a></div>
+  </div>
+</section>
+
+</deck-stage>
+<script src="../assets/deck-stage.js"></script>
+<script src="../assets/cdc.js"></script>
+<script src="../assets/vendor/scratchblocks.min.js"></script>
+<script src="../assets/vendor/scratchblocks-translations.js"></script>
+<script src="../scratch/pasos.js"></script>
+<script src="../assets/vendor/scaffolding-min.js"></script>
+<script src="../assets/tro.js"></script>
+</body>
+</html>

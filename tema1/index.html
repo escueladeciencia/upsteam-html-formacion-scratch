@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Módulo 1 · De la idea al juego</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Lilita+One&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../assets/cdc.css">
+<link rel="stylesheet" href="../assets/tro.css">
+<style>
+/* Estilos propios del módulo 1 (prefijo t1-) */
+.t1-proto { display: grid; grid-template-columns: 900px 1fr; gap: 56px; align-items: start; }
+.t1-proto .captura { aspect-ratio: 4 / 3; }
+.t1-proto .veredicto { display: flex; flex-direction: column; gap: 22px; }
+.t1-prompt-largo pre { max-height: 510px; font-size: 17px; }
+/* Inspiración: juegos de ritmo (tarjetas pulsables), osu! de cerca y la receta del juego */
+.t1-juegos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 22px; }
+.t1-juego { margin: 0; background: var(--blanco); border-radius: 20px; box-shadow: var(--sombra); overflow: hidden; }
+.t1-juego img { display: block; width: 100%; aspect-ratio: 2.25 / 1; object-fit: cover; }
+.t1-juego figcaption { padding: 8px 20px 10px; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; }
+.t1-juego b { font-size: 25px; line-height: 1.15; }
+.t1-juego span { font-size: 18px; color: var(--gris); }
+.t1-ano { font-size: 16px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--area); }
+.t1-creditos { max-width: calc(100% - 150px); margin-top: 12px; font-size: 15px; line-height: 1.45; color: var(--gris); }
+.t1-creditos a { color: inherit; }
+.t1-osu { display: grid; grid-template-columns: 900px 1fr; gap: 48px; align-items: start; }
+.t1-video { margin: 0; }
+.t1-video video { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; background: #000; box-shadow: 0 10px 34px rgba(27, 21, 48, .22); }
+.t1-video figcaption { margin-top: 10px; font-size: 15px; color: var(--gris); }
+.t1-video figcaption a { color: inherit; }
+.t1-avisa { display: grid; grid-template-columns: 150px repeat(3, 1fr); align-items: center; text-align: center; row-gap: 6px; margin: 8px 0 18px; }
+.t1-avisa > p { font-size: 19px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--gris); }
+.t1-avisa > b { text-align: left; font-size: 22px; line-height: 1.2; }
+.t1-avisa > b span { display: block; margin-top: 4px; font-size: 17px; font-weight: 400; color: var(--gris); }
+.t1-avisa .ya { background: color-mix(in srgb, var(--or) 30%, transparent); border-radius: 16px; padding: 6px 0; }
+.t1-avisa > p.ya { color: var(--masclet); }
+.t1-avisa img { height: 200px; width: auto; margin: -30px auto -26px; display: block; }
+.t1-aro { position: relative; width: 140px; height: 140px; margin: 0 auto; }
+.t1-aro::before { content: '1'; position: absolute; left: 38px; top: 38px; width: 64px; height: 64px; box-sizing: border-box; border-radius: 50%; background: var(--a2); border: 5px solid #fff; box-shadow: 0 0 0 3px var(--a2); color: #fff; font: 400 32px/54px var(--titulo); text-align: center; }
+.t1-aro::after { content: ''; position: absolute; left: 50%; top: 50%; width: calc(70px * var(--k)); height: calc(70px * var(--k)); transform: translate(-50%, -50%); border: 4px solid var(--a2); border-radius: 50%; }
+.t1-receta { display: grid; grid-template-columns: 1fr 56px 1fr 56px 1fr 56px 1.1fr; align-items: center; }
+.t1-ing { background: var(--blanco); border-radius: 20px; box-shadow: var(--sombra); overflow: hidden; height: 100%; }
+.t1-ing img { display: block; width: 100%; height: 200px; object-fit: cover; }
+.t1-ing div { padding: 14px 18px 18px; display: flex; flex-direction: column; gap: 4px; }
+.t1-ing b { font-size: 26px; line-height: 1.15; }
+.t1-ing p { font-size: 19px; line-height: 1.35; color: var(--gris); }
+.t1-ing.destaca { box-shadow: 0 0 0 5px var(--masclet), var(--sombra); }
+.t1-op { text-align: center; font: 400 56px/1 var(--titulo); color: var(--area); }
+/* Taller: profesor → captura de VS Code con zonas de colores → MCP → proveedores de IA.
+   Cada zona lleva una etiqueta con (i) sobre el borde; al pulsarla sale su explicación (componente .piezas de tro.js). */
+.t1-taller { display: grid; grid-template-columns: 220px 46px 960px 112px 1fr; align-items: center; margin-top: 18px; }
+.t1-caja { position: relative; border: 4px solid var(--c); border-radius: 20px; background: var(--blanco); box-shadow: var(--sombra); }
+.t1-prof { padding: 34px 16px 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.t1-prof img { width: 120px; }
+.t1-prof span { font-size: 20px; line-height: 1.3; color: var(--gris); }
+.t1-pantalla { position: relative; margin: 0; }
+.t1-pantalla img { display: block; width: 100%; height: auto; border-radius: 14px; box-shadow: 0 10px 34px rgba(27, 21, 48, .22); }
+.t1-zona { position: absolute; border: 4px solid var(--c); border-radius: 12px; background: color-mix(in srgb, var(--c) 14%, transparent); pointer-events: none; }
+.zona-i { pointer-events: auto; position: absolute; top: -21px; left: 12px; display: inline-flex; align-items: center; gap: 8px; padding: 3px 14px 3px 4px; border-radius: 999px; background: var(--c); color: #fff; font: 700 19px/1 'Lexend', sans-serif; white-space: nowrap; box-shadow: 0 0 0 3px #fff, 0 4px 12px rgba(0, 0, 0, .25); }
+.zona-i::after { display: none; }
+.zona-i i { width: 30px; height: 30px; border-radius: 50%; background: #fff; color: var(--c); font: italic 700 20px/30px 'Lexend', sans-serif; text-align: center; }
+.zona-i:hover, .zona-i[aria-expanded="true"] { box-shadow: 0 0 0 3px #fff, 0 0 0 8px var(--or), 0 4px 12px rgba(0, 0, 0, .25); }
+.zona-i.lado { top: calc(50% - 18px); left: -22px; }
+.t1-flecha { position: relative; height: 40px; }
+.t1-flecha::before { content: ''; position: absolute; left: 6px; right: 20px; top: 50%; border-top: 5px solid var(--area); transform: translateY(-50%); }
+.t1-flecha::after { content: ''; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); border: 11px solid transparent; border-left: 16px solid var(--area); border-right: 0; }
+.t1-flecha.doble::before { left: 22px; }
+.t1-flecha.doble > i { position: absolute; left: 4px; top: 50%; transform: translateY(-50%); border: 11px solid transparent; border-right: 16px solid var(--area); border-left: 0; }
+.t1-flecha .zona-i { top: -54px; left: calc(50% - 46px); }
+.t1-provs { padding: 14px 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.t1-provs > p { font-size: 17px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--gris); margin: 0 0 4px 6px; }
+.t1-serv { display: grid; grid-template-columns: 46px 1fr; gap: 12px; align-items: center; padding: 6px 46px 6px 8px; border-radius: 14px; background: transparent; }
+.t1-serv::after { top: 50%; right: 10px; transform: translateY(-50%); width: 28px; height: 28px; font-size: 18px; line-height: 28px; }
+.t1-serv img { width: 46px; height: 46px; object-fit: contain; }
+.t1-serv b { display: block; font-size: 20px; line-height: 1.2; }
+.t1-serv small { display: block; font-size: 15px; line-height: 1.3; color: var(--gris); }
+.t1-serv em { font-style: normal; font-size: 13px; font-weight: 700; background: var(--or); border-radius: 999px; padding: 1px 8px; margin-left: 6px; vertical-align: 2px; }
+/* Ampliada: la captura ocupa toda la diapositiva, con sus zonas; lo demás se esconde */
+.t1-pantalla .ampliar { position: absolute; right: 0; top: calc(100% + 8px); }
+.t1-taller.ampliado { position: absolute; inset: 0; z-index: 20; margin: 0; padding: 78px 40px 24px; background: var(--tinta); display: flex; justify-content: center; align-items: stretch; }
+.t1-taller.ampliado > :not(.t1-pantalla):not(.pieza-info) { display: none; }
+.t1-taller.ampliado .t1-pantalla { height: 100%; aspect-ratio: 1506 / 927; }
+.t1-taller.ampliado .t1-pantalla img { height: 100%; }
+.t1-taller.ampliado .ampliar { top: -62px; }
+</style>
+</head>
+<body class="area-1">
+
+<deck-stage width="1920" height="1080">
+
+<section class="portada" data-label="Portada" style="background-image: linear-gradient(90deg, var(--fondo) 0 50%, transparent 50%), url(../assets/img/portadas/tema1.webp)">
+  <a class="marca" href="../">Masclet a masclet · Formación para docentes</a>
+  <p class="num">Módulo 1</p>
+  <h1>De la idea al juego</h1>
+  <p class="sub">Cómo se pasó de «un juego sobre petardos» a Masclet a masclet. Con los prototipos que no funcionaron.</p>
+  <div class="datos"><span class="pill">45 minutos</span><span class="pill clara">4 prototipos</span><span class="pill clara">1 boceto con IA</span></div>
+  <p class="pista-teclas"><kbd>←</kbd><kbd>→</kbd> para moverte <span>·</span> <kbd>B</kbd> buscar <span>·</span> <kbd>P</kbd> pantalla completa</p>
+  <p class="foto-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Masclet%C3%A0_at_Valencia,_Spain,_2010_(DSC7155).jpg" target="_blank" rel="noopener">Cperism</a> · CC BY-SA 4.0 · Wikimedia Commons</p>
+</section>
+
+<section class="s" data-label="La receta">
+  <div class="cab"><p class="etq">Módulo 1</p><h2>La receta que seguimos</h2><p class="entrada">Up! Steam pide un juego inspirado en la cultura valenciana y con valor educativo. Este módulo sigue estos cinco pasos. No hace falta tener la idea perfecta: hace falta probarla pronto.</p></div>
+  <div class="cuerpo">
+    <div class="flujo">
+      <div class="nodo"><img src="../assets/img/ia/cuerda.webp" alt=""><b>1. Tradición</b>Algo de la cultura valenciana que el alumnado conozca y le guste.</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/ia/clic.webp" alt=""><b>2. Mecánica</b>Qué hace quien juega. Se busca en juegos que ya existen.</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/ia/boceto.webp" alt=""><b>3. Boceto</b>Una imagen hecha con IA de cómo se vería el juego.</div>
+      <div class="fl"></div>
+      <div class="nodo"><img src="../assets/img/ia/inicio.webp" alt=""><b>4. Prototipos</b>Versiones rápidas para jugarlas y tirarlas sin pena.</div>
+      <div class="fl"></div>
+      <div class="nodo destaca"><img src="../assets/img/ia/depurar.webp" alt=""><b>5. Simplificar</b>Quitar lo que no se pueda hacer en Scratch con 10-12 años.</div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Por qué la mascletà" data-seccion="La idea" data-deck-section="Idea">
+  <div class="cab"><p class="etq">La idea</p><h2>Por qué la mascletà</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 600px; gap: 56px">
+      <div style="display:flex;flex-direction:column;gap:26px">
+        <div class="def"><span class="t">Mascletà</span><p>Una mascletà es un espectáculo de petardos de día. Los masclets cuelgan de cuerdas, el fuego corre por ellas y explotan con ritmo, cada vez más fuerte, hasta el <b>terratrèmol</b> final.</p></div>
+        <ul class="lista peq">
+          <li>En Fallas se dispara del 1 al 19 de marzo, a las 14:00, en la plaza del Ayuntamiento de València. También hay mascletàs en las Fogueres de Alicante y en la Magdalena de Castellón.</li>
+          <li>Las Fallas son Patrimonio Cultural Inmaterial de la Humanidad de la UNESCO desde 2016.</li>
+          <li>Una mascletà se valora por su <b>ritmo</b>, no solo por el ruido.</li>
+        </ul>
+      </div>
+      <div class="tarjeta" style="align-self:start">
+        <img class="ico m" src="../assets/img/ia/partitura.webp" alt="">
+        <h3>La clave: es ritmo</h3>
+        <p class="peq">Si la mascletà es música hecha con petardos, el juego puede ser un <b>juego de ritmo</b>: haces explotar cada petardo al compás.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Juegos de ritmo que ya existen" data-seccion="La idea">
+  <div class="cab"><p class="etq">Inspiración</p><h2>Juegos de ritmo que ya existen</h2><p class="entrada">Todos funcionan igual: algo llega al ritmo de la música y lo pulsas justo a tiempo.</p></div>
+  <div class="cuerpo">
+    <div class="t1-juegos">
+      <figure class="t1-juego"><img src="../assets/img/juegos/ddr.webp" alt="Pantalla de Dance Dance Revolution con las flechas subiendo"><figcaption><b>Dance Dance Revolution</b><span>1998 · con los pies</span></figcaption></figure>
+      <figure class="t1-juego"><img src="../assets/img/juegos/taiko.webp" alt="Pantalla de Taiko no Tatsujin con las notas, y el tambor delante"><figcaption><b>Taiko no Tatsujin</b><span>2001 · con un tambor</span></figcaption></figure>
+      <figure class="t1-juego"><img src="../assets/img/juegos/guitar-hero.webp" alt="Pantalla de Guitar Hero con las notas bajando por el mástil, y la guitarra de plástico"><figcaption><b>Guitar Hero</b><span>2005 · con una guitarra</span></figcaption></figure>
+      <figure class="t1-juego"><img src="../assets/img/juegos/osu.webp" alt="Pantalla de osu! con círculos numerados y sus aros"><figcaption><b>osu!</b><span>2007 · con el ratón</span></figcaption></figure>
+      <figure class="t1-juego"><img src="../assets/img/juegos/just-dance.webp" alt="Pantalla de Just Dance con la bailarina que hay que imitar"><figcaption><b>Just Dance</b><span>2009 · con todo el cuerpo</span></figcaption></figure>
+      <figure class="t1-juego"><img src="../assets/img/juegos/beat-saber.webp" alt="Pantalla de Beat Saber con los bloques que llegan y la mano del jugador"><figcaption><b>Beat Saber</b><span>2018 · con gafas VR</span></figcaption></figure>
+    </div>
+    <p class="t1-creditos">Imágenes de Wikimedia Commons (fotos y fotogramas de vídeo). DDR: <a href="https://commons.wikimedia.org/wiki/File:DDR_A_player.jpg" target="_blank" rel="noopener">DJ Damien</a> (CC BY-SA 2.0) · Taiko: <a href="https://commons.wikimedia.org/wiki/File:(Taiko)_ARMAGE%CE%94DON_(Extreme_10*_-_Full_Combo).webm" target="_blank" rel="noopener">pastelle</a> (CC BY 4.0) · Guitar Hero: <a href="https://commons.wikimedia.org/wiki/File:Guitar_Hero_3_(1295821195).jpg" target="_blank" rel="noopener">włodi from London, UK</a> (CC BY-SA 2.0) · osu!: <a href="https://commons.wikimedia.org/wiki/File:Osu!standard_gameplay.webm" target="_blank" rel="noopener">YZiv</a> (CC BY-SA 3.0 DE) · Just Dance: <a href="https://commons.wikimedia.org/wiki/File:IMGP3928_(just_dance_2)_(1280_1024_wm_W)_(5136647541).jpg" target="_blank" rel="noopener">JoyTek</a> (CC BY-SA 2.0) · Beat Saber: <a href="https://commons.wikimedia.org/wiki/File:InclusiveGameLab_Person-Playing-Virtual-Reality_4_CC-BY-SA.jpg" target="_blank" rel="noopener">InclusiveGameLab</a> (CC BY-SA 4.0). Los nombres de los juegos son marcas de sus dueños.</p>
+  </div>
+</section>
+
+<section class="s" data-label="La idea de partida: un osu! con petardos" data-seccion="La idea">
+  <div class="cab"><p class="etq">La idea</p><h2>La idea de partida: un osu! con petardos</h2><p class="entrada">Jugar como en osu!, pero con petardos: lo que en osu! hace el aro, aquí lo hace la mecha.</p></div>
+  <div class="cuerpo">
+    <div class="t1-osu">
+      <figure class="t1-video">
+        <video src="../assets/video/osu.mp4" poster="../assets/img/juegos/osu.webp" muted loop playsinline controls preload="metadata" data-auto aria-label="Partida de osu!: aparecen círculos numerados y un aro se cierra sobre cada uno"></video>
+        <figcaption>osu! (Dean Herbert, 2007), sin sonido. Vídeo de Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Osu!standard_gameplay.webm" target="_blank" rel="noopener">YZiv</a> (CC BY-SA 3.0 DE).</figcaption>
+      </figure>
+      <div>
+        <h3>El aviso de cuándo pulsar</h3>
+        <div class="t1-avisa">
+          <span></span><p>Aún no</p><p>Prepárate</p><p class="ya">¡Ahora!</p>
+          <b>osu!<span>el aro se cierra</span></b>
+          <div class="t1-aro" style="--k:1.95" role="img" aria-label="Aro grande, lejos del círculo"></div>
+          <div class="t1-aro" style="--k:1.45" role="img" aria-label="Aro cerca del círculo"></div>
+          <div class="ya"><div class="t1-aro" style="--k:1" role="img" aria-label="El aro toca el círculo"></div></div>
+          <b>Masclet a masclet<span>la mecha se quema</span></b>
+          <img src="../assets/img/sprites/mecha1.png" alt="Petardo con la mecha larga">
+          <img src="../assets/img/sprites/mecha4.png" alt="Petardo con la mecha a medias">
+          <div class="ya"><img src="../assets/img/sprites/mecha7.png" alt="Petardo con la mecha casi acabada"></div>
+        </div>
+        <div class="caja ok"><span class="tt">En Scratch, más fácil</span>Un aro que encoge cuesta de programar. La mecha son 9 disfraces: cuando pasa del 6, es el momento.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Cómo está montado el taller" data-seccion="Taller" data-deck-section="Taller">
+  <div class="cab"><p class="etq">El taller</p><h2>Cómo está montado el taller</h2><p class="entrada">Así se trabajó. <b>Pulsa cada «i»</b> para ver qué es y <b>amplía la pantalla</b> para verla de cerca. Para tu clase no hace falta este montaje: basta con ChatGPT.</p></div>
+  <div class="cuerpo">
+    <div class="t1-taller piezas ampliable">
+      <div class="t1-caja t1-prof" style="--c:var(--a1)">
+        <button type="button" class="pieza zona-i" data-titulo="El profesor"><i>i</i>Profesor<span class="que">No programa: describe con sus palabras lo que quiere, prueba lo que sale y decide qué se queda y qué se quita.</span></button>
+        <img src="../assets/img/ia/boceto.webp" alt="">
+        <span>Pide en el chat lo que quiere y prueba lo que sale.</span>
+      </div>
+      <div class="t1-flecha"></div>
+      <figure class="t1-pantalla">
+        <img src="../assets/img/taller-vscode.webp" width="1506" height="927" alt="VS Code con la carpeta del proyecto a la izquierda, la miniatura del juego en el centro y el chat de Claude Code a la derecha">
+        <button type="button" class="ampliar" aria-pressed="false">⤢ Ampliar</button>
+          <div class="t1-zona" style="--c:#5E5770;left:0.3%;top:0.3%;width:99.4%;height:4.3%"><button type="button" class="pieza zona-i" data-titulo="VS Code"><i>i</i>VS Code<span class="que">Un editor de código gratuito de Microsoft. Todo el trabajo se hace dentro de esta ventana.</span></button></div>
+          <div class="t1-zona" style="--c:#1E8E5A;left:4.0%;top:8.3%;width:15.2%;height:87.7%"><button type="button" class="pieza zona-i" data-titulo="La carpeta del proyecto"><i>i</i>Carpeta<span class="que">A la izquierda, los archivos del proyecto: los módulos de la formación (tema0 a tema5), los proyectos de Scratch y, en «bocetos», las imágenes originales. Todo lo que hace el agente se guarda aquí como archivos normales.</span></button></div>
+          <div class="t1-zona" style="--c:#1F6FE0;left:19.7%;top:8.3%;width:51.3%;height:87.7%"><button type="button" class="pieza zona-i" data-titulo="Lo que ha hecho el agente"><i>i</i>Resultado<span class="que">En el centro se abre el resultado. Aquí, la miniatura del juego. También pueden ser páginas web, código o proyectos de Scratch.</span></button></div>
+          <div class="t1-zona" style="--c:#E8261C;left:71.5%;top:8.3%;width:28.1%;height:88.2%"><button type="button" class="pieza zona-i" data-titulo="Claude Code: el chat con el agente"><i>i</i>Claude Code<span class="que">Una extensión de VS Code. A la derecha está el chat con el agente de IA, Claude, que lee y escribe los archivos del proyecto, ejecuta programas y prueba lo que hace. Necesita una cuenta de pago de Claude.</span></button></div>
+          <div class="t1-zona" style="--c:#7A3FD0;left:72.6%;top:16.0%;width:24.8%;height:7.8%"><button type="button" class="pieza zona-i lado" data-titulo="Lo que pide el profesor"><i>i</i>Petición<span class="que">La petición, con sus palabras: una miniatura del juego en 4:3, hecha con Replicate y usando como referencia las imágenes que ya había.</span></button></div>
+          <div class="t1-zona" style="--c:#C99A00;left:72.6%;top:42.4%;width:25.4%;height:42.0%"><button type="button" class="pieza zona-i lado" data-titulo="La respuesta del agente"><i>i</i>Respuesta<span class="que">El agente cuenta qué ha hecho, dónde lo ha guardado y qué sale en la imagen. Antes de responder, la ha abierto para comprobar que está bien.</span></button></div>
+          <div class="t1-zona" style="--c:#0B7A6E;left:82.0%;top:90.2%;width:9.0%;height:3.2%"><button type="button" class="pieza zona-i lado" data-titulo="El modelo de IA"><i>i</i>Modelo<span class="que">Aquí se elige el modelo de IA y cuánto piensa antes de responder.</span></button></div>
+      </figure>
+      <div class="t1-flecha doble" style="--c:var(--a1)"><i></i><button type="button" class="pieza zona-i" data-titulo="MCP"><i>i</i>MCP<span class="que">El MCP (Model Context Protocol) es un estándar para conectar un agente de IA con otros programas y servicios. Cada uno se conecta una vez, y desde el chat el agente ya puede usarlo.</span></button></div>
+      <div class="t1-caja t1-provs" style="--c:var(--a2)">
+        <p>Conectados por MCP</p>
+        <button type="button" class="pieza t1-serv" data-titulo="Replicate"><img src="../assets/img/ia/arte.webp" alt=""><span><b>Replicate<em>la usamos</em></b><small>Imágenes, vídeo y música</small></span><span class="que">Una web con muchos modelos de IA de imagen, vídeo y música. Se paga por uso. Las imágenes de esta formación se hicieron así: el agente escribe el prompt y se lo manda.</span></button>
+        <button type="button" class="pieza t1-serv" data-titulo="Higgsfield"><img src="../assets/img/ia/video.webp" alt=""><span><b>Higgsfield</b><small>Imagen y vídeo con IA</small></span><span class="que">Una plataforma de imagen y vídeo con IA. Sirve, por ejemplo, para animar una imagen o hacer un vídeo corto que presente el juego.</span></button>
+        <button type="button" class="pieza t1-serv" data-titulo="Canva"><img src="../assets/img/ia/diseno.webp" alt=""><span><b>Canva</b><small>Carteles, fichas y presentaciones</small></span><span class="que">El agente crea o cambia diseños en tu cuenta de Canva: carteles, fichas o presentaciones. Después los retocas tú en Canva, como siempre.</span></button>
+        <button type="button" class="pieza t1-serv" data-titulo="Google Drive"><img src="../assets/img/ia/documentos.webp" alt=""><span><b>Google Drive</b><small>Documentos y hojas de cálculo</small></span><span class="que">El agente lee y crea documentos, hojas de cálculo y presentaciones en tu Drive. Por ejemplo, pasar las notas de una hoja a un informe por alumno.</span></button>
+        <button type="button" class="pieza t1-serv" data-titulo="Google Classroom"><img src="../assets/img/ia/aula.webp" alt=""><span><b>Google Classroom</b><small>Clases, tareas y entregas</small></span><span class="que">Con un conector de Classroom, el agente ve tus clases, crea una tarea con sus materiales o revisa quién ha entregado. Cuidado con los datos del alumnado: sigue las normas de tu centro.</span></button>
+        <button type="button" class="pieza t1-serv" data-titulo="Blender"><img src="../assets/img/ia/impresion3d.webp" alt=""><span><b>Blender</b><small>Modelos 3D para imprimir</small></span><span class="que">Blender es un programa gratuito de 3D. Conectado por MCP, el agente crea el modelo (un petardo, un llavero con el nombre de la clase) y lo prepara para la impresora 3D.</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Un boceto antes de programar" data-seccion="Boceto" data-deck-section="Boceto">
+  <div class="cab"><p class="etq">El boceto</p><h2>Un boceto antes de programar</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 820px 1fr; gap: 56px">
+      <figure class="captura" style="aspect-ratio:4/3"><img src="../assets/img/maqueta.webp" alt="Boceto generado con IA: petardos con cara en la plaza del Ayuntamiento, uno explotando con la palabra PUM y el texto PERFECTE"></figure>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <p>Antes de escribir un bloque, generamos una imagen de cómo podría verse el juego.</p>
+        <ul class="lista peq">
+          <li>Sirve para imaginar el juego y decidir el estilo.</li>
+          <li>Convence al equipo: «queremos hacer esto».</li>
+          <li>Aparecen preguntas: ¿solo hay 5 petardos? ¿Cómo sé cuándo hacer clic?</li>
+        </ul>
+        <div class="caja ia"><span class="tt">Qué herramienta usar</span><b>ChatGPT</b> es de los mejores modelos para esto: le cuentas la idea y te hace la imagen. <b>Seedream</b> (ByteDance) es más flexible con lo que deja generar, pero en Up! Steam no valen personajes ni marcas con derechos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Cómo se llegó al prompt del boceto" data-seccion="Boceto">
+  <div class="cab"><p class="etq">El boceto</p><h2>Cómo se llegó al prompt del boceto</h2></div>
+  <div class="cuerpo">
+    <div class="cadena">
+      <div class="eslabon">
+        <h3>1. Lo que escribió el docente</h3>
+        <p class="burbuja">«a ver dame una imagen de como seria el juego»</p>
+        <p class="nota">Antes, en el mismo chat, ya se había hablado de la idea: petardos con mecha en la plaza, decibelios, traca y las fases de la mascletà. Sin esa conversación, la frase sola no habría dado esta imagen.</p>
+      </div>
+      <div class="fl"></div>
+      <div class="eslabon">
+        <h3>2. El prompt que escribió el agente de IA</h3>
+        <div class="extracto">In-game screenshot of a casual 2D rhythm game for kids, made with sprites (the kind of game a school team could build in Scratch). 4:3 game screen…
+
+THEME: a Valencian 'mascleta' (rhythmic firecracker show during the Fallas festival). The player is the pyrotechnician and must click each firecracker exactly when its burning fuse reaches the end.
+
+SCENE (back to front):
+- Bright clear blue March sky…
+- Background: a simplified, stylized cartoon version of Valencia's town hall square…</div>
+        <p class="nota">444 palabras en inglés. Completo en la diapositiva siguiente.</p>
+      </div>
+      <div class="fl"></div>
+      <div class="eslabon">
+        <h3>3. La imagen</h3>
+        <img src="../assets/img/maqueta.webp" alt="El boceto generado a partir de ese prompt">
+        <p class="nota">El agente (Claude Code) está conectado a Replicate: envió el prompt a gpt-image (OpenAI), que hizo la imagen.</p>
+      </div>
+    </div>
+    <div class="caja examen"><span class="tt">Para tu clase</span>No hace falta saber escribir prompts largos ni usar un agente. En ChatGPT, cuenta la idea y pide: «escríbeme un prompt detallado para generar esta imagen y después genérala».</div>
+  </div>
+</section>
+
+<section class="s" data-label="El prompt que escribió la IA" data-seccion="Boceto">
+  <div class="cab"><p class="etq">El boceto</p><h2>El prompt que escribió la IA</h2><p class="entrada">Es el texto que recibió el generador de imágenes. Describe la escena por capas, la interfaz y el estilo. Está en inglés, pero en castellano también funciona.</p></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 520px; gap: 48px">
+      <div class="prompt t1-prompt-largo">
+        <div class="p-cab">Prompt escrito por Claude <span class="modelo">para openai/gpt-image-2.5 · Replicate · 4:3</span></div>
+<pre>In-game screenshot of a casual 2D rhythm game for kids, made with sprites (the kind of game a school team could build in Scratch). 4:3 game screen, no device frame, no browser frame.
+
+THEME: a Valencian 'mascleta' (rhythmic firecracker show during the Fallas festival). The player is the pyrotechnician and must click each firecracker exactly when its burning fuse reaches the end.
+
+SCENE (back to front):
+- Bright clear blue March sky with a few puffs of grey firecracker smoke.
+- Background: a simplified, stylized cartoon version of Valencia's town hall square: an elegant cream-coloured stone building with a central clock tower and a balcony decorated with flags, plus a couple of palm trees. Flat colours, low detail so it stays a background.
+- Middle ground: the classic mascleta setup: several long horizontal ropes stretched between tall metal poles, with dozens of small red-and-white paper firecrackers hanging from them in rows, like clothes on a washing line. A few of them are bursting in small orange-yellow flashes with puffs of smoke.
+- Playfield: five big chunky cartoon firecrackers spread across the screen at different positions. Each is a fat red cylinder wrapped in paper with a white band, with a cute simple face (round eyes, nervous expression) and a curly fuse on top that glows. Each fuse shows a different amount left: one fuse is long and just lit, one is half burnt, one is almost finished with bright crackling sparks and the firecracker looks scared. One firecracker in the centre is exploding right now in a big comic-book burst of orange, yellow and red with the word 'PUM!' in chunky letters, and floating above it the text '¡PERFECTE!' in golden yellow with a dark outline.
+- The mouse cursor is a small wooden stick with a glowing ember tip, pointing at the almost-finished firecracker.
+- Bottom edge: a metal crowd barrier with simple cartoon crowd silhouettes seen from behind, some covering their ears, colourful but very simple.
+
+UI / HUD (clean, chunky, readable, bold rounded cartoon font with dark outlines):
+- Top left: a sound-meter badge with the text 'dB 1.250'.
+- Top right: a fiery badge with the text 'TRACA x12'.
+- Top centre: a horizontal progress bar divided in three labelled segments: 'INICI', 'COS', 'TERRATRÈMOL', with a small marker on 'TERRATRÈMOL'.
+All text must be spelled exactly as written and nothing else written anywhere.
+
+STYLE: bright, playful, polished casual indie-game art. Bold dark outlines, flat cel shading, saturated colours: fire orange, red, golden yellow, sky blue, cream and a little Valencian blue. Clear silhouettes, strong contrast between playfield sprites and background. Fun, energetic, family-friendly. No logos, no watermark, no realistic people.</pre>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div class="tarjeta"><h3>Qué hace cada parte</h3>
+          <ul class="lista peq">
+            <li><b>Qué es</b>: una captura de un juego 2D, 4:3 como Scratch.</li>
+            <li><b>Tema</b>: la mascletà y la regla del juego.</li>
+            <li><b>Escena</b>: de atrás adelante.</li>
+            <li><b>Interfaz</b>: textos exactos, entre comillas.</li>
+            <li><b>Estilo</b>: colores y tipo de dibujo.</li>
+          </ul>
+        </div>
+        <p class="peq">Con el ratón encima del recuadro, la rueda baja por el texto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Cómo se hicieron los prototipos" data-seccion="Prototipos" data-deck-section="Prototipos">
+  <div class="cab"><p class="etq">Prototipos</p><h2>Cómo se hicieron los prototipos</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="gap:56px">
+      <div class="tarjeta">
+        <img class="ico p" src="../assets/img/ia/ia.webp" alt="">
+        <h3>Nosotros: el agente programó cada prototipo</h3>
+        <p class="peq">En el mismo chat del taller, el agente programó cada prototipo como una página web jugable, en pocos minutos, y lo probó en un navegador automático. El docente lo jugaba, decía qué no le convencía y se hacía otro.</p>
+        <p class="peq">Lo que se aprende en un prototipo vale más que el prototipo: por eso se tiran sin pena.</p>
+      </div>
+      <div class="tarjeta">
+        <img class="ico p" src="../assets/img/ia/boceto.webp" alt="">
+        <h3>En clase: un prototipo en papel</h3>
+        <p class="peq">Petardos dibujados en cartulinas por el suelo o en la pizarra. Una persona hace de música (palmas o la canción), otra señala el petardo que toca y otra «hace clic» con la mano.</p>
+        <p class="peq">En 15 minutos se ve si la idea se entiende y si es divertida.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Prototipo 1: demasiadas cosas" data-seccion="Prototipos">
+  <div class="cab"><p class="etq">Prototipos · 1 de 4</p><h2>Prototipo 1: demasiadas cosas</h2></div>
+  <div class="cuerpo">
+    <div class="t1-proto">
+      <figure class="captura"><img src="../assets/img/proto-1.webp" alt="Prototipo 1 en plena partida: una traca ardiendo por su cuerda, un buñuelo trampa, masclets, explosiones, humo y los marcadores de decibelios, fases, combo y público"></figure>
+      <div class="veredicto">
+        <p>A la idea de partida le añadimos de todo: masclets, tracas que se siguen por una cuerda, carcasas que suben, buñuelos que no hay que tocar, un medidor del público, humo que se acumula y un terratrèmol pulsando la barra espaciadora.</p>
+        <div class="caja aviso"><span class="tt">Por qué no</span>Demasiadas reglas. No se entendía la traca y era imposible de hacer en Scratch con 5.º y 6.º.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Prototipo 2: tres carriles" data-seccion="Prototipos">
+  <div class="cab"><p class="etq">Prototipos · 2 de 4</p><h2>Prototipo 2: tres carriles</h2></div>
+  <div class="cuerpo">
+    <div class="t1-proto">
+      <figure class="captura"><img src="../assets/img/proto-2.webp" alt="Prototipo 2: tres petardos fijos con sus mechas verticales y las teclas de flecha debajo"></figure>
+      <div class="veredicto">
+        <p>Tres petardos fijos, uno por flecha. Las chispas bajan por la mecha y pulsas la flecha cuando llegan. Con música de verdad: un pasodoble.</p>
+        <div class="caja aviso"><span class="tt">Por qué no</span>Fácil de programar, pero no parecía una mascletà. Era un juego de ritmo cualquiera con petardos dibujados.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Prototipo 3: eco rítmico" data-seccion="Prototipos">
+  <div class="cab"><p class="etq">Prototipos · 3 de 4</p><h2>Prototipo 3: eco rítmico</h2></div>
+  <div class="cuerpo">
+    <div class="t1-proto">
+      <figure class="captura"><img src="../assets/img/proto-3.webp" alt="Prototipo 3: dos cuerdas, la del mestre con masclets quemados y la del jugador con huecos"></figure>
+      <div class="veredicto">
+        <p>El mestre pirotécnico dispara un ritmo en su cuerda y tú lo repites en la tuya con la barra espaciadora. Muy musical: es el eco rítmico de la clase de Música.</p>
+        <div class="caja aviso"><span class="tt">Por qué no</span>Al jugarlo, costaba entender qué había que hacer.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Prototipo 4: el que funcionó" data-seccion="Prototipos">
+  <div class="cab"><p class="etq">Prototipos · 4 de 4</p><h2>Prototipo 4: el que funcionó</h2></div>
+  <div class="cuerpo">
+    <div class="t1-proto">
+      <figure class="captura"><img src="../assets/img/proto-4.webp" alt="Prototipo 4: tres petardos con mecha en distintos puntos de la plaza"></figure>
+      <div class="veredicto">
+        <p>Volvimos a la idea de partida. Petardos por toda la plaza y la mecha marca el momento del clic. Cada petardo explota con una nota de la dolçaina.</p>
+        <div class="caja ok"><span class="tt">Por qué sí</span>Una sola regla que se entiende al mirarlo. La música manda. Y se puede hacer en Scratch con un solo objeto.</div>
+        <p class="peq">Después aún cambió: al principio los petardos iban siempre de izquierda a derecha y aburría. Ahora dibujan figuras distintas en cada compás.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="De dónde sale Masclet a masclet" data-seccion="Prototipos">
+  <div class="cab"><p class="etq">El resultado</p><h2>De dónde sale Masclet a masclet</h2><p class="entrada">Una tradición y dos juegos. De cada uno cogimos una sola cosa.</p></div>
+  <div class="cuerpo">
+    <div class="t1-receta">
+      <div class="t1-ing"><img src="../assets/img/juegos/mascleta.webp" alt="Masclets colgados de cuerdas explotando en una mascletà"><div><span class="t1-ano">El tema</span><b>La mascletà</b><p>Masclets colgados de cuerdas que explotan con ritmo.</p></div></div>
+      <div class="t1-op">+</div>
+      <div class="t1-ing"><img src="../assets/img/juegos/osu.webp" alt="Pantalla de osu!" style="object-position:85% 50%"><div><span class="t1-ano">La mecánica</span><b>osu!</b><p>Clic donde aparece cada cosa, justo a tiempo.</p></div></div>
+      <div class="t1-op">+</div>
+      <div class="t1-ing"><img src="../assets/img/juegos/guitar-hero.webp" alt="Jóvenes tocando Guitar Hero"><div><span class="t1-ano">La música manda</span><b>Guitar Hero</b><p>Cada nota está puesta a mano sobre la canción.</p></div></div>
+      <div class="t1-op">=</div>
+      <div class="t1-ing destaca"><img src="../assets/img/proto-4.webp" alt="Masclet a masclet: petardos con mecha repartidos por la plaza"><div><span class="t1-ano">El juego</span><b>Masclet a masclet</b><p>Clic en cada petardo cuando se acaba la mecha, al ritmo del pasodoble.</p></div></div>
+    </div>
+    <div class="cols" style="grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 22px">
+      <div class="caja aviso"><span class="tt">Lo que dejamos fuera</span>El aro de osu! (lo hace la mecha), sus deslizadores y ruletas, la guitarra de Guitar Hero y los niveles de dificultad. Difíciles en Scratch y no hacen falta.</div>
+      <div class="caja ok"><span class="tt">Para tu clase</span>Jugad un rato a un juego de ritmo y apuntad qué llega, qué avisa y qué se pulsa. Se puede coger una mecánica; nombres, personajes y canciones con derechos, no.</div>
+    </div>
+    <p class="t1-creditos">Foto de la mascletà de Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Masclet%C3%A0_at_Valencia,_Spain,_2010_(DSC7155).jpg" target="_blank" rel="noopener">Cperism</a> (CC BY-SA 4.0). osu! y Guitar Hero: créditos en «Juegos de ritmo que ya existen».</p>
+  </div>
+</section>
+
+<section class="s" data-label="Lo que aprendimos" data-seccion="Prototipos">
+  <div class="cab"><p class="etq">Prototipos</p><h2>Lo que aprendimos</h2></div>
+  <div class="cuerpo">
+    <div class="tarjetas" style="--n:4">
+      <div class="tarjeta"><img class="ico p" src="../assets/img/ia/depurar.webp" alt=""><h3>Simplifica</h3><p class="peq">Una sola mecánica bien hecha vale más que cinco a medias.</p></div>
+      <div class="tarjeta"><img class="ico p" src="../assets/img/ia/partitura.webp" alt=""><h3>Que la tradición se note</h3><p class="peq">Si cambias los dibujos y el juego sigue igual, la tradición es solo decoración.</p></div>
+      <div class="tarjeta"><img class="ico p" src="../assets/img/ia/clic.webp" alt=""><h3>Juega pronto</h3><p class="peq">Lo que parece buena idea en la cabeza puede no entenderse al jugarlo.</p></div>
+      <div class="tarjeta"><img class="ico p" src="../assets/img/ia/petardo.webp" alt=""><h3>Piensa en Scratch</h3><p class="peq">Si no sabes cómo se haría en Scratch con 10 años, déjalo fuera.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Tradición + mecánica = idea" data-seccion="Tu clase" data-deck-section="Tu clase">
+  <div class="cab"><p class="etq">Para tu clase</p><h2>Tradición + mecánica = idea</h2><p class="entrada">La misma receta da muchos juegos distintos. Ejemplos para tu clase:</p></div>
+  <div class="cuerpo">
+    <table class="tabla peq">
+      <tr><th>Tradición</th><th>Mecánica</th><th>Idea de juego</th></tr>
+      <tr><td>Mascletà (Fallas, Fogueres, Magdalena)</td><td>Pulsar a tiempo</td><td>Masclet a masclet: explotar cada petardo con la música</td></tr>
+      <tr><td>Moros i Cristians</td><td>Seguir el paso</td><td>Desfile: que la filà no pierda el paso de la marcha</td></tr>
+      <tr><td>Dolçaina i tabalet</td><td>Repetir un ritmo</td><td>El tabaleter: escucha un toque y repítelo</td></tr>
+      <tr><td>Muixeranga (Algemesí)</td><td>Equilibrio</td><td>Sube a la torre humana sin que se caiga</td></tr>
+      <tr><td>Paella</td><td>Ordenar y medir el tiempo</td><td>Cocina la paella en orden y sácala en su punto</td></tr>
+      <tr><td>Ninots de falla</td><td>Construir</td><td>Monta el ninot pieza a pieza antes de la plantà</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="s" data-label="Piensa: vuestra idea" data-seccion="Tu clase">
+  <div class="cab"><p class="etq">Para tu clase</p><h2>Piensa: vuestra idea</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="gap:56px">
+      <div class="piensa">
+        <p>Elige una tradición de tu localidad. ¿Qué mecánica encaja con ella? ¿Qué aprendería quien juega?</p>
+        <button class="btn revela-btn" type="button">Ver un ejemplo</button>
+        <div class="resp"><p><b>Tradición:</b> la banda de música del pueblo.<br><b>Mecánica:</b> pulsar a tiempo.<br><b>Idea:</b> cada instrumento es un objeto; hay que tocarlo cuando le toca en el pasodoble.<br><b>Aprende:</b> los instrumentos de una banda y el pulso.</p></div>
+      </div>
+      <div class="tarjeta">
+        <h3>Ficha de idea (una cara)</h3>
+        <ol class="pasos peq">
+          <li>Tradición y por qué nos gusta.</li>
+          <li>Qué hace quien juega (un verbo: pulsar, saltar, ordenar…).</li>
+          <li>Cuándo se gana y cuándo se pierde.</li>
+          <li>Qué aprende quien juega.</li>
+          <li>Un dibujo de la pantalla.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s oscura" data-label="Fin del módulo 1">
+  <div class="cab"><p class="etq">Fin del módulo 1</p><h2>Ya tenemos idea. Ahora, el aspecto y el sonido</h2></div>
+  <div class="cuerpo" style="gap:36px">
+    <p>En el módulo 2 verás cómo se hicieron la plaza, los petardos, los iconos y la música, con los prompts exactos.</p>
+    <div class="botones"><a class="btn sec" href="../">Portada de la formación</a><a class="btn ciruela" href="../tema2/">Módulo 2 · Imágenes y música con IA</a></div>
+  </div>
+</section>
+
+</deck-stage>
+<script src="../assets/deck-stage.js"></script>
+<script src="../assets/cdc.js"></script>
+<script src="../assets/tro.js"></script>
+</body>
+</html>

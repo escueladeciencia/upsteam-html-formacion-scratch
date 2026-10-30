@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Módulo 5 · Al aula y a Up! Steam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Lilita+One&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../assets/cdc.css">
+<link rel="stylesheet" href="../assets/tro.css">
+<style>
+/* Publicar: los pasos de TurboWarp Packager, cada uno con su captura */
+.t5-pk { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 22px 40px; counter-reset: pk; }
+.t5-pk li { counter-increment: pk; display: grid; grid-template-columns: 52px 1fr; gap: 6px 16px; align-content: start; }
+.t5-pk li::before { content: counter(pk); grid-row: span 2; width: 52px; height: 52px; border-radius: 4px; background: var(--tinta); color: #fff; font: 400 30px/52px var(--titulo); text-align: center; }
+.t5-pk p { font-size: 22px; line-height: 1.35; }
+.t5-pk img { justify-self: start; max-width: 100%; height: auto; border: 2px solid var(--borde); border-radius: 6px; }
+/* Estilos propios del módulo 5 (prefijo t5-) */
+.t5-sesiones td { padding-top: 9px; padding-bottom: 9px; }
+.t5-descargas { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.t5-descargas a { display: flex; flex-direction: column; gap: 4px; background: var(--blanco); border-radius: 6px; padding: 14px 18px; text-decoration: none; color: var(--texto); font-size: 22px; font-weight: 700; border: 2px solid var(--borde); }
+.t5-descargas a:hover { border-color: var(--area); }
+.t5-descargas a span { font-size: 17px; font-weight: 500; color: var(--gris); }
+.t5-check { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 40px; font-size: var(--type-small); }
+.t5-check li { position: relative; padding-left: 50px; }
+.t5-check li::before { content: '✓'; position: absolute; left: 0; top: -2px; width: 36px; height: 36px; border-radius: 10px; border: 3px solid var(--area); color: var(--area); display: grid; place-items: center; font-weight: 800; }
+</style>
+</head>
+<body class="area-5">
+
+<deck-stage width="1920" height="1080">
+
+<section class="portada" data-label="Portada" style="background-image: linear-gradient(90deg, var(--fondo) 0 50%, transparent 50%), url(../assets/img/portadas/tema5.webp)">
+  <a class="marca" href="../">Masclet a masclet · Formación para docentes</a>
+  <p class="num">Módulo 5</p>
+  <h1>Al aula y a Up! Steam</h1>
+  <p class="sub">Sesiones, roles, cómo hacerlo vuestro, publicar en itch.io y grabar el vídeo.</p>
+  <div class="datos"><span class="pill">40 minutos</span><span class="pill clara">Plan de 13 sesiones</span><span class="pill clara">Lista final</span></div>
+  <p class="pista-teclas"><kbd>←</kbd><kbd>→</kbd> para moverte <span>·</span> <kbd>B</kbd> buscar <span>·</span> <kbd>P</kbd> pantalla completa</p>
+  <p class="foto-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Fallas2017_Masclet%C3%A0_06.jpg" target="_blank" rel="noopener">Rafa Esteve</a> · CC BY-SA 4.0 · Wikimedia Commons</p>
+</section>
+
+<section class="s" data-label="Un plan de sesiones" data-seccion="Aula" data-deck-section="Aula">
+  <div class="cab"><p class="etq">En el aula</p><h2>Un plan de 13 sesiones</h2></div>
+  <div class="cuerpo">
+    <table class="tabla peq t5-sesiones">
+      <tr><th>Sesión</th><th>Qué hace la clase</th><th>En esta formación</th></tr>
+      <tr><td>1</td><td>Qué es Up! Steam. Jugar a Masclet a masclet y a otros juegos de ritmo.</td><td>Módulo 0</td></tr>
+      <tr><td>2 y 3</td><td>Elegir tradición y mecánica. Ficha de idea. Prototipo en papel.</td><td>Módulo 1</td></tr>
+      <tr><td>4</td><td>Bocetos en papel del fondo y los personajes. El docente los pasa por la IA.</td><td>Módulo 2</td></tr>
+      <tr><td>5 a 7</td><td>Scratch: un petardo (pasos 1 a 5).</td><td>Módulo 3 · <a href="../fichas/" target="_blank" rel="noopener">fichas 1 a 5</a></td></tr>
+      <tr><td>8 y 9</td><td>Clones, música y cronómetro (pasos 6 a 8).</td><td>Módulo 4 · <a href="../fichas/" target="_blank" rel="noopener">fichas 6 a 8</a></td></tr>
+      <tr><td>10</td><td>Modo pirotécnico: cada alumno graba su mascletà (paso 9).</td><td>Módulo 4 · <a href="../fichas/" target="_blank" rel="noopener">ficha 9</a></td></tr>
+      <tr><td>11</td><td>Remate (paso 10) y pruebas con otra clase.</td><td>Módulo 4 · <a href="../fichas/" target="_blank" rel="noopener">ficha 10</a></td></tr>
+      <tr><td>12 y 13</td><td>Página en itch.io. Guion, grabación y montaje del vídeo.</td><td>Módulo 5</td></tr>
+    </table>
+    <p class="peq">Sesiones de 50 minutos. Con un juego distinto al de la formación, las sesiones de Scratch pueden ser algunas más.</p>
+  </div>
+</section>
+
+<section class="s" data-label="Roles del equipo" data-seccion="Aula">
+  <div class="cab"><p class="etq">En el aula</p><h2>Roles del equipo</h2><p class="entrada">Equipos de 6 a 12. Que todo el mundo tenga una tarea clara, y que los roles roten.</p></div>
+  <div class="cuerpo">
+    <div class="tarjetas" style="--n:3">
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/petardo.webp" alt=""><h3>Programación</h3><p class="peq">2 o 3 personas. Montan los pasos en Scratch.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/arte.webp" alt=""><h3>Arte</h3><p class="peq">Bocetos, disfraces y fondos. Retocan en el editor de Scratch.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/dolcaina.webp" alt=""><h3>Música y sonido</h3><p class="peq">Eligen o graban la música y los efectos.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/grabar.webp" alt=""><h3>Pirotecnia</h3><p class="peq">Graban los mapas con el modo pirotécnico. Todo el equipo puede hacer uno.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/depurar.webp" alt=""><h3>Pruebas</h3><p class="peq">Juegan, buscan fallos y los apuntan. Invitan a otra clase.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/video.webp" alt=""><h3>Comunicación</h3><p class="peq">Página de itch.io y vídeo. La portavoz es una chica, como piden las reglas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Hacedlo vuestro" data-seccion="Aula">
+  <div class="cab"><p class="etq">En el aula</p><h2>Hacedlo vuestro</h2><p class="entrada">Si muchos centros presentan este mismo juego, ninguno destacará en innovación. Usad los pasos como base y cambiad lo que os haga únicos.</p></div>
+  <div class="cuerpo">
+    <table class="tabla peq">
+      <tr><th>Qué cambiar</th><th>Cómo</th><th>Dificultad</th></tr>
+      <tr><td>La música</td><td>Grabad a la banda del pueblo o a un dolçainer y grabad los tiempos con el modo pirotécnico.</td><td>Fácil</td></tr>
+      <tr><td>El lugar</td><td>Un fondo con vuestra plaza, vuestra falla o vuestra calle.</td><td>Fácil</td></tr>
+      <tr><td>Los mapas</td><td>Una mascletà por alumno: el juego tiene tantos niveles como el equipo.</td><td>Fácil</td></tr>
+      <tr><td>Lo que explota</td><td>Instrumentos de una banda, cohetes de una cordà, tambores de una tamborrada…</td><td>Media</td></tr>
+      <tr><td>Lo que se aprende</td><td>Tarjetas con datos de la tradición entre nivel y nivel.</td><td>Media</td></tr>
+      <tr><td>La tradición entera</td><td>Otra idea del módulo 1 con la misma forma de trabajar.</td><td>Alta</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="s" data-label="Convertir el juego en una página web" data-seccion="Publicar" data-deck-section="Publicar">
+  <div class="cab"><p class="etq">Publicar · 1 de 2</p><h2>Convertir el juego en una página web</h2><p class="entrada">Up! Steam recoge los juegos en itch.io, que no abre los .sb3. Primero se convierte el juego con <b>TurboWarp Packager</b>: gratis, en el navegador y en castellano.</p></div>
+  <div class="cuerpo">
+    <ol class="t5-pk">
+      <li><p>Entra en <b>packager.turbowarp.org</b>, elige <b>Archivo</b>, selecciona el .sb3 y pulsa <b>Cargar Proyecto</b>.</p><img src="../assets/img/publicar/packager-1-cargar.webp" width="658" height="275" alt="TurboWarp Packager: Seleccionar proyecto, con Archivo marcado, paso-10.sb3 elegido y el botón Cargar Proyecto"></li>
+      <li><p>En <b>Opciones del Reproductor</b>, escribe el título del juego.</p><img src="../assets/img/publicar/packager-2-titulo.webp" width="465" height="32" alt="Campo Título de la página con «Masclet a masclet»"></li>
+      <li><p>Abajo, en <b>Entorno</b>, elige <b>Zip (ideal para sitios web)</b>.</p><img src="../assets/img/publicar/packager-3-zip.webp" width="626" height="194" alt="Entorno: la opción Zip (ideal para sitios web) marcada"></li>
+      <li><p>Pulsa <b>Empacar</b>. Se descarga un .zip con el juego dentro.</p><img src="../assets/img/publicar/packager-4-empacar.webp" width="184" height="64" alt="El botón Empacar"></li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" data-label="Publicar en itch.io" data-seccion="Publicar">
+  <div class="cab"><p class="etq">Publicar · 2 de 2</p><h2>Subirlo a itch.io</h2><p class="entrada">Con el .zip, a itch.io. Los menús están en inglés.</p></div>
+  <div class="cuerpo">
+    <ol class="pasos">
+      <li>Con la cuenta del docente: <b>Upload new project</b>.</li>
+      <li><b>Kind of project: HTML</b>. Sube el .zip.</li>
+      <li>Marca <b>This file will be played in the browser</b>. Tamaño: <b>960 × 720</b>.</li>
+      <li>Rellena la página (en la siguiente, qué poner) y envíalo a la jam de Up! Steam.</li>
+    </ol>
+    <div class="caja aviso"><span class="tt">Comprueba</span>La forma exacta de entrega la da la organización cada curso: mira upsteam.es y la página de la jam en itch.io.</div>
+  </div>
+</section>
+
+<section class="s" data-label="Una buena página de itch.io" data-seccion="Publicar">
+  <div class="cab"><p class="etq">Publicar</p><h2>Una buena página de itch.io</h2><p class="entrada">Cuenta para el criterio de <b>diseño y presentación</b>.</p></div>
+  <div class="cuerpo">
+    <div class="tarjetas" style="--n:3">
+      <div class="tarjeta"><h3>Portada y capturas</h3><p class="peq">Una imagen de portada y 3 o 4 capturas del juego: el inicio, la partida y el final.</p></div>
+      <div class="tarjeta"><h3>Cómo se juega</h3><p class="peq">Dos frases: qué hay que hacer y con qué (ratón, teclas). Que se active el sonido.</p></div>
+      <div class="tarjeta"><h3>La tradición</h3><p class="peq">Qué es la mascletà (o vuestra tradición) y qué se aprende jugando: el valor educativo.</p></div>
+      <div class="tarjeta"><h3>El equipo</h3><p class="peq">Centro, curso y roles. Sin apellidos ni fotos sin autorización.</p></div>
+      <div class="tarjeta"><h3>Créditos</h3><p class="peq">Qué se hizo con IA y con qué herramienta. Música y sonidos: de dónde salen.</p></div>
+      <div class="tarjeta"><h3>Colores del juego</h3><p class="peq">itch.io deja cambiar los colores y el fondo de la página. Usad los del juego.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="El vídeo de 3 minutos" data-seccion="Vídeo" data-deck-section="Vídeo">
+  <div class="cab"><p class="etq">El vídeo</p><h2>El vídeo de 3 minutos</h2><p class="entrada">Es obligatorio: sin vídeo, el proyecto no se evalúa. Vale el 25 % de la nota.</p></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 640px; gap: 48px">
+      <table class="tabla peq">
+        <tr><th>Tiempo</th><th>Qué se cuenta</th></tr>
+        <tr><td>0:00</td><td>La portavoz presenta el equipo y el juego.</td></tr>
+        <tr><td>0:20</td><td>La tradición: qué es y por qué la elegimos.</td></tr>
+        <tr><td>0:45</td><td>El juego en marcha: una partida con sonido.</td></tr>
+        <tr><td>1:45</td><td>Cómo lo hicimos: Scratch, la música, la IA y los roles.</td></tr>
+        <tr><td>2:30</td><td>Qué aprendimos y qué fue lo más difícil.</td></tr>
+        <tr><td>2:50</td><td>Cierre: el nombre del juego y dónde jugarlo.</td></tr>
+      </table>
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div class="tarjeta"><h3>Grabar la pantalla</h3><p class="peq">Windows: <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>R</kbd> (Xbox Game Bar). Mac: <kbd>Cmd</kbd> + <kbd>Mayús</kbd> + <kbd>5</kbd>.</p></div>
+        <div class="tarjeta"><h3>Montar</h3><p class="peq">Up! Steam tiene una guía de vídeo con CapCut en <b>guias.upsteam.es</b>.</p></div>
+        <div class="caja aviso"><span class="tt">Autorizaciones</span>Si sale el alumnado, hace falta la autorización de imagen firmada por las familias. La recoge el docente.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Lo que mira el jurado en vuestro juego" data-seccion="Vídeo">
+  <div class="cab"><p class="etq">Antes de entregar</p><h2>Los cuatro criterios, en vuestro juego</h2></div>
+  <div class="cuerpo">
+    <table class="tabla">
+      <tr><th>Criterio (25 %)</th><th>Qué podéis enseñar</th></tr>
+      <tr><td>Innovación</td><td>Lo que habéis cambiado: vuestra música, vuestro lugar, vuestras mascletàs.</td></tr>
+      <tr><td>Diseño y presentación</td><td>Un estilo coherente, el juego se entiende sin explicación y la página de itch.io está cuidada.</td></tr>
+      <tr><td>Técnica</td><td>Clones, listas, cronómetro y el modo pirotécnico. En el vídeo, enseñad un trozo del código y explicadlo.</td></tr>
+      <tr><td>Vídeo</td><td>Guion, buen sonido, la partida en marcha y la voz del equipo.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="s" data-label="Lista final" data-seccion="Vídeo">
+  <div class="cab"><p class="etq">Antes de entregar</p><h2>Lista final</h2></div>
+  <div class="cuerpo">
+    <ul class="t5-check">
+      <li>El juego funciona de principio a fin, con sonido.</li>
+      <li>Lo ha probado gente que no es del equipo.</li>
+      <li>Se entiende qué hay que hacer sin explicarlo.</li>
+      <li>La tradición se nota en el juego, no solo en los dibujos.</li>
+      <li>Música e imágenes propias o con licencia, y citadas.</li>
+      <li>Lo hecho con IA está explicado en la página.</li>
+      <li>El .sb3 está guardado (y una copia).</li>
+      <li>El juego está en itch.io y se juega en el navegador.</li>
+      <li>El vídeo dura 3 minutos como máximo.</li>
+      <li>Las autorizaciones de imagen están firmadas.</li>
+      <li>El proyecto se ha enviado antes de la fecha límite.</li>
+      <li>La portavoz ha ensayado su parte.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="s" data-label="Descargas y enlaces" data-seccion="Recursos" data-deck-section="Recursos">
+  <div class="cab"><p class="etq">Recursos</p><h2>Descargas y enlaces</h2></div>
+  <div class="cuerpo">
+    <div class="t5-descargas">
+      <a href="../scratch/paso-01.sb3" download>Paso 1<span>Un petardo</span></a>
+      <a href="../scratch/paso-02.sb3" download>Paso 2<span>La mecha</span></a>
+      <a href="../scratch/paso-03.sb3" download>Paso 3<span>¡PUM!</span></a>
+      <a href="../scratch/paso-04.sb3" download>Paso 4<span>Decibelios</span></a>
+      <a href="../scratch/paso-05.sb3" download>Paso 5<span>¿A tiempo?</span></a>
+      <a href="../scratch/paso-06.sb3" download>Paso 6<span>Clones</span></a>
+      <a href="../scratch/paso-07.sb3" download>Paso 7<span>Con música</span></a>
+      <a href="../scratch/paso-08.sb3" download>Paso 8<span>Al ritmo</span></a>
+      <a href="../scratch/paso-09.sb3" download>Paso 9<span>Modo pirotécnico</span></a>
+      <a href="../scratch/paso-10.sb3" download>Paso 10<span>El juego completo</span></a>
+      <a href="../scratch/plantilla.sb3" download>Plantilla<span>Para que empiece la clase</span></a>
+      <a href="../fichas/" target="_blank" rel="noopener">Fichas<span>Los 10 pasos para el alumnado</span></a>
+    </div>
+    <div class="tarjetas" style="--n:3">
+      <div class="tarjeta"><h3>Up! Steam</h3><p class="peq"><a href="https://upsteam.es/reglas" target="_blank" rel="noopener">upsteam.es/reglas</a><br><a href="https://guias.upsteam.es/" target="_blank" rel="noopener">guias.upsteam.es</a></p></div>
+      <div class="tarjeta"><h3>Scratch</h3><p class="peq"><a href="https://scratch.mit.edu/" target="_blank" rel="noopener">scratch.mit.edu</a><br><a href="https://scratch.mit.edu/educators" target="_blank" rel="noopener">Cuentas para docentes</a></p></div>
+      <div class="tarjeta"><h3>Publicar</h3><p class="peq"><a href="https://packager.turbowarp.org/" target="_blank" rel="noopener">packager.turbowarp.org</a><br><a href="https://itch.io/" target="_blank" rel="noopener">itch.io</a></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s oscura" data-label="Fin de la formación">
+  <div class="cab"><p class="etq">Fin de la formación</p><h2>Ahora le toca a tu clase</h2></div>
+  <div class="cuerpo" style="gap:36px">
+    <p>Empezad por la idea, probad pronto y simplificad. Masclet a masclet es solo un ejemplo: el mejor juego será el vuestro.</p>
+    <div class="botones"><a class="btn sec" href="../">Portada de la formación</a><a class="btn ciruela" href="../tema0/">Volver al principio</a></div>
+  </div>
+</section>
+
+</deck-stage>
+<script src="../assets/deck-stage.js"></script>
+<script src="../assets/cdc.js"></script>
+<script src="../assets/tro.js"></script>
+</body>
+</html>

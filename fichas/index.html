@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fichas para el alumnado · Masclet a masclet</title>
+<meta name="description" content="Los 10 pasos para montar Masclet a masclet en Scratch, explicados para 5.º y 6.º de primaria. Una ficha por paso, para proyectar o imprimir.">
+<link rel="icon" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Lilita+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/tro.css">
+<style>
+  /* Fichas del alumnado: una por paso, en palabras de 5.º y 6.º. En pantalla, una columna; al imprimir, una por página. */
+  :root { --verde: #1E8E5A; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Lexend', system-ui, sans-serif; color: var(--texto); background: var(--fondo); line-height: 1.45; font-size: 18px; }
+  body::before { content: ''; display: block; height: 36px; background: linear-gradient(90deg, var(--blau) 0 96px, transparent 96px), repeating-linear-gradient(180deg, var(--or) 0 4px, var(--ciruela) 4px 8px); }
+  a { color: inherit; }
+  .portada-f { max-width: 1040px; margin: 0 auto; padding: 28px 16px 8px; }
+  .portada-f small { font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ciruela); }
+  .portada-f h1 { font: 400 clamp(38px, 6vw, 64px)/1 var(--titulo); margin: 10px 0 14px; }
+  .portada-f p { max-width: 46em; margin: 0 0 10px; }
+  .acciones { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 6px; }
+  .acciones a, .acciones button { font: 700 16px/1 'Lexend', sans-serif; border: 2px solid var(--tinta); border-radius: 4px; padding: 10px 16px; background: var(--blanco); color: var(--tinta); text-decoration: none; cursor: pointer; }
+  .acciones .prin { background: var(--ciruela); border-color: var(--ciruela); color: #fff; }
+  .indice-f { max-width: 1040px; margin: 10px auto 0; padding: 0 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .indice-f a { font-weight: 700; text-decoration: none; border: 2px solid var(--borde); border-radius: 4px; padding: 6px 12px; }
+  .indice-f a:hover { border-color: var(--tinta); }
+  main { max-width: 1040px; margin: 0 auto; padding: 12px 16px 64px; }
+  .ficha { background: var(--blanco); border: 2px solid var(--borde); border-top: 10px solid var(--ciruela); border-radius: 6px; padding: 22px 26px 24px; margin-top: 28px; }
+  .ficha > header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
+  .ficha .num { font: 400 30px/1 var(--titulo); color: var(--ciruela); }
+  .ficha h2 { font: 400 34px/1.05 var(--titulo); margin: 0; }
+  .ficha .empieza { width: 100%; margin: 6px 0 0; color: var(--gris); font-size: 16px; }
+  .objetivo { margin: 14px 0 0; font-size: 21px; font-weight: 600; }
+  .dos { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 26px; margin-top: 16px; align-items: start; }
+  .ficha h3 { margin: 0 0 8px; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; color: var(--gris); }
+  .haz ol { margin: 0; padding-left: 1.4em; display: grid; gap: 8px; }
+  .haz li::marker { font-weight: 800; color: var(--ciruela); }
+  .queda { display: flex; flex-direction: column; gap: 10px; }
+  .queda .sb { padding: 14px 16px; }
+  /* la etiqueta de lo nuevo, como una línea dentro de la caja: así no se corta en las cajas estrechas */
+  .queda .sb.con-nuevos::before, .queda .sb.todo-nuevo::before { position: static; display: block; margin-bottom: 6px; }
+  .queda .sb-tit { margin: 4px 0 -4px; font-size: 14px; }
+  .disfraces { display: flex; gap: 6px; flex-wrap: wrap; }
+  .disfraces img { height: 110px; width: auto; background: var(--area-claro); border-radius: 4px; }
+  .tres { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+  .caja-f { border: 2px solid var(--borde); border-left-width: 8px; border-radius: 6px; padding: 10px 14px; font-size: 16px; }
+  .caja-f b { display: block; font-size: 15px; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 2px; }
+  .caja-f.prueba { border-left-color: #4CBF56; }
+  .caja-f.palabra { border-left-color: var(--blau); }
+  .caja-f.reto { border-left-color: var(--or); }
+  .nota-doc { margin: 14px 0 0; font-size: 14px; color: var(--gris); }
+  @media (max-width: 760px) { .dos, .tres { grid-template-columns: 1fr; } }
+  @page { size: A4; margin: 12mm; }
+  @media print {
+    body { font-size: 12.5pt; background: #fff; }
+    body::before, .portada-f, .indice-f { display: none; }
+    main { max-width: none; padding: 0; }
+    .ficha { margin: 0; border: 0; border-top: 6mm solid var(--ciruela); padding: 6mm 0 0; break-after: page; }
+    .ficha:last-child { break-after: auto; }
+    .tres { grid-template-columns: 1fr 1fr 1fr; }
+    .dos { grid-template-columns: 1.05fr 1fr; }
+    .sb.con-nuevos::before, .sb.todo-nuevo::before { font-size: 9pt; }
+    /* que cada ficha quepa en un A4: los bloques encogen, más si hay dos programas */
+    .queda .sb svg { width: auto; max-height: 125mm; }
+    .queda:has(.sb + .sb) .sb svg, .queda:has(.sb-tit) .sb svg { max-height: 62mm; }
+  }
+</style>
+</head>
+<body>
+<header class="portada-f">
+  <small>Masclet a masclet · Para el alumnado</small>
+  <h1>Fichas para montar el juego en Scratch</h1>
+  <p>Una ficha por paso, con palabras de 5.º y 6.º. Cada una dice qué vas a conseguir, qué bloques poner y cómo comprobar que funciona. Se pueden proyectar en clase o imprimir: sale una ficha por página.</p>
+  <p>En los bloques, <b style="color:var(--verde)">lo nuevo de cada paso sale con borde verde</b>. El color de cada etiqueta dice en qué categoría de Scratch está el bloque: <span class="cat eventos">Eventos</span> <span class="cat movimiento">Movimiento</span> <span class="cat apariencia">Apariencia</span> <span class="cat sonido">Sonido</span> <span class="cat control">Control</span> <span class="cat sensores">Sensores</span> <span class="cat operadores">Operadores</span> <span class="cat variables">Variables</span>.</p>
+  <div class="acciones">
+    <a class="prin" href="../scratch/plantilla.sb3" download>Descargar la plantilla para empezar</a>
+    <a href="../scratch/tiempos.txt" download>tiempos.txt (paso 8)</a>
+    <button type="button" onclick="window.print()">Imprimir las fichas</button>
+    <a href="../">Volver a la formación</a>
+  </div>
+</header>
+<nav class="indice-f" aria-label="Fichas">
+  <a href="#paso-0">Antes de empezar</a><a href="#paso-1">1</a><a href="#paso-2">2</a><a href="#paso-3">3</a><a href="#paso-4">4</a><a href="#paso-5">5</a><a href="#paso-6">6</a><a href="#paso-7">7</a><a href="#paso-8">8</a><a href="#paso-9">9</a><a href="#paso-10">10</a>
+</nav>
+
+<main>
+<article class="ficha" id="paso-0">
+  <header><span class="num">Antes de empezar</span><h2>Abre la plantilla</h2></header>
+  <p class="objetivo">Vas a tener el proyecto preparado: la plaza, el petardo con sus dibujos y sus sonidos. Todavía sin programas.</p>
+  <div class="dos">
+    <section class="haz"><h3>Haz esto</h3><ol>
+      <li>Entra en <b>scratch.mit.edu</b> y pulsa <b>Crear</b>.</li>
+      <li>Menú <b>Archivo › Cargar desde tu ordenador</b> (a veces sale en inglés: <i>Load from your computer</i>). Elige <b>plantilla.sb3</b>.</li>
+      <li>Abajo a la derecha está el objeto <b>Petardo</b>. Pulsa la pestaña <b>Disfraces</b>: tiene 11 dibujos.</li>
+      <li>Pulsa la pestaña <b>Sonidos</b>: <b>pum</b>, <b>fsss</b> y <b>pasodoble</b>.</li>
+      <li>Guarda: <b>Archivo › Guardar en tu ordenador</b>. Guarda siempre al acabar cada paso.</li>
+      <li>Un truco: en Scratch, los números con decimales se escriben con <b>punto</b>, no con coma: <b>0.5</b>.</li>
+    </ol></section>
+    <section class="queda"><h3>Los disfraces del petardo</h3>
+      <div class="disfraces"><img src="../assets/img/sprites/mecha1.png" alt="Disfraz 1: mecha entera"><img src="../assets/img/sprites/mecha5.png" alt="Disfraz 5: mecha a medias"><img src="../assets/img/sprites/mecha9.png" alt="Disfraz 9: sin mecha"><img src="../assets/img/sprites/pum.png" alt="Disfraz 10: PUM"><img src="../assets/img/sprites/fallado.png" alt="Disfraz 11: fallado"></div>
+      <p class="nota-doc">Del 1 al 9, la mecha se quema. El 10 es la explosión y el 11, el petardo fallado.</p>
+    </section>
+  </div>
+  <div class="tres">
+    <div class="caja-f prueba"><b>Comprueba</b>El escenario es la plaza y todavía no hay ningún programa.</div>
+    <div class="caja-f palabra"><b>Palabra nueva: objeto</b>Cada personaje o cosa del juego. Tiene disfraces, sonidos y programas.</div>
+    <div class="caja-f reto"><b>¿Te atreves?</b>Pasa los disfraces del 1 al 9 con el ratón. ¿Ves cómo se quema la mecha?</div>
+  </div>
+</article>
+
+<article class="ficha" id="paso-1">
+  <header><span class="num">Paso 1</span><h2>Un petardo en la plaza</h2><p class="empieza">Empieza con: la plantilla.</p></header>
+  <p class="objetivo">Al pulsar la bandera verde, el petardo aparece en el centro de la plaza.</p>
+  <div class="dos">
+    <section class="haz"><h3>Haz esto</h3><ol>
+      <li>Elige el objeto <b>Petardo</b>, abajo a la derecha.</li>
+      <li>En <span class="cat eventos">Eventos</span>, arrastra <b>al hacer clic en ⚑</b> al área de programas.</li>
+      <li>En <span class="cat movimiento">Movimiento</span>, encaja debajo <b>ir a x: y:</b>. Escribe <b>0</b> y <b>0</b>.</li>
+      <li>En <span class="cat apariencia">Apariencia</span>, encaja <b>cambiar disfraz a</b> y elige <b>mecha1</b>.</li>
+      <li>En <span class="cat apariencia">Apariencia</span>, encaja <b>mostrar</b>.</li>
+    </ol></section>
+    <section class="queda"><h3>Así tiene que quedar</h3><div class="sb" data-paso="1" data-guion="bandera" data-escala="1.1"></div></section>
+  </div>
+  <div class="tres">
+    <div class="caja-f prueba"><b>Pruébalo</b>Pulsa la bandera verde. El petardo aparece en el centro, con la mecha entera.</div>
+    <div class="caja-f palabra"><b>Palabra nueva: secuencia</b>Los bloques se hacen en orden, de arriba abajo, uno detrás de otro.</div>
+    <div class="caja-f reto"><b>¿Te atreves?</b>Cambia los números de «ir a». ¿Dónde aparece con x: 100? ¿Y con y: −100?</div>
+  </div>
+</article>
+
+<article class="ficha" id="paso-2">
+  <header><span class="num">Paso 2</span><h2>La mecha se quema</h2><p class="empieza">Empieza con: tu proyecto del paso 1.</p></header>
+  <p class="objetivo">La mecha se quema poco a poco y tarda justo 1 segundo.</p>
+  <div class="dos">
+    <section class="haz"><h3>Haz esto</h3><ol>
+      <li>En <span class="cat control">Control</span>, encaja <b>repetir</b> debajo de «mostrar». Cambia el 10 por <b>8</b>.</li>
+      <li>Dentro del repetir, encaja <b>esperar 1 segundos</b> <span class="cat control">Control</span>. Cambia el 1 por <b>0.125</b> (con punto, no con coma).</li>
+      <li>Debajo, también dentro, encaja <b>siguiente disfraz</b> <span class="cat apariencia">Apariencia</span>.</li>
+    </ol></section>
+    <section class="queda"><h3>Así tiene que quedar</h3><div class="sb" data-paso="2" data-guion="bandera" data-escala="1.1"></div></section>
+  </div>
+  <div class="tres">
+    <div class="caja-f prueba"><b>Pruébalo</b>La mecha se quema y se acaba en 1 segundo: 8 × 0,125 = 1.</div>
+    <div class="caja-f palabra"><b>Palabra nueva: bucle</b>Repite los bloques de dentro. Así no hace falta copiar 8 veces lo mismo.</div>
+    <div class="caja-f reto"><b>¿Te atreves?</b>Pon esperar 0.5. ¿Cuánto dura ahora la mecha?</div>
+  </div>
+</article>
+
+<article class="ficha" id="paso-3">
+  <header><span class="num">Paso 3</span><h2>¡PUM! al hacer clic</h2><p class="empieza">Empieza con: tu proyecto del paso 2.</p></header>
+  <p class="objetivo">Cuando haces clic en el petardo, explota: ¡PUM!</p>
+  <div class="dos">
+    <section class="haz"><h3>Haz esto</h3><ol>
+      <li>En <span class="cat eventos">Eventos</span>, arrastra <b>al hacer clic en este objeto</b> a un sitio libre. Es un programa nuevo.</li>
+      <li>Encaja debajo: <b>cambiar disfraz a pum</b> <span class="cat apariencia">Apariencia</span>, <b>iniciar sonido pum</b> <span class="cat sonido">Sonido</span>, <b>esperar 0.3 segundos</b> <span class="cat control">Control</span> y <b>esconder</b> <span class="cat apariencia">Apariencia</span>.</li>
+      <li>Pruébalo y haz clic pronto. ¿Qué pasa? Sale PUM… y vuelve la mecha.</li>
+      <li>Arréglalo: en <span class="cat control">Control</span>, coge <b>detener todos</b> y encájalo justo debajo de «al hacer clic en este objeto». En el menú, elige <b>otros programas en el objeto</b>.</li>
+    </ol></section>
+    <section class="queda"><h3>Así tiene que quedar</h3><div class="sb" data-paso="3" data-guion="clic" data-escala="1.1"></div><p class="nota-doc">El programa de la bandera no cambia.</p></section>
+  </div>
+  <div class="tres">
+    <div class="caja-f prueba"><b>Pruébalo</b>Haz clic: PUM, y la mecha ya no vuelve.</div>
+    <div class="caja-f palabra"><b>Palabra nueva: paralelismo</b>Dos programas funcionan a la vez. «Detener otros programas» para el de la mecha.</div>
+    <div class="caja-f reto"><b>¿Te atreves?</b>Cambia esperar 0.3 por 1. ¿Se ve mejor la explosión?</div>
+  </div>
+</article>
+
+<article class="ficha" id="paso-4">
+  <header><span class="num">Paso 4</span><h2>Los decibelios</h2><p class="empieza">Empieza con: tu proyecto del paso 3.</p></header>
+  <p class="objetivo">Un marcador que suma 100 decibelios con cada PUM.</p>
+  <div class="dos">
+    <section class="haz"><h3>Haz esto</h3><ol>
+      <li>En <span class="cat variables">Variables</span>, pulsa <b>Crear una variable</b>. Nombre: <b>decibelios</b>. Marca «Para todos los objetos» y pulsa Aceptar.</li>
+      <li>En el programa de la bandera, encaja <b>dar a decibelios el valor 0</b> justo debajo de «al hacer clic en ⚑».</li>
+      <li>En el programa del clic, encaja <b>sumar a decibelios 1</b> después de «iniciar sonido pum». Cambia el 1 por <b>100</b>.</li>
+    </ol></section>
+    <section class="queda"><h3>Así tiene que quedar</h3><div class="sb" data-paso="4" data-guion="bandera" data-escala="0.95"></div><div class="sb" data-paso="4" data-guion="clic" data-escala="0.95"></div></section>
+  </div>
+  <div class="tres">
+    <div class="caja-f prueba"><b>Pruébalo</b>Arriba a la izquierda sale el marcador. Cada PUM suma 100. Al empezar, vuelve a 0.</div>
+    <div class="caja-f palabra"><b>Palabra nueva: variable</b>Una caja con nombre que guarda un número. El programa lo cambia.</div>
+    <div class="caja-f reto"><b>¿Te atreves?</b>Quita «dar el valor 0» y juega dos veces. ¿Qué le pasa al marcador?</div>
+  </div>
+</article>
+
+<article class="ficha" id="paso-5">
+  <header><span class="num">Paso 5</span><h2>¿A tiempo o fallado?</h2><p class="empieza">Empieza con: tu proyecto del paso 4.</p></header>
+  <p class="objetivo">Solo explota si haces clic cuando la mecha está casi acabada. Si nadie hace clic, falla: fsss.</p>
+  <div class="dos">
+    <section class="haz"><h3>Haz esto</h3><ol>
+      <li>En <span class="cat control">Control</span>, arrastra <b>si entonces</b> a un sitio libre.</li>
+      <li>En el programa del clic, arrastra el bloque <b>detener…</b> (se lleva los de debajo) y suéltalo dentro del «si». Después, encaja el «si» debajo de «al hacer clic en este objeto».</li>
+      <li>En <span class="cat operadores">Operadores</span>, pon <b>( ) &gt; ( )</b> en el hueco del «si». En el primer hueco, <b>número de disfraz</b> <span class="cat apariencia">Apariencia</span>. En el segundo, escribe <b>6</b>.</li>
+      <li>En el programa de la bandera, al final, encaja: <b>esperar 0.2</b>, <b>cambiar disfraz a fallado</b>, <b>iniciar sonido fsss</b>, <b>esperar 0.5</b> y <b>esconder</b>.</li>
+    </ol></section>
+    <section class="queda"><h3>Así tiene que quedar</h3><div class="sb" data-paso="5" data-guion="clic" data-escala="0.9"></div><div class="sb" data-paso="5" data-guion="bandera" data-escala="0.9"></div></section>
+  </div>
+  <div class="tres">
+    <div class="caja-f prueba"><b>Pruébalo</b>Clic muy pronto: no pasa nada. Clic al final: PUM. Sin clic: fsss.</div>
+    <div class="caja-f palabra"><b>Palabra nueva: condición</b>«Si pasa esto, entonces haz aquello». Aquí: si el disfraz es mayor que 6.</div>
+    <div class="caja-f reto"><b>¿Te atreves?</b>Pon 4 en vez de 6. ¿Es más fácil o más difícil?</div>
+  </div>
+</article>
+
+<article class="ficha" id="paso-6">
+  <header><span class="num">Paso 6</span><h2>Muchos petardos</h2><p class="empieza">Empieza con: tu proyecto del paso 5.</p></header>
+  <p class="objetivo">Salen 20 petardos, uno cada segundo, cada uno en un sitio al azar.</p>
+  <div class="dos">
+    <section class="haz"><h3>Haz esto</h3><ol>
+      <li>En el programa de la bandera, quita el bloque de arriba y pon <b>al comenzar como clon</b> <span class="cat control">Control</span>.</li>
+      <li>En ese programa, quita también «dar a decibelios el valor 0» e «ir a x: 0 y: 0».</li>
+      <li>Después de «cambiar disfraz a mecha1», encaja <b>ir a capa delantera</b> <span class="cat apariencia">Apariencia</span> y elige <b>trasera</b>.</li>
+      <li>Al final de ese programa y del programa del clic, cambia «esconder» por <b>eliminar este clon</b> <span class="cat control">Control</span>.</li>
+      <li>Haz un programa nuevo, la <b>fábrica</b>: <b>al hacer clic en ⚑</b>, <b>esconder</b>, <b>dar a decibelios el valor 0</b> y un <b>repetir 20</b>.</li>
+      <li>Dentro del repetir, pon <b>ir a x: y:</b>. En cada hueco, un <b>número aleatorio entre</b> <span class="cat operadores">Operadores</span>: de −180 a 180 para x y de −80 a 80 para y.</li>
+      <li>Debajo, también dentro: <b>crear clon de mí mismo</b> <span class="cat control">Control</span> y <b>esperar 1 segundos</b>.</li>
+    </ol></section>
+    <section class="queda"><h3>Así tiene que quedar</h3><p class="sb-tit">La fábrica</p><div class="sb" data-paso="6" data-guion="bandera" data-escala="0.8"></div><p class="sb-tit">Cada clon</p><div class="sb" data-paso="6" data-guion="clon" data-escala="0.8"></div></section>
+  </div>
+  <div class="tres">
+    <div class="caja-f prueba"><b>Pruébalo</b>Sale un petardo cada segundo, en un sitio distinto. Puedes explotarlos todos.</div>
+    <div class="caja-f palabra"><b>Palabra nueva: clon</b>Una copia del objeto. Cada clon hace su programa por su cuenta.</div>
+    <div class="caja-f reto"><b>¿Te atreves?</b>Haz que salgan cada 0.5 segundos. ¿Puedes con todos?</div>
+  </div>
+</article>
+
+<article class="ficha" id="paso-7">
+  <header><span class="num">Paso 7</span><h2>Con música</h2><p class="empieza">Empieza con: tu proyecto del paso 6.</p></header>
+  <p class="objetivo">Suena el pasodoble y sale un petardo en cada golpe de la música.</p>
+  <div class="dos">
+    <section class="haz"><h3>Haz esto</h3><ol>
+      <li>En la fábrica, después de «dar a decibelios el valor 0», encaja <b>iniciar sonido pasodoble</b> <span class="cat sonido">Sonido</span> y <b>esperar 3 segundos</b> <span class="cat control">Control</span>.</li>
+      <li>En el repetir, cambia el 20 por <b>100</b>.</li>
+      <li>Cambia «esperar 1» por <b>esperar 0.5</b>: un golpe de la música dura medio segundo.</li>
+    </ol></section>
+    <section class="queda"><h3>Así tiene que quedar</h3><div class="sb" data-paso="7" data-guion="bandera" data-escala="0.8"></div></section>
+  </div>
+  <div class="tres">
+    <div class="caja-f prueba"><b>Pruébalo</b>¿Van los petardos con la música? Al principio, sí… pero se van retrasando.</div>
+    <div class="caja-f palabra"><b>Palabra nueva: pulso</b>Los golpes de la música. Aquí hay 120 en un minuto: uno cada medio segundo.</div>
+    <div class="caja-f reto"><b>¿Te atreves?</b>Da palmas con la música mientras juegas. ¿Coinciden con los petardos?</div>
+  </div>
+</article>
+
+<article class="ficha" id="paso-8">
+  <header><span class="num">Paso 8</span><h2>Al ritmo</h2><p class="empieza">Empieza con: tu proyecto del paso 7.</p></header>
+  <p class="objetivo">Cada petardo explota justo con una nota de la dolçaina, y ya no se retrasa.</p>
+  <div class="dos">
+    <section class="haz"><h3>Haz esto</h3><ol>
+      <li>La lista <b>tiempos</b> ya está en tu proyecto <span class="cat variables">Variables</span>: el segundo de cada nota.</li>
+      <li>Crea la variable <b>n</b>. Es el número del petardo que toca.</li>
+      <li>En la fábrica: <b>dar a n el valor 1</b>. Quita «esperar 3» y pon <b>reiniciar cronómetro</b> <span class="cat sensores">Sensores</span> justo debajo de «iniciar sonido pasodoble».</li>
+      <li>En el repetir, cambia el 100 por <b>longitud de tiempos</b>.</li>
+      <li>Quita «esperar 0.5». Arriba del todo, dentro del repetir, pon <b>esperar hasta que</b> <span class="cat control">Control</span>.</li>
+      <li>En su hueco, pon un <b>&gt;</b> <span class="cat operadores">Operadores</span>. A la izquierda, <b>cronómetro</b> <span class="cat sensores">Sensores</span>. A la derecha, un <b>−</b> <span class="cat operadores">Operadores</span>.</li>
+      <li>En el <b>−</b>: primero <b>elemento n de tiempos</b>, después un <b>1</b>. Míralo en el dibujo.</li>
+      <li>Al final del repetir: <b>sumar a n 1</b>.</li>
+    </ol></section>
+    <section class="queda"><h3>Así tiene que quedar</h3><div class="sb" data-paso="8" data-guion="bandera" data-escala="0.75"></div><p class="nota-doc">¿No tienes la lista? Créala en Variables. Después, en el escenario, clic derecho sobre ella › <b>importar</b> › <b>tiempos.txt</b>.</p></section>
+  </div>
+  <div class="tres">
+    <div class="caja-f prueba"><b>Pruébalo</b>Cada petardo explota con una nota. Haz clic al ritmo de lo que oyes.</div>
+    <div class="caja-f palabra"><b>Palabra nueva: lista</b>Muchos números en orden, como una lista de la compra. «Elemento n» es el que toca ahora.</div>
+    <div class="caja-f reto"><b>¿Te atreves?</b>Mira la lista tiempos. ¿En qué segundo explota el petardo 1? ¿Y el 2?</div>
+  </div>
+</article>
+
+<article class="ficha" id="paso-9">
+  <header><span class="num">Paso 9</span><h2>Modo pirotécnico</h2><p class="empieza">Empieza con: tu proyecto del paso 8.</p></header>
+  <p class="objetivo">Grabas tu propia mascletà: tú decides dónde y cuándo explota cada petardo.</p>
+  <div class="dos">
+    <section class="haz"><h3>Haz esto</h3><ol>
+      <li>En <span class="cat variables">Variables</span>, crea dos listas: <b>x</b> e <b>y</b>.</li>
+      <li>Programa nuevo para grabar: <b>al presionar tecla g</b> <span class="cat eventos">Eventos</span>. Debajo, tres <b>eliminar todos de</b>: tiempos, x e y.</li>
+      <li>Sigue debajo: <b>detener todos los sonidos</b>, <b>iniciar sonido pasodoble</b> y <b>reiniciar cronómetro</b>.</li>
+      <li>Programa nuevo para cada petardo: <b>al presionar tecla espacio</b>. Debajo, tres <b>añadir a</b>.</li>
+      <li>Añade el <b>cronómetro</b> a tiempos, la <b>posición x del ratón</b> <span class="cat sensores">Sensores</span> a x y la <b>posición y del ratón</b> a y.</li>
+      <li>En la fábrica, cambia los dos «número aleatorio» de «ir a» por <b>elemento n de x</b> y <b>elemento n de y</b>.</li>
+      <li>Graba: pulsa <b>G</b>, mueve el ratón por la plaza y pulsa <b>espacio</b> en cada nota.</li>
+    </ol></section>
+    <section class="queda"><h3>Así tiene que quedar</h3><div class="sb" data-paso="9" data-guion="tecla g" data-escala="0.8"></div><div class="sb" data-paso="9" data-guion="tecla espacio" data-escala="0.8"></div></section>
+  </div>
+  <div class="tres">
+    <div class="caja-f prueba"><b>Pruébalo</b>Cuando acabe la canción, pulsa la bandera: los petardos salen donde tú los pusiste.</div>
+    <div class="caja-f palabra"><b>Palabra nueva: datos</b>El juego guarda lo que haces (el segundo y el sitio) y luego lo usa.</div>
+    <div class="caja-f reto"><b>¿Te atreves?</b>Graba una mascletà para un compañero. ¿Puede superarla?</div>
+  </div>
+</article>
+
+<article class="ficha" id="paso-10">
+  <header><span class="num">Paso 10</span><h2>El remate</h2><p class="empieza">Empieza con: tu proyecto del paso 9.</p></header>
+  <p class="objetivo">El juego tiene pantalla de inicio y de final, y cuenta la traca: los aciertos seguidos.</p>
+  <div class="dos">
+    <section class="haz"><h3>Haz esto</h3><ol>
+      <li>En la fábrica, justo debajo de la bandera: <b>cambiar fondo a plaza</b> <span class="cat apariencia">Apariencia</span>.</li>
+      <li>Al final de la fábrica, fuera del repetir: <b>esperar hasta que cronómetro &gt; 62</b> y <b>cambiar fondo a final</b>.</li>
+      <li>Crea la variable <b>traca</b>. En la fábrica: <b>dar a traca el valor 0</b>.</li>
+      <li>En el clic, después de «sumar a decibelios 100»: <b>sumar a traca 1</b>. En el clon, después de «iniciar sonido fsss»: <b>dar a traca el valor 0</b>.</li>
+      <li>Antes de guardar, pulsa el escenario y elige el fondo <b>inicio</b>: así se ve la portada al abrir el juego.</li>
+    </ol></section>
+    <section class="queda"><h3>Así tiene que quedar</h3><div class="sb" data-paso="10" data-guion="bandera" data-escala="0.7"></div><div class="sb" data-paso="10" data-guion="clic" data-escala="0.7"></div></section>
+  </div>
+  <div class="tres">
+    <div class="caja-f prueba"><b>Pruébalo</b>Juega la mascletà entera. ¿Cuál es tu traca más larga?</div>
+    <div class="caja-f palabra"><b>Palabra nueva: depurar</b>Probar, encontrar lo que falla y arreglarlo. Lo has hecho en cada paso.</div>
+    <div class="caja-f reto"><b>¿Te atreves?</b>Cambiad la música, el fondo o lo que explota. Hacedlo vuestro.</div>
+  </div>
+</article>
+</main>
+
+<script src="../assets/vendor/scratchblocks.min.js"></script>
+<script src="../assets/vendor/scratchblocks-translations.js"></script>
+<script src="../scratch/pasos.js"></script>
+<script src="../assets/tro.js"></script>
+</body>
+</html>

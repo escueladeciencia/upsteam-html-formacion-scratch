@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<title>Masclet a masclet · generador de recursos per a Scratch</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Lilita+One&display=swap">
+<script src="lame.min.js"></script>
+</head>
+<body>
+<p style="font-family: 'Lilita One'">Masclet a masclet</p>
+<p style="font-family: 'Baloo 2'; font-weight: 800">Tro a tro</p>
+<script>
+/* Genera els recursos del projecte de Scratch amb el mateix codi del prototip:
+   disfresses (PNG), fons (JPG), so (WAV) i el mapa de petards (temps, x, y).
+   S'executa des de genera-recursos.js (Playwright). */
+'use strict';
+const W = 960, H = 720, TAU = Math.PI * 2;
+const C = { tinta: '#1B1530', paper: '#FFF4DE', masclet: '#E8261C', foc: '#FF6A1A', or: '#FFC83D', cel: '#2F7CF6', menta: '#3FD08F', rosa: '#FF5FA2', lila: '#8E5CF7' };
+const FD = '"Lilita One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif';
+const FB = '"Baloo 2", "Trebuchet MS", "Segoe UI", sans-serif';
+const rnd = (a = 1, b) => (b === undefined ? Math.random() * a : a + Math.random() * (b - a));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+let g = null;
+
+/* ---------- dibuix (igual que el prototip) ---------- */
+function txt(s, x, y, mida, col, o = {}) {
+  g.save();
+  if (o.alpha !== undefined) g.globalAlpha *= o.alpha;
+  g.font = (o.font === FB ? '800 ' : '') + mida + 'px ' + (o.font || FD);
+  g.textAlign = o.align || 'center'; g.textBaseline = 'middle'; g.lineJoin = 'round';
+  const lw = o.lw === undefined ? mida * 0.2 : o.lw;
+  if (lw > 0) { g.lineWidth = lw; g.strokeStyle = o.stroke || C.tinta; g.strokeText(s, x, y); }
+  g.fillStyle = col; g.fillText(s, x, y);
+  g.restore();
+}
+function cara(cx, cy, mood, mira) {
+  const big = mood === 2 ? 1.18 : 1;
+  for (const sx of [-10, 10]) {
+    const ex = cx + sx, ey = cy - 4;
+    g.beginPath(); g.ellipse(ex, ey, 8 * big, 9 * big, 0, 0, TAU);
+    g.fillStyle = '#fff'; g.fill(); g.strokeStyle = C.tinta; g.lineWidth = 2.5; g.stroke();
+    let dx = 0, dy = 2;
+    if (mira && mood !== 3) { const a = Math.atan2(mira[1] - ey, mira[0] - ex); dx = Math.cos(a) * 3.2; dy = Math.sin(a) * 3.2; }
+    if (mood === 3) dy = 3;
+    g.beginPath(); g.arc(ex + dx, ey + dy, 3.8, 0, TAU); g.fillStyle = C.tinta; g.fill();
+    g.beginPath(); g.arc(ex + dx - 1.2, ey + dy - 1.3, 1.2, 0, TAU); g.fillStyle = '#fff'; g.fill();
+  }
+  g.strokeStyle = C.tinta; g.lineWidth = 3; g.lineCap = 'round';
+  if (mood >= 1) {
+    const up = mood === 2 ? 4 : 0, sad = mood === 3;
+    g.beginPath();
+    g.moveTo(cx - 16, cy - (sad ? 14 : 15 + up)); g.lineTo(cx - 5, cy - 19 - (sad ? 0 : up));
+    g.moveTo(cx + 16, cy - (sad ? 14 : 15 + up)); g.lineTo(cx + 5, cy - 19 - (sad ? 0 : up));
+    g.stroke();
+  }
+  g.beginPath();
+  if (mood === 0) { g.arc(cx, cy + 8, 6, 0.15 * Math.PI, 0.85 * Math.PI); g.stroke(); }
+  else if (mood === 1) {
+    g.moveTo(cx - 7, cy + 13); g.quadraticCurveTo(cx - 3.5, cy + 9, cx, cy + 13);
+    g.quadraticCurveTo(cx + 3.5, cy + 17, cx + 7, cy + 13); g.stroke();
+  } else if (mood === 2) { g.ellipse(cx, cy + 13, 5, 6.5, 0, 0, TAU); g.fillStyle = C.tinta; g.fill(); }
+  else { g.arc(cx, cy + 19, 6, 1.15 * Math.PI, 1.85 * Math.PI); g.stroke(); }
+}
+function drawPetard(x, y, s, r, mood, gris) {
+  g.save(); g.translate(x, y); g.scale(s, s);
+  g.fillStyle = 'rgba(27,21,48,.22)'; g.beginPath(); g.ellipse(0, 50, 28, 7, 0, 0, TAU); g.fill();
+  let punta = null;
+  if (r > 0.001) {
+    const llarg = 80 * r, y0 = -44, y1 = y0 - llarg;
+    g.lineCap = 'round';
+    g.beginPath(); g.moveTo(0, y0); g.quadraticCurveTo(7, (y0 + y1) / 2, 0, y1);
+    g.strokeStyle = C.tinta; g.lineWidth = 8; g.stroke();
+    g.strokeStyle = '#D9A35B'; g.lineWidth = 4.5; g.stroke();
+    g.setLineDash([2.5, 4]); g.strokeStyle = '#9A6428'; g.lineWidth = 2; g.stroke(); g.setLineDash([]);
+    punta = [0, y1];
+  }
+  g.beginPath(); g.roundRect(-26, -44, 52, 88, 13);
+  if (gris) g.fillStyle = '#8C6A72';
+  else { const gr = g.createLinearGradient(-26, 0, 26, 0); gr.addColorStop(0, '#FF6B57'); gr.addColorStop(0.45, C.masclet); gr.addColorStop(1, '#A80F17'); g.fillStyle = gr; }
+  g.fill();
+  g.save(); g.clip();
+  g.fillStyle = C.paper; g.fillRect(-26, 18, 52, 13);
+  g.strokeStyle = C.tinta; g.lineWidth = 3; g.beginPath(); g.moveTo(-26, 18); g.lineTo(26, 18); g.moveTo(-26, 31); g.lineTo(26, 31); g.stroke();
+  g.fillStyle = 'rgba(255,255,255,.32)'; g.beginPath(); g.roundRect(-19, -34, 7, 46, 4); g.fill();
+  g.restore();
+  g.beginPath(); g.roundRect(-26, -44, 52, 88, 13); g.strokeStyle = C.tinta; g.lineWidth = 4.5; g.stroke();
+  g.beginPath(); g.ellipse(0, -42, 20, 5.5, 0, 0, TAU); g.fillStyle = gris ? '#5E4650' : '#8E0C14'; g.fill(); g.lineWidth = 3; g.stroke();
+  cara(0, -6, mood, punta);
+  g.restore();
+  return punta ? [x + punta[0] * s, y + punta[1] * s] : null;
+}
+function spark(x, y, k) {
+  const r = 13 * k;
+  const gr = g.createRadialGradient(x, y, 0, x, y, r);
+  gr.addColorStop(0, 'rgba(255,255,235,1)'); gr.addColorStop(0.35, 'rgba(255,200,61,.95)');
+  gr.addColorStop(0.7, 'rgba(255,106,26,.5)'); gr.addColorStop(1, 'rgba(255,106,26,0)');
+  g.fillStyle = gr; g.beginPath(); g.arc(x, y, r, 0, TAU); g.fill();
+  g.fillStyle = C.or;
+  for (let i = 0; i < 6; i++) { const a = i / 6 * TAU + 0.3, d = r * 1.15; g.beginPath(); g.arc(x + Math.cos(a) * d, y + Math.sin(a) * d * 0.9, 1.8, 0, TAU); g.fill(); }
+}
+function estrella(x, y, R, a, rot) {
+  g.save(); g.translate(x, y); g.rotate(rot); g.globalAlpha *= a;
+  const pts = (R1, R2, n) => {
+    g.beginPath();
+    for (let i = 0; i < n * 2; i++) { const rr = i % 2 ? R2 : R1, an = (i / (n * 2)) * TAU; if (i) g.lineTo(Math.cos(an) * rr, Math.sin(an) * rr); else g.moveTo(Math.cos(an) * rr, Math.sin(an) * rr); }
+    g.closePath();
+  };
+  pts(R, R * 0.56, 12); g.fillStyle = C.or; g.fill(); g.lineWidth = 4; g.strokeStyle = C.tinta; g.lineJoin = 'round'; g.stroke();
+  pts(R * 0.7, R * 0.4, 12); g.fillStyle = C.foc; g.fill();
+  g.beginPath(); g.arc(0, 0, R * 0.3, 0, TAU); g.fillStyle = '#FFF7D6'; g.fill();
+  g.restore();
+}
+function llenç(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; g = c.getContext('2d'); return c; }
+
+/* ---------- disfresses del Petard (a escala de bitmapResolution 2) ---------- */
+const PW = 170, PH = 320, PCX = 85, PCY = 205, ESCALA = 1.15;
+function aura() {
+  // Halo suau: fa que el clic funcione en tota la zona del petard (Scratch només detecta píxels no transparents)
+  const h = g.createRadialGradient(PCX, PCY, 10, PCX, PCY, 72);
+  h.addColorStop(0, 'rgba(255,236,190,.5)'); h.addColorStop(1, 'rgba(255,236,190,.06)');
+  g.fillStyle = h; g.beginPath(); g.arc(PCX, PCY, 72, 0, TAU); g.fill();
+}
+// mecha1 … mecha9: la mecha entera (1) se quema en 8 pasos hasta acabarse (9)
+function costumMetxa(k) {
+  const c = llenç(PW, PH);
+  aura();
+  const r = (9 - k) / 8, mood = k <= 5 ? 0 : k <= 7 ? 1 : 2;
+  const p = drawPetard(PCX, PCY, ESCALA, r, mood, false);
+  if (p) spark(p[0], p[1], 0.9 + k * 0.08);
+  return c.toDataURL('image/png');
+}
+function costumPum() {
+  const c = llenç(280, 280);
+  const deb = [[-80, -40], [70, -60], [90, 30], [-60, 70], [10, -95], [-100, 10], [40, 85]];
+  deb.forEach(([dx, dy], i) => { g.save(); g.translate(140 + dx, 140 + dy); g.rotate(i); g.fillStyle = i % 2 ? C.paper : C.masclet; g.fillRect(-6, -4, 12, 8); g.strokeStyle = C.tinta; g.lineWidth = 2; g.strokeRect(-6, -4, 12, 8); g.restore(); });
+  estrella(140, 140, 82, 1, 0.2);
+  g.save(); g.translate(140, 142); g.rotate(-0.12); txt('PUM!', 0, 0, 52, C.masclet, { lw: 10 }); g.restore();
+  return c.toDataURL('image/png');
+}
+function costumFallat() {
+  const c = llenç(PW, PH);
+  g.save(); g.translate(PCX, PCY + 8); g.rotate(0.35);
+  drawPetard(0, 0, ESCALA, 0, 3, true);
+  g.restore();
+  g.fillStyle = 'rgba(160,154,176,.55)';
+  [[PCX - 6, PCY - 80, 16], [PCX + 8, PCY - 104, 12], [PCX - 2, PCY - 124, 9]].forEach(([x, y, r]) => { g.beginPath(); g.arc(x, y, r, 0, TAU); g.fill(); });
+  return c.toDataURL('image/png');
+}
+
+/* ---------- fons de l'escenari ---------- */
+function carregaImatge(src) { return new Promise((ok) => { const i = new Image(); i.onload = () => ok(i); i.src = src; }); }
+function focsEstatics(x, y, R, a1, a2) {
+  for (let i = 0; i < 48; i++) {
+    const a = i / 48 * TAU, r1 = R * 0.25, r2 = R * (0.85 + (i % 3) * 0.08);
+    g.strokeStyle = i % 2 ? a1 : a2; g.lineWidth = 4; g.lineCap = 'round';
+    g.beginPath(); g.moveTo(x + Math.cos(a) * r1, y + Math.sin(a) * r1); g.lineTo(x + Math.cos(a) * r2, y + Math.sin(a) * r2); g.stroke();
+    g.fillStyle = i % 2 ? a1 : a2; g.beginPath(); g.arc(x + Math.cos(a) * (r2 + 8), y + Math.sin(a) * (r2 + 8), 4, 0, TAU); g.fill();
+  }
+}
+async function fons(urlFons) {
+  const img = await carregaImatge(urlFons);
+  const out = {};
+  let c = llenç(W, H); g.drawImage(img, 0, 0, W, H);
+  out.plaza = c.toDataURL('image/jpeg', 0.88);
+
+  c = llenç(W, H); g.drawImage(img, 0, 0, W, H);
+  g.fillStyle = 'rgba(21,16,42,.5)'; g.fillRect(0, 0, W, H);
+  txt('MASCLET', 480, 190, 140, C.masclet, { lw: 24 });
+  txt('A MASCLET', 480, 318, 120, C.masclet, { lw: 22 });
+  txt("Fes clic a cada petard quan la metxa s'acabe", 480, 428, 34, C.paper, { font: FB, lw: 9 });
+  txt('Prem la bandera verda per començar', 480, 500, 40, C.or, { lw: 9 });
+  out.inicio = c.toDataURL('image/jpeg', 0.88);
+
+  c = llenç(W, H); g.drawImage(img, 0, 0, W, H);
+  g.fillStyle = 'rgba(21,16,42,.35)'; g.fillRect(0, 0, W, H);
+  focsEstatics(250, 200, 120, C.or, C.rosa); focsEstatics(720, 170, 105, C.menta, C.paper); focsEstatics(500, 120, 80, '#7FD3FF', C.or);
+  txt('FI DE LA', 480, 330, 90, C.paper, { lw: 16 });
+  txt('MASCLETÀ!', 480, 425, 110, C.masclet, { lw: 20 });
+  txt('Mira quants decibels has fet', 480, 520, 34, C.or, { font: FB, lw: 9 });
+  out.final = c.toDataURL('image/jpeg', 0.88);
+  return out;
+}
+
+/* ---------- música i sons (renderitzats sense connexió) ---------- */
+let AC = null, musica = null, sfx = null, noiseBuf = null;
+function prepara(ctx) {
+  AC = ctx;
+  const comp = AC.createDynamicsCompressor();
+  comp.threshold.value = -14; comp.knee.value = 12; comp.ratio.value = 4; comp.attack.value = 0.003; comp.release.value = 0.2;
+  comp.connect(AC.destination);
+  musica = AC.createGain(); musica.gain.value = 0.75; musica.connect(comp);
+  sfx = AC.createGain(); sfx.gain.value = 0.85; sfx.connect(comp);
+  const len = AC.sampleRate * 2;
+  noiseBuf = AC.createBuffer(1, len, AC.sampleRate);
+  const d = noiseBuf.getChannelData(0);
+  for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+}
+function env(gn, t, peak, a, dur) {
+  gn.gain.setValueAtTime(0.0001, t);
+  gn.gain.exponentialRampToValueAtTime(Math.max(0.0002, peak), t + a);
+  gn.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+}
+function noise(t, dur, o) {
+  const s = AC.createBufferSource(); s.buffer = noiseBuf;
+  const f = AC.createBiquadFilter(); f.type = o.type || 'lowpass';
+  f.frequency.setValueAtTime(o.f || 1000, t);
+  if (o.f2) f.frequency.exponentialRampToValueAtTime(o.f2, t + dur);
+  f.Q.value = o.q || 0.7;
+  const gn = AC.createGain(); env(gn, t, o.v || 0.5, o.a || 0.002, dur);
+  s.connect(f); f.connect(gn); gn.connect(o.dest || sfx);
+  s.start(t, Math.random() * 1.3); s.stop(t + dur + 0.05);
+}
+function tone(t, dur, o) {
+  const s = AC.createOscillator(); s.type = o.type || 'sine';
+  s.frequency.setValueAtTime(o.f, t);
+  if (o.f2) s.frequency.exponentialRampToValueAtTime(o.f2, t + dur);
+  const gn = AC.createGain(); env(gn, t, o.v || 0.3, o.a || 0.004, dur);
+  s.connect(gn); gn.connect(o.dest || sfx); s.start(t); s.stop(t + dur + 0.05);
+}
+const mf = (m) => 440 * Math.pow(2, (m - 69) / 12);
+const BANDA = {
+  dolc(t, e) {
+    const f = mf(e.m), dur = Math.max(0.14, e.dur * SPB * 0.9), v = 0.095;
+    const o1 = AC.createOscillator(); o1.type = 'sawtooth'; o1.frequency.value = f;
+    const o2 = AC.createOscillator(); o2.type = 'square'; o2.frequency.value = f * 1.004;
+    const lfo = AC.createOscillator(); lfo.frequency.value = 5.6;
+    const lg = AC.createGain(); lg.gain.value = f * 0.007; lfo.connect(lg); lg.connect(o1.frequency); lg.connect(o2.frequency);
+    const m1 = AC.createGain(); m1.gain.value = 0.6; const m2 = AC.createGain(); m2.gain.value = 0.35;
+    const bp = AC.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1500; bp.Q.value = 0.7;
+    const gn = AC.createGain();
+    gn.gain.setValueAtTime(0.0001, t); gn.gain.exponentialRampToValueAtTime(v, t + 0.03);
+    gn.gain.setValueAtTime(v, t + Math.max(0.04, dur - 0.05)); gn.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o1.connect(m1); o2.connect(m2); m1.connect(bp); m2.connect(bp); bp.connect(gn); gn.connect(musica);
+    for (const o of [o1, o2, lfo]) { o.start(t); o.stop(t + dur + 0.05); }
+  },
+  baix(t, e) { tone(t, 0.3, { type: 'triangle', f: mf(e.m), v: 0.34, dest: musica }); },
+  acord(t, e) {
+    const dur = e.dur ? e.dur * SPB : 0.17;
+    for (const m of e.ns) {
+      const o = AC.createOscillator(); o.type = 'square'; o.frequency.value = mf(m);
+      const lp = AC.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1400;
+      const gn = AC.createGain(); env(gn, t, 0.035, 0.006, dur);
+      o.connect(lp); lp.connect(gn); gn.connect(musica); o.start(t); o.stop(t + dur + 0.05);
+    }
+  },
+  bombo(t, e) { tone(t, 0.22, { f: 120, f2: 45, v: 0.55 * e.v, dest: musica }); },
+  tabal(t, e) {
+    noise(t, 0.09, { type: 'bandpass', f: 2100, q: 1, v: 0.55 * e.v, dest: musica });
+    tone(t, 0.06, { type: 'triangle', f: 260, f2: 180, v: 0.2 * e.v, dest: musica });
+  },
+  plat(t, e) { noise(t, 1.3, { type: 'highpass', f: 5500, v: e.v, a: 0.005, dest: musica }); },
+  clic(t, e) { tone(t, 0.08, { type: 'square', f: e.v > 0.9 ? 1320 : 880, v: 0.05, dest: musica }); },
+};
+const SFX = {
+  pum(t, p) {
+    noise(t, 0.2, { f: 3000, f2: 380, v: 0.7 * p });
+    tone(t, 0.15, { f: 115, f2: 48, v: 0.45 * p });
+    noise(t, 0.022, { type: 'highpass', f: 3200, v: 0.45 * p });
+  },
+  fizzle(t) { noise(t, 0.35, { type: 'bandpass', f: 4200, f2: 2400, q: 1.5, v: 0.12, a: 0.03 }); },
+};
+
+/* ---------- la cançó i el mapa (igual que el prototip) ---------- */
+const BPM = 120, SPB = 60 / BPM, bt = (b) => b * SPB;
+const A = [
+  [[0, 1, 69], [1, 1, 74], [2, 1, 78], [3, 1, 74]],
+  [[0, 1.5, 79], [1.5, 0.5, 78], [2, 1, 76], [3, 1, 74]],
+  [[0, 1, 73], [1, 1, 76], [2, 2, 81]],
+  [[0, 0.5, 78], [0.5, 0.5, 76], [1, 1, 74], [2, 2, 69]],
+  [[0, 1, 69], [1, 1, 74], [2, 1, 78], [3, 1, 81]],
+  [[0, 1, 83], [1, 0.5, 81], [1.5, 0.5, 79], [2, 1, 78], [3, 1, 79]],
+  [[0, 1, 76], [1, 1, 81], [2, 0.5, 79], [2.5, 0.5, 78], [3, 1, 76]],
+  [[0, 3, 74]],
+];
+const B = [
+  [[0, 0.5, 71], [0.5, 0.5, 74], [1, 1, 79], [2, 0.5, 71], [2.5, 0.5, 74], [3, 1, 79]],
+  [[0, 1, 81], [1, 1, 79], [2, 1, 78], [3, 1, 76]],
+  [[0, 0.5, 69], [0.5, 0.5, 74], [1, 1, 78], [2, 0.5, 69], [2.5, 0.5, 74], [3, 1, 78]],
+  [[0, 1, 79], [1, 1, 78], [2, 1, 76], [3, 1, 74]],
+  [[0, 0.5, 76], [0.5, 0.5, 78], [1, 0.5, 79], [1.5, 0.5, 81], [2, 1, 83], [3, 1, 79]],
+  [[0, 1, 81], [1, 1, 76], [2, 1, 73], [3, 1, 69]],
+  [[0, 0.5, 74], [0.5, 0.5, 76], [1, 0.5, 78], [1.5, 0.5, 79], [2, 1, 81], [3, 1, 78]],
+  [[0, 1, 76], [1, 1, 73], [2, 2, 69]],
+];
+const A2 = A.slice(0, 7).concat([[[0, 1, 74], [1, 0.5, 76], [1.5, 0.5, 78], [2, 0.5, 79], [2.5, 0.5, 81], [3, 1, 83]]]);
+const FINAL = [
+  [[0, 0.5, 74], [0.5, 0.5, 78], [1, 0.5, 81], [1.5, 0.5, 78], [2, 0.5, 74], [2.5, 0.5, 78], [3, 0.5, 81], [3.5, 0.5, 78]],
+  [[0, 0.5, 79], [0.5, 0.5, 83], [1, 0.5, 79], [1.5, 0.5, 74], [2, 0.5, 79], [2.5, 0.5, 83], [3, 0.5, 79], [3.5, 0.5, 74]],
+  [[0, 0.5, 81], [0.5, 0.5, 76], [1, 0.5, 73], [1.5, 0.5, 76], [2, 0.5, 81], [2.5, 0.5, 76], [3, 0.5, 73], [3.5, 0.5, 76]],
+  [[0, 4, 86]],
+];
+const ACORDS = {
+  D: { baix: 50, triada: [62, 66, 69] },
+  G: { baix: 43, triada: [62, 67, 71] },
+  A: { baix: 45, triada: [61, 64, 69] },
+  Em: { baix: 52, triada: [64, 67, 71] },
+};
+const CANCO = [
+  { nom: 'intro', acords: ['D', 'A'], mel: null },
+  { nom: 'A', acords: ['D', 'G', 'A', 'D', 'D', 'G', 'A', 'D'], mel: A },
+  { nom: 'B', acords: ['G', 'G', 'D', 'D', 'Em', 'A', 'D', 'A'], mel: B },
+  { nom: 'A2', acords: ['D', 'G', 'A', 'D', 'D', 'G', 'A', 'D'], mel: A2 },
+  { nom: 'final', acords: ['D', 'G', 'A', 'D'], mel: FINAL },
+];
+const AVANC = bt(2);
+const FORMES = {
+  escala: [[-1.5, 0.75], [-0.5, 0.25], [0.5, -0.25], [1.5, -0.75]],
+  escalaInv: [[-1.5, -0.75], [-0.5, -0.25], [0.5, 0.25], [1.5, 0.75]],
+  quadrat: [[-1, -0.9], [1, -0.9], [1, 0.9], [-1, 0.9]],
+  zigzag: [[-1.5, -0.5], [-0.5, 0.5], [0.5, -0.5], [1.5, 0.5]],
+  diamant: [[0, -1], [1.2, 0], [0, 1], [-1.2, 0]],
+  gir: [[0, -1], [-1.2, 0], [0, 1], [1.2, 0]],
+  salt: [[-1.5, -0.4], [1.5, -0.4], [-1.5, 0.5], [1.5, 0.5]],
+  saltV: [[-0.7, -1], [0.7, 1], [0.7, -1], [-0.7, 1]],
+  triangle: [[-1.2, 0.7], [0, -0.8], [1.2, 0.7], [0, 0.7]],
+  centre: [[0, 0], [1, 0], [0, 0], [-1, 0]],
+};
+const PATRONS = {
+  A: { r: 105, formes: ['escala', 'quadrat', 'zigzag', 'diamant', 'escala', 'gir', 'salt', 'centre'] },
+  B: { r: 120, formes: ['diamant', 'zigzag', 'gir', 'quadrat', 'escalaInv', 'salt', 'escala', 'triangle'], mirall: true },
+  A2: { r: 120, formes: ['escala', 'quadrat', 'zigzag', 'diamant', 'escala', 'gir', 'salt', 'zigzag'] },
+  final: { r: 165, formes: ['salt', 'saltV', 'quadrat', 'centre'] },
+};
+const CENTRES = [[480, 370], [380, 340], [580, 340], [480, 400], [370, 400], [590, 380], [480, 330], [480, 370]];
+function posicio(sec, i, off) {
+  const P = PATRONS[sec], [ux, uy] = FORMES[P.formes[i]][off], sx = P.mirall && i % 2 ? -1 : 1, [cx, cy] = CENTRES[i];
+  return [clamp(cx + ux * sx * P.r, 120, 840), clamp(cy + uy * P.r, 230, 500)];
+}
+function crearCanco() {
+  const ev = [], notes = [];
+  const add = (b, f, o = {}) => { const e = Object.assign({ t: bt(b), f }, o); ev.push(e); return e; };
+  let bar = 0;
+  for (const sec of CANCO) {
+    sec.acords.forEach((nomAcord, i) => {
+      const b0 = (bar + i) * 4, ac = ACORDS[nomAcord];
+      const ultim = sec.nom === 'final' && i === sec.acords.length - 1;
+      if (sec.mel) for (const [off, dur, m] of sec.mel[i]) {
+        const e = add(b0 + off, 'dolc', { m, dur });
+        if (off % 1 === 0) {
+          const [x, y] = ultim ? [480, 360] : posicio(sec.nom, i, off);
+          notes.push({ t: e.t, x, y });
+        }
+      }
+      if (ultim) {
+        add(b0, 'baix', { m: ac.baix }); add(b0, 'acord', { ns: ac.triada, dur: 3 });
+        add(b0, 'bombo', { v: 1 }); add(b0, 'plat', { v: 0.25 });
+        return;
+      }
+      add(b0, 'baix', { m: ac.baix }); add(b0 + 2, 'baix', { m: ac.baix + 7 });
+      add(b0 + 1, 'acord', { ns: ac.triada }); add(b0 + 3, 'acord', { ns: ac.triada });
+      add(b0, 'bombo', { v: 0.6 }); add(b0 + 2, 'bombo', { v: 0.5 });
+      add(b0 + 1, 'tabal', { v: 0.35 }); add(b0 + 3, 'tabal', { v: 0.35 });
+      if (sec.nom !== 'intro') { add(b0 + 1.5, 'tabal', { v: 0.15 }); add(b0 + 3.5, 'tabal', { v: 0.15 }); }
+      if (sec.nom === 'final') for (let s = 0; s < 16; s++) add(b0 + s * 0.25, 'tabal', { v: 0.18 + 0.25 * (i / 3) + 0.1 * (s / 16) });
+      if (i === 0 && sec.nom !== 'intro') add(b0, 'plat', { v: 0.14 });
+      if (i === sec.acords.length - 1 && sec.nom !== 'final') for (let s = 0; s < 4; s++) add(b0 + 3 + s * 0.25, 'tabal', { v: 0.2 + s * 0.06 });
+    });
+    bar += sec.acords.length;
+  }
+  add(5, 'clic', { v: 0.6 }); add(6, 'clic', { v: 0.6 }); add(7, 'clic', { v: 1 });
+  notes.sort((a, b) => a.t - b.t);
+  for (let pas = 0; pas < 3; pas++) {
+    for (let i = 0; i < notes.length; i++) {
+      const n = notes[i];
+      for (let j = i - 1; j >= 0 && n.t - notes[j].t <= AVANC + 0.6; j--) {
+        const o = notes[j];
+        if (Math.abs(n.x - o.x) < 75 && Math.abs(n.y - o.y) < 160) n.x = clamp(n.x + (n.x < 480 ? 130 : -130), 120, 840);
+      }
+    }
+  }
+  return { ev: ev.sort((a, b) => a.t - b.t), notes };
+}
+
+/* ---------- WAV ---------- */
+function wavBase64(buf) {
+  const d = buf.getChannelData(0), n = d.length, sr = buf.sampleRate;
+  let pic = 0; for (let i = 0; i < n; i++) pic = Math.max(pic, Math.abs(d[i]));
+  const k = pic > 0.95 ? 0.95 / pic : 1;
+  const ab = new ArrayBuffer(44 + n * 2), v = new DataView(ab);
+  const s = (o, t) => { for (let i = 0; i < t.length; i++) v.setUint8(o + i, t.charCodeAt(i)); };
+  s(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); s(8, 'WAVE'); s(12, 'fmt ');
+  v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, sr, true);
+  v.setUint32(28, sr * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); s(36, 'data'); v.setUint32(40, n * 2, true);
+  for (let i = 0; i < n; i++) { const x = clamp(d[i] * k, -1, 1); v.setInt16(44 + i * 2, x < 0 ? x * 0x8000 : x * 0x7fff, true); }
+  const bytes = new Uint8Array(ab); let bin = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return { b64: btoa(bin), mostres: n, rate: sr };
+}
+async function renderitza(dur, fn, mp3) {
+  const sr = 22050, ctx = new OfflineAudioContext(1, Math.ceil(sr * dur), sr);
+  prepara(ctx); fn();
+  const buf = await ctx.startRendering();
+  return mp3 ? mp3Base64(buf) : wavBase64(buf);
+}
+// MP3 mono a 96 kbps (lamejs): la música pesa unes 4 vegades menys que en WAV
+function mp3Base64(buf) {
+  const d = buf.getChannelData(0), n = d.length;
+  let pic = 0; for (let i = 0; i < n; i++) pic = Math.max(pic, Math.abs(d[i]));
+  const k = pic > 0.95 ? 0.95 / pic : 1, pcm = new Int16Array(n);
+  for (let i = 0; i < n; i++) { const x = clamp(d[i] * k, -1, 1); pcm[i] = x < 0 ? x * 0x8000 : x * 0x7fff; }
+  const enc = new lamejs.Mp3Encoder(1, buf.sampleRate, 96), parts = [];
+  for (let i = 0; i < n; i += 1152) { const o = enc.encodeBuffer(pcm.subarray(i, i + 1152)); if (o.length) parts.push(new Uint8Array(o)); }
+  const f = enc.flush(); if (f.length) parts.push(new Uint8Array(f));
+  let bin = '';
+  for (const p of parts) for (let i = 0; i < p.length; i += 0x8000) bin += String.fromCharCode.apply(null, p.subarray(i, i + 0x8000));
+  return { b64: btoa(bin), mostres: n, rate: buf.sampleRate, ext: 'mp3' };
+}
+
+/* ---------- API per a Playwright ---------- */
+window.genera = async (urlFons) => {
+  await document.fonts.ready;
+  const costums = {};
+  for (let k = 1; k <= 9; k++) costums['mecha' + k] = costumMetxa(k);
+  costums.pum = costumPum();
+  costums.fallado = costumFallat();
+  const { ev, notes } = crearCanco();
+  const sons = {
+    pasodoble: await renderitza(bt(120) + 1.5, () => { for (const e of ev) BANDA[e.f](e.t + 0.02, e); }, true),
+    pum: await renderitza(0.35, () => SFX.pum(0.005, 1)),
+    fsss: await renderitza(0.45, () => SFX.fizzle(0.005)),
+  };
+  const mapa = notes.map((n) => ({ t: Math.round((n.t + 0.02) * 1000) / 1000, x: Math.round((n.x - 480) / 2), y: Math.round((360 - (n.y + 10)) / 2) }));
+  return { costums, fons: await fons(urlFons), sons, mapa, centre: { petard: [PCX, PCY], pum: [140, 140] } };
+};
+</script>
+</body>
+</html>

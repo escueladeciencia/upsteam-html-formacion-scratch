@@ -1,0 +1,241 @@
+/* Estilos propios de la formación «Masclet a masclet» (se cargan después de cdc.css).
+   Estilo «Senyera»: fondo blanco, azul marino y el rojo y el amarillo de la senyera. Un solo color de acento
+   en todos los módulos, superficies planas con borde (sin sombras ni pasteles) y la franja de la senyera
+   en el borde de cada diapositiva. Títulos con Lilita One (la letra del juego); el texto sigue en Lexend. */
+
+:root {
+  --ciruela: #DA121A;  /* rojo de la senyera */
+  --texto: #10203F;
+  --gris: #4F5B70;
+  --linea: #C9D0DC;
+  --borde: #C9D0DC;
+  --fondo: #FFFFFF;
+  --tinta: #10203F;    /* azul marino */
+  --papel: #FFFFFF;
+  --masclet: #DA121A;
+  --foc: #FF6A1A;
+  --or: #FCDD09;       /* amarillo de la senyera */
+  --cel: #0F4C9C;
+  --blau: #0F4C9C;     /* azul de la franja de la senyera */
+  --franja: linear-gradient(var(--blau) 0 120px, transparent 120px), repeating-linear-gradient(180deg, var(--or) 0 80px, var(--ciruela) 80px 160px);
+
+  --a0: #10203F;  --a0-claro: #F1F3F7;
+  --a1: #DA121A;  --a1-claro: #F1F3F7;
+  --a2: #0F4C9C;  --a2-claro: #F1F3F7;
+  --a3: #DA121A;  --a3-claro: #F1F3F7;
+  --a4: #10203F;  --a4-claro: #F1F3F7;
+  --a5: #0F4C9C;  --a5-claro: #F1F3F7;
+
+  --area: var(--ciruela);
+  --area-claro: #F1F3F7;
+  --sombra: none;
+  --titulo: 'Lilita One', 'Lexend', system-ui, sans-serif;
+}
+body[class*="area-"] { --area: var(--ciruela); --area-claro: #F1F3F7; }
+body { background: var(--tinta); }
+
+/* ---------- Títulos con la letra del juego ---------- */
+.cab h2, .portada h1, .competencia .izq h2, .portada .num, .competencia .izq .n, .cifra, .paso-n {
+  font-family: var(--titulo); font-weight: 400; letter-spacing: .01em;
+}
+.cab h2 { font-size: 64px; line-height: 1.05; }
+.portada h1 { font-size: 92px; line-height: 1; color: var(--tinta); max-width: 760px; }
+.portada .num { color: var(--area); }
+.competencia .izq h2 { font-size: 72px; line-height: 1.02; }
+.caja.examen { background: var(--area-claro); }
+.caja.examen::before { content: '★'; background: var(--area); }
+.caja.ia { background: #EEE8FB; }
+.caja.ia::before { content: '✦'; background: #6D42C9; }
+
+/* ---------- Superficies planas y franja de la senyera ---------- */
+section.s { background: var(--fondo); }
+section.s::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 26px; z-index: 1; background: var(--franja); }
+section.oscura { background: var(--tinta); }
+section .tarjeta, section .flujo .nodo, section .tabla, section .def, section .cadena .eslabon,
+section .t1-juego, section .t2-rec, section .t1-ing, section .captura, section .sb { box-shadow: none; border: 2px solid var(--borde); border-radius: 6px; }
+section .tarjeta { border-top: 8px solid var(--area); }
+section .def { border-left: 10px solid var(--area); }
+section .flujo .nodo.destaca { border: 4px solid var(--area); }
+section .caja { border: 2px solid var(--borde); border-left: 10px solid var(--tinta); border-radius: 6px; }
+section .caja, section .caja.aviso, section .caja.ok, section .caja.examen, section .caja.ia { background: var(--blanco); }
+section .caja::before { border-radius: 4px; background: var(--tinta); }
+section .caja.aviso { border-left-color: var(--ciruela); }
+section .caja.aviso::before { background: var(--ciruela); }
+section .caja.ok, section .caja.ia { border-left-color: var(--blau); }
+section .caja.ok::before, section .caja.ia::before { background: var(--blau); }
+.tabla th { background: var(--tinta); }
+.tabla.compacta th, .tabla.compacta td { padding: 9px 20px; line-height: 1.3; } /* tablas largas */
+.seccion-pill { background: var(--tinta); border-radius: 3px; }
+.pill { border-radius: 3px; }
+
+/* ---------- Portada: el texto a la izquierda y una foto de mascletà a la derecha ----------
+   <section class="portada" style="background-image: linear-gradient(90deg, var(--fondo) 0 50%, transparent 50%), url(foto)"> */
+section.portada { background-color: var(--tinta); background-repeat: no-repeat; background-size: 100% 100%, 50% 100%; background-position: 0 0, right center; }
+section.portada::after { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 30px; background: var(--franja); }
+.portada .marca { color: var(--tinta); }
+.foto-credito { position: absolute; right: 28px; bottom: 20px; margin: 0; font-size: 16px; color: #fff; text-shadow: 0 1px 4px rgba(0, 0, 0, .85); }
+.foto-credito a { color: inherit; }
+
+/* ---------- Bloques de Scratch (scratchblocks) ---------- */
+.sb { background: #FBFBFD; border: 2px solid var(--linea); border-radius: 22px; padding: 22px 28px; overflow: auto; min-width: 0; align-self: start; max-width: 100%; }
+.sb svg { display: block; max-width: 100%; height: auto; }
+.sb.sin-marco { background: transparent; border: 0; padding: 0; }
+pre.sb:not([data-dibujado]) { font: 500 20px/1.4 'JetBrains Mono', monospace; color: var(--gris); white-space: pre; }
+.sb-tit { font-size: var(--type-caption); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--area); margin-bottom: -14px; }
+.sb-col { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+/* Dónde está un bloque: la categoría de Scratch con su color. <span class="cat eventos">Eventos</span> */
+.cat { display: inline-block; font-size: .72em; font-weight: 700; line-height: 1.3; color: #fff; border-radius: 3px; padding: 1px 8px; vertical-align: .12em; background: var(--c, #888); }
+.cat.eventos { --c: #FFBF00; } .cat.movimiento { --c: #4C97FF; } .cat.apariencia { --c: #9966FF; } .cat.sonido { --c: #CF63CF; }
+.cat.control { --c: #FFAB19; } .cat.variables { --c: #FF8C1A; } .cat.operadores { --c: #59C059; } .cat.sensores { --c: #5CB1D6; }
+.cat.eventos, .cat.control, .cat.variables, .cat.operadores, .cat.sensores { color: var(--tinta); } /* los colores claros, con letra oscura */
+/* El bloque que se está ejecutando en el jugador de la misma diapositiva (tro.js): borde oscuro grueso y
+   brillo amarillo (como Scratch) el bloque de ahora; borde fino su guion y lo que lo contiene; un rastro
+   breve los bloques instantáneos. Mientras el proyecto corre (.en-marcha), lo demás se atenúa.
+   El borde es oscuro porque el amarillo no se ve sobre los bloques amarillos y naranjas.
+   paint-order deja el borde por fuera, sin tapar el texto. */
+.sb g[data-bid] { transition: opacity .15s; }
+.sb g[data-bid] > path:first-child { paint-order: stroke; }
+/* Lo que añade cada paso respecto al anterior (tro.js, «nuevos» de pasos.js): borde verde en esos bloques,
+   o la caja entera en verde si todo el programa es nuevo. */
+.sb.con-nuevos, .sb.todo-nuevo { position: relative; }
+.sb.con-nuevos::before, .sb.todo-nuevo::before { content: '● ' attr(data-etiqueta-nuevo); position: absolute; top: 4px; right: 10px; font: 700 14px/1.2 'Lexend', sans-serif; color: #1E8E5A; }
+section .sb.todo-nuevo { border-color: #1E8E5A; }
+.con-nuevos .sb-nuevo > path:first-child { stroke: #1E8E5A; stroke-width: 7px; } /* menos específica que la de ejecución, que gana */
+.sb g.sb-ahora > path:first-child { stroke: var(--tinta); stroke-width: 9px; filter: drop-shadow(0 0 4px var(--or)) drop-shadow(0 0 9px var(--or)); }
+.sb g.sb-guion > path:first-child { stroke: var(--tinta); stroke-width: 4px; }
+.sb g.sb-rastro > path:first-child { stroke: var(--tinta); stroke-width: 7px; stroke-opacity: .4; }
+.sb.en-marcha g[data-bid]:not(.sb-ahora, .sb-guion, .sb-rastro):not(:has(.sb-ahora, .sb-guion, .sb-rastro)) { opacity: .3; }
+
+/* ---------- Jugador de Scratch dentro de la diapositiva ----------
+   Ocupa el ancho de su columna. El marco oscuro es solo para el escenario; los botones y la velocidad
+   van debajo, fuera del marco. */
+.jugador { position: relative; width: 100%; outline: none; align-self: start; display: flex; flex-direction: column; gap: 12px; }
+.jugador .j-marco { position: relative; border-radius: 12px; background: var(--tinta); padding: 10px; }
+.jugador .j-escena { aspect-ratio: 4 / 3; border-radius: 6px; overflow: hidden; background: #2b2440 url(../assets/img/plaza.webp) center / cover no-repeat; }
+.jugador .j-escena > * { width: 100% !important; height: 100% !important; }
+.jugador .j-tapa { position: absolute; inset: 10px; display: grid; place-content: center; justify-items: center; gap: 18px; background: rgba(16, 32, 63, .5); border-radius: 6px; color: #fff; text-align: center; padding: 32px; font-size: 25px; line-height: 1.35; }
+.jugador .j-tapa .btn { font-size: 34px; padding: 20px 48px; background: #4CBF56; }
+.jugador .j-tapa p { max-width: 600px; text-shadow: 0 2px 8px rgba(0, 0, 0, .5); }
+.jugador.cargado .j-tapa { display: none; }
+/* Jugador mínimo (el portal): solo un botón redondo de jugar, en el centro de la captura (data-portada),
+   y «Descargar .sb3» abajo a la derecha. */
+.jugador.minimo .j-tapa { place-content: center; background: rgba(16, 32, 63, .12); }
+.jugador .j-play-icono { width: 104px; height: 104px; border-radius: 50%; border: 5px solid #fff; background: #4CBF56; color: #fff; font-size: 44px; line-height: 1; padding: 0 0 0 8px; cursor: pointer; box-shadow: 0 6px 20px rgba(0, 0, 0, .35); transition: transform .15s; }
+.jugador .j-play-icono:hover { transform: scale(1.07); }
+.jugador .j-play-icono:focus-visible { outline: 4px solid var(--or); outline-offset: 4px; }
+.jugador.minimo .j-nota { text-align: right; }
+.jugador .j-barra { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.jugador .j-barra button { font: 600 19px/1 'Lexend', sans-serif; border-radius: 4px; padding: 11px 18px; border: 2px solid var(--borde); background: var(--blanco); color: var(--tinta); cursor: pointer; }
+.jugador .j-barra .j-ban { background: #4CBF56; border-color: #4CBF56; color: #fff; }
+.jugador .j-barra .j-stop { background: #EC5959; border-color: #EC5959; color: #fff; }
+.jugador .j-vel { display: flex; align-items: center; margin-left: 14px; }
+.jugador .j-vel > span { font-size: 17px; font-weight: 700; color: var(--gris); margin-right: 10px; }
+.jugador .j-vel button { border-radius: 0; margin-left: -2px; }
+.jugador .j-vel button:first-of-type { border-radius: 4px 0 0 4px; margin-left: 0; }
+.jugador .j-vel button:last-of-type { border-radius: 0 4px 4px 0; }
+.jugador .j-vel button[aria-pressed="true"] { background: var(--tinta); border-color: var(--tinta); color: #fff; position: relative; }
+.jugador .j-barra button:focus-visible { outline: 3px solid var(--or); outline-offset: 2px; }
+.jugador .j-nota { margin: 0; color: var(--gris); font-size: 16px; line-height: 1.3; }
+.jugador .j-nota a { color: inherit; font-weight: 600; }
+.jugador:focus-within .j-marco, .jugador.activo .j-marco { box-shadow: 0 0 0 6px var(--or); }
+.jugador .j-aviso { display: none; position: absolute; inset: 10px; place-content: center; text-align: center; padding: 40px; background: rgba(16, 32, 63, .86); color: #fff; border-radius: 6px; font-size: 22px; line-height: 1.4; }
+.jugador.sin-servidor .j-aviso { display: grid; }
+
+/* ---------- Prompt para copiar ---------- */
+.prompt { background: var(--tinta); color: var(--papel); border-radius: 22px; padding: 22px 28px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.prompt .p-cab { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--or); }
+.prompt .p-cab .modelo { margin-left: auto; text-transform: none; letter-spacing: 0; font-weight: 500; color: #C9C2DA; font-family: 'JetBrains Mono', monospace; font-size: 17px; }
+.prompt pre { margin: 0; white-space: pre-wrap; font: 500 20px/1.45 'JetBrains Mono', monospace; color: var(--papel); overflow: auto; }
+.prompt .copiar { align-self: flex-start; background: var(--or); color: var(--tinta); }
+.prompt.peq pre { font-size: 18px; }
+
+/* ---------- Diagrama de flujo con iconos ---------- */
+.flujo { display: flex; align-items: stretch; }
+.flujo .nodo { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; background: var(--blanco); border-radius: 24px; box-shadow: var(--sombra); padding: 22px 18px; font-size: var(--type-caption); line-height: 1.3; }
+.flujo .nodo img { height: 110px; width: auto; max-width: 100%; object-fit: contain; }
+.flujo .nodo b { font-size: 28px; line-height: 1.15; }
+.flujo .nodo.destaca { box-shadow: 0 0 0 4px var(--area), var(--sombra); }
+.flujo .fl { flex: none; width: 54px; position: relative; }
+.flujo .fl::before { content: ''; position: absolute; left: 8px; right: 20px; top: 50%; border-top: 5px solid var(--area); transform: translateY(-50%); }
+.flujo .fl::after { content: ''; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); border: 11px solid transparent; border-left: 16px solid var(--area); border-right: 0; }
+
+/* ---------- Tira de disfraces ---------- */
+.tira { display: flex; gap: 12px; align-items: stretch; flex-wrap: nowrap; }
+.tira figure { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 6px; background: var(--blanco); border-radius: 18px; padding: 10px 6px 12px; box-shadow: var(--sombra); }
+.tira img { height: 190px; width: auto; max-width: 100%; object-fit: contain; }
+.tira figcaption { font-size: 20px; font-weight: 700; line-height: 1.1; text-align: center; }
+.tira figcaption small { display: block; font-size: 16px; font-weight: 500; color: var(--gris); }
+.tira figure.ok { box-shadow: 0 0 0 4px var(--ok), var(--sombra); }
+
+/* ---------- Línea de tiempo (música, cronómetro y petardos) ---------- */
+.tiempo { position: relative; height: 330px; background: var(--blanco); border-radius: 24px; box-shadow: var(--sombra); padding: 0 60px; }
+.tiempo .eje { position: absolute; left: 60px; right: 60px; top: 230px; border-top: 5px solid var(--tinta); }
+.tiempo .marca { position: absolute; top: 230px; width: 0; }
+.tiempo .marca::before { content: ''; position: absolute; left: -2px; top: -14px; height: 28px; border-left: 4px solid var(--tinta); }
+.tiempo .marca span { position: absolute; top: 24px; transform: translateX(-50%); font-size: 22px; font-weight: 700; white-space: nowrap; }
+.tiempo .pet { position: absolute; top: 70px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.tiempo .pet img { height: 120px; }
+.tiempo .pet i { font-style: normal; font-size: 18px; font-weight: 700; color: var(--area); white-space: nowrap; }
+.tiempo .onda { position: absolute; left: 60px; right: 60px; top: 192px; height: 26px; background: repeating-linear-gradient(90deg, var(--area-claro) 0 6px, transparent 6px 10px); border-radius: 6px; }
+.tiempo .lbl { position: absolute; left: 20px; top: 14px; font-size: var(--type-caption); font-weight: 700; color: var(--gris); }
+
+/* ---------- Comparar: así lo haría primero / mejor así ---------- */
+.comparar { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.comparar > div { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.comparar h3 { font-size: 30px; display: flex; align-items: center; gap: 12px; }
+.comparar h3 .pill { font-size: 20px; }
+
+/* ---------- Portada de un paso ---------- */
+.paso-n { display: inline-grid; place-items: center; width: 78px; height: 78px; border-radius: 50%; background: var(--area); color: #fff; font-size: 44px; flex: none; }
+.paso-meta { display: flex; flex-wrap: wrap; gap: 10px; }
+.concepto { display: grid; grid-template-columns: 120px 1fr; gap: 22px; align-items: center; background: var(--blanco); border-radius: 24px; box-shadow: var(--sombra); padding: 20px 26px; }
+.concepto img { width: 120px; height: auto; }
+.concepto > div > b { display: block; font-size: 30px; color: var(--area); }
+.concepto p { font-size: var(--type-small); }
+
+/* ---------- Galería de capturas ---------- */
+.captura { margin: 0; border-radius: 18px; overflow: hidden; box-shadow: var(--sombra); background: var(--blanco); position: relative; }
+.captura img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.captura .num-mark { position: absolute; width: 54px; height: 54px; border-radius: 50%; background: var(--masclet); color: #fff; font: 400 32px var(--titulo); display: grid; place-items: center; box-shadow: 0 0 0 5px #fff, 0 6px 16px rgba(0,0,0,.25); transform: translate(-50%, -50%); }
+.leyenda { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; font-size: var(--type-small); }
+.leyenda li { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: start; }
+.leyenda li > span { width: 44px; height: 44px; border-radius: 50%; background: var(--masclet); color: #fff; font: 400 26px var(--titulo); display: grid; place-items: center; }
+
+/* Índice con tres columnas (seis entradas sin salirse) */
+.indice-comp.tres { grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.indice-comp.tres a { padding: 18px 22px; gap: 18px; }
+.indice-comp.tres .ico { width: 100px; }
+.indice-comp.tres h3 { font-size: 29px; }
+/* Dos columnas de bloques (la versión larga «a mano») */
+.sb-dos { display: grid; grid-template-columns: auto auto; gap: 18px; justify-content: start; }
+
+/* Cadena de un prompt: lo que pide el docente → lo que escribe la IA de texto → la imagen */
+.cadena { display: grid; grid-template-columns: 1fr 54px 1.3fr 54px 0.9fr; align-items: stretch; }
+.cadena .fl { position: relative; }
+.cadena .fl::before { content: ''; position: absolute; left: 8px; right: 20px; top: 50%; border-top: 5px solid var(--area); transform: translateY(-50%); }
+.cadena .fl::after { content: ''; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); border: 11px solid transparent; border-left: 16px solid var(--area); border-right: 0; }
+.cadena .eslabon { min-width: 0; background: var(--blanco); border-radius: 24px; box-shadow: var(--sombra); padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; }
+.cadena h3 { font-size: 21px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--area); line-height: 1.25; }
+.cadena .burbuja { background: var(--area-claro); border-radius: 24px 24px 24px 6px; padding: 18px 22px; font-size: 30px; font-weight: 600; line-height: 1.3; }
+.cadena .extracto { position: relative; background: var(--tinta); color: var(--papel); font: 500 15px/1.45 'JetBrains Mono', monospace; border-radius: 16px; padding: 16px 18px; height: 330px; overflow: hidden; white-space: pre-wrap; }
+.cadena .extracto::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 90px; background: linear-gradient(rgba(27, 21, 48, 0), var(--tinta)); }
+.cadena .eslabon img { width: 100%; border-radius: 16px; display: block; }
+.cadena .nota { font-size: 20px; line-height: 1.35; color: var(--gris); }
+
+/* Piezas pulsables: al pulsar, su explicación sale en un bocadillo (tro.js)
+   <div class="piezas"> … <button class="pieza" data-titulo="…">… <span class="que">Explicación</span></button> … </div> */
+.piezas { position: relative; }
+.pieza { font: inherit; color: inherit; text-align: left; cursor: pointer; position: relative; border: 0; }
+.pieza::after { content: 'i'; position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; background: var(--area); color: #fff; font: 700 21px/32px 'Lexend', sans-serif; text-align: center; font-style: italic; }
+.pieza:hover, .pieza[aria-expanded="true"] { box-shadow: 0 0 0 4px var(--area), var(--sombra); }
+.pieza:focus-visible { outline: 4px solid var(--or); outline-offset: 4px; }
+.pieza .que { display: none; }
+.pieza-info { position: absolute; z-index: 5; pointer-events: none; width: 600px; background: var(--tinta); color: var(--papel); border-radius: 20px; padding: 20px 26px; box-shadow: 0 14px 44px rgba(27, 21, 48, .3); font-size: 24px; line-height: 1.4; }
+.pieza-info b { display: block; color: var(--or); font-size: 27px; margin-bottom: 6px; }
+.pieza-info::before { content: ''; position: absolute; top: -14px; left: var(--flecha, 40px); border: 14px solid transparent; border-top: 0; border-bottom-color: var(--tinta); }
+.pieza-info.arriba::before { top: auto; bottom: -14px; border-bottom: 0; border-top: 14px solid var(--tinta); }
+
+/* Ampliar: <div class="ampliable"> … <button class="ampliar">⤢ Ampliar</button> … </div> (tro.js pone .ampliado) */
+.ampliar { font: 700 18px/1 'Lexend', sans-serif; padding: 10px 18px; border: 0; border-radius: 999px; background: var(--blanco); color: var(--tinta); box-shadow: var(--sombra); cursor: pointer; }
+.ampliar:hover { box-shadow: 0 0 0 4px var(--or), var(--sombra); }
+.ampliar:focus-visible { outline: 4px solid var(--or); outline-offset: 4px; }

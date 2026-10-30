@@ -1,0 +1,22 @@
+# Sistema y editores
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.vscode/
+.idea/
+
+# Python y Node
+__pycache__/
+*.pyc
+node_modules/
+
+# Configuración local de Claude Code
+.claude/
+
+# Material de trabajo (unos 38 MB): originales de las imágenes de IA, el prototipo y una versión antigua
+# de los recursos. La web no lo usa. Solo se sube el fondo que necesita herramientas/genera-recursos.js.
+bocetos/*
+!bocetos/prototipo/
+bocetos/prototipo/*
+!bocetos/prototipo/fondo.webp

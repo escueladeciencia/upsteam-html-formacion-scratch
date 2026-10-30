@@ -1,0 +1,44 @@
+{
+  "ddr": {
+    "archivo": "DDR A player.jpg",
+    "autor": "DJ Damien",
+    "licencia": "CC BY-SA 2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:DDR_A_player.jpg"
+  },
+  "taiko": {
+    "archivo": "(Taiko) ARMAGEΔDON (Extreme 10* - Full Combo).webm",
+    "autor": "pastelle",
+    "licencia": "CC BY 4.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:(Taiko)_ARMAGE%CE%94DON_(Extreme_10*_-_Full_Combo).webm"
+  },
+  "guitar-hero": {
+    "archivo": "Guitar Hero 3 (1295821195).jpg",
+    "autor": "włodi from London, UK",
+    "licencia": "CC BY-SA 2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Guitar_Hero_3_(1295821195).jpg"
+  },
+  "osu": {
+    "archivo": "Osu!standard gameplay.webm",
+    "autor": "YZiv",
+    "licencia": "CC BY-SA 3.0 de",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Osu!standard_gameplay.webm"
+  },
+  "just-dance": {
+    "archivo": "IMGP3928 (just dance 2) (1280 1024 wm W) (5136647541).jpg",
+    "autor": "JoyTek",
+    "licencia": "CC BY-SA 2.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:IMGP3928_(just_dance_2)_(1280_1024_wm_W)_(5136647541).jpg"
+  },
+  "beat-saber": {
+    "archivo": "InclusiveGameLab Person-Playing-Virtual-Reality 4 CC-BY-SA.jpg",
+    "autor": "InclusiveGameLab",
+    "licencia": "CC BY-SA 4.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:InclusiveGameLab_Person-Playing-Virtual-Reality_4_CC-BY-SA.jpg"
+  },
+  "mascleta": {
+    "archivo": "Mascletà at Valencia, Spain, 2010 (DSC7155).jpg",
+    "autor": "Cperism",
+    "licencia": "CC BY-SA 4.0",
+    "pagina": "https://commons.wikimedia.org/wiki/File:Masclet%C3%A0_at_Valencia,_Spain,_2010_(DSC7155).jpg"
+  }
+}

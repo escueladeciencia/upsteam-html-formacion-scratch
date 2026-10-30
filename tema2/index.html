@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Módulo 2 · Imágenes y música con IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Lilita+One&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../assets/cdc.css">
+<link rel="stylesheet" href="../assets/tro.css">
+<style>
+/* Estilos propios del módulo 2 (prefijo t2-) */
+.t2-larga pre { max-height: 470px; font-size: 17px; }
+.t2-hoja { background: repeating-conic-gradient(#EFE8DA 0 25%, #FFFFFF 0 50%) 0 0 / 28px 28px; border-radius: 18px; box-shadow: var(--sombra); }
+.t2-hoja img { display: block; width: 100%; }
+.t2-audio { width: 100%; }
+/* Qué necesita el juego: una tarjeta por recurso, con cómo se hizo */
+.t2-mapa { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.t2-rec { background: var(--blanco); border-radius: 20px; box-shadow: var(--sombra); overflow: hidden; display: flex; flex-direction: column; }
+.t2-rec .vis { height: 250px; display: flex; align-items: center; justify-content: center; background: var(--area-claro); overflow: hidden; }
+.t2-rec .foto { width: 100%; height: 100%; object-fit: cover; }
+.t2-rec .spr { height: 200px; margin: 0 -12px; }
+.t2-rec .pum { height: 170px; }
+.t2-rec .ico { height: 180px; }
+.t2-rec .txt { padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 8px; }
+.t2-rec .tag { align-self: flex-start; font-size: 15px; font-weight: 700; padding: 3px 12px; border-radius: 999px; background: var(--c); color: #fff; }
+.t2-rec b { font-size: 26px; line-height: 1.15; }
+.t2-rec p { font-size: 19px; line-height: 1.35; color: var(--gris); }
+</style>
+</head>
+<body class="area-2">
+
+<deck-stage width="1920" height="1080">
+
+<section class="portada" data-label="Portada" style="background-image: linear-gradient(90deg, var(--fondo) 0 50%, transparent 50%), url(../assets/img/portadas/tema2.webp)">
+  <a class="marca" href="../">Masclet a masclet · Formación para docentes</a>
+  <p class="num">Módulo 2</p>
+  <h1>Imágenes y música con IA</h1>
+  <p class="sub">Cómo se hicieron el fondo, los petardos y el pasodoble: qué pidió el docente, qué prompt escribió la IA y qué salió. Y cómo hacerlo en tu clase.</p>
+  <div class="datos"><span class="pill">45 minutos</span><span class="pill clara">Prompts para copiar</span><span class="pill clara">Normas para primaria</span></div>
+  <p class="pista-teclas"><kbd>←</kbd><kbd>→</kbd> para moverte <span>·</span> <kbd>B</kbd> buscar <span>·</span> <kbd>P</kbd> pantalla completa</p>
+  <p class="foto-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:104_-_Masclet%C3%A0_Calle_Pelayo_Matem%C3%A1tico_Marzal.jpg" target="_blank" rel="noopener">Sumolari</a> · CC BY-SA 4.0 · Wikimedia Commons</p>
+</section>
+
+<section class="s" data-label="Qué necesita el juego">
+  <div class="cab"><p class="etq">Módulo 2</p><h2>Qué necesita el juego y cómo se hizo</h2><p class="entrada">Un <b>prompt</b> es el texto con el que le pides algo a una IA. No todo se hizo con prompts, y las decisiones las tomó siempre el docente.</p></div>
+  <div class="cuerpo">
+    <div class="t2-mapa">
+      <div class="t2-rec" style="--c:var(--a2)"><div class="vis"><img class="foto" src="../assets/img/plaza.webp" alt="El fondo de la plaza del Ayuntamiento"></div><div class="txt"><span class="tag">IA de imágenes</span><b>El fondo de la plaza</b><p>Un prompt que escribió Claude y una imagen de gpt-image.</p></div></div>
+      <div class="t2-rec" style="--c:var(--a5)"><div class="vis"><img class="spr" src="../assets/img/sprites/mecha1.png" alt=""><img class="spr" src="../assets/img/sprites/mecha4.png" alt=""><img class="spr" src="../assets/img/sprites/mecha7.png" alt=""><img class="spr" src="../assets/img/sprites/mecha9.png" alt="Cuatro de los nueve disfraces del petardo, con la mecha cada vez más corta"></div><div class="txt"><span class="tag">Dibujado con código</span><b>El petardo y sus 9 disfraces</b><p>Una IA de imágenes no sabe dibujarlo 9 veces igual.</p></div></div>
+      <div class="t2-rec" style="--c:var(--a5)"><div class="vis"><img class="pum" src="../assets/img/sprites/pum.png" alt="La explosión «PUM!»"><img class="spr" src="../assets/img/sprites/fallado.png" alt="El petardo fallado"></div><div class="txt"><span class="tag">Dibujado con código</span><b>La explosión y el fallado</b><p>Con el mismo programa que el petardo.</p></div></div>
+      <div class="t2-rec" style="--c:var(--a4)"><div class="vis"><img class="ico" src="../assets/img/ia/dolcaina.webp" alt=""></div><div class="txt"><span class="tag">Compuesto con código</span><b>El pasodoble y los sonidos</b><p>Música nueva, sin derechos de nadie.</p><audio class="t2-audio" controls preload="none" src="../assets/audio/pasodoble.mp3"></audio></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Cómo se llegó al prompt del fondo" data-seccion="Imágenes" data-deck-section="Imágenes">
+  <div class="cab"><p class="etq">El fondo</p><h2>Cómo se llegó al prompt del fondo</h2></div>
+  <div class="cuerpo">
+    <div class="cadena">
+      <div class="eslabon">
+        <h3>1. Lo que escribió el docente</h3>
+        <p class="burbuja">«si, hazlo»</p>
+        <p class="nota">Respondía a una propuesta del agente: hacer un prototipo jugable. Para jugarlo hacía falta la plaza de fondo, con el centro vacío. Eso lo pensó el agente, no el docente.</p>
+      </div>
+      <div class="fl"></div>
+      <div class="eslabon">
+        <h3>2. El prompt que escribió el agente de IA</h3>
+        <div class="extracto">Background art for a casual 2D kids' game (only the background layer, no characters in the play area, no UI, no text). 4:3.
+
+SCENE: a stylized cartoon version of Valencia's town hall square at midday in March…
+
+MIDDLE AND LOWER-MIDDLE (from about 45% to 82% of the height): the open, empty, light-coloured paved plaza. Keep this area clean and uncluttered: it is the play area.</div>
+        <p class="nota">257 palabras en inglés. Completo en la diapositiva siguiente.</p>
+      </div>
+      <div class="fl"></div>
+      <div class="eslabon">
+        <h3>3. La imagen</h3>
+        <img src="../assets/img/plaza.webp" alt="El fondo generado: la plaza del Ayuntamiento con cuerdas de masclets arriba, el centro vacío y el público de espaldas abajo">
+        <p class="nota">La hizo gpt-image (OpenAI), en Replicate. El centro queda vacío para los petardos.</p>
+      </div>
+    </div>
+    <div class="caja examen"><span class="tt">Para tu clase</span>No hace falta escribir un prompt así. Se lo pides a ChatGPT y tú lo revisas: lo ves en «Hazlo así», dos diapositivas más adelante.</div>
+  </div>
+</section>
+
+<section class="s" data-label="La plaza: el prompt" data-seccion="Imágenes">
+  <div class="cab"><p class="etq">El fondo</p><h2>El prompt completo del fondo</h2><p class="entrada">Es el texto que recibió el generador de imágenes. Describe el fondo por zonas, de arriba abajo.</p></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 520px; gap: 48px">
+      <div class="prompt t2-larga">
+        <div class="p-cab">Prompt escrito por Claude <span class="modelo">para gpt-image-2.5 · 4:3 · fondo opaco</span></div>
+<pre>Background art for a casual 2D kids' game (only the background layer, no characters in the play area, no UI, no text). 4:3.
+
+SCENE: a stylized cartoon version of Valencia's town hall square at midday in March. Bright clear blue sky. Centre background: an elegant cream-coloured stone building with a central clock tower and a balcony with three flags. Smaller domed buildings on both sides and a few palm trees. Flat colours, low detail, slightly soft and light so foreground sprites will stand out on top of it.
+
+UPPER-MIDDLE BAND: the classic mascleta setup: two long horizontal ropes stretched across the whole width between tall grey metal truss poles at the far left and far right, with many small red-and-white paper firecrackers hanging from the ropes in neat rows, like clothes on a washing line. No explosions, no smoke yet.
+
+MIDDLE AND LOWER-MIDDLE (from about 45% to 82% of the height): the open, empty, light-coloured paved plaza. Keep this area clean and uncluttered: it is the play area.
+
+BOTTOM 16%: a blue metal crowd barrier across the whole width with a row of simple cartoon spectators seen from behind (backs of heads and shoulders only), colourful clothes, one with a Valencian flag scarf, one with a straw hat, one with traditional fallera hair buns with flowers.
+
+STYLE: bright, playful, polished casual indie-game art. Bold dark outlines, flat cel shading, saturated but slightly soft colours: sky blue, cream, warm stone, a little red. Same look as a modern cartoon mobile game. No logos, no watermark, no text anywhere.</pre>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div class="tarjeta"><h3>Qué hace cada parte</h3>
+          <ul class="lista peq">
+            <li><b>Qué es</b>: solo el fondo, 4:3, sin texto.</li>
+            <li><b>Escena</b>: la plaza, de día.</li>
+            <li><b>Arriba</b>: las cuerdas de masclets.</li>
+            <li><b>En medio</b>: vacío. Ahí se juega.</li>
+            <li><b>Abajo</b>: el público de espaldas.</li>
+            <li><b>Estilo</b>: igual en todos los prompts.</li>
+          </ul>
+        </div>
+        <p class="peq">Se sabe porque Claude Code guarda el registro de cada sesión.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Pide el prompt a la IA" data-seccion="Imágenes">
+  <div class="cab"><p class="etq">Para tu clase</p><h2>Hazlo así: pide el prompt a la IA</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 1fr 900px; gap: 48px">
+      <ol class="pasos peq">
+        <li>En ChatGPT, cuenta el juego en pocas frases: la tradición, qué hace quien juega y cómo se ve.</li>
+        <li>Pide que te escriba un <b>prompt detallado</b> para la imagen que necesitas.</li>
+        <li><b>Léelo y corrígelo</b>: quita lo que no quieras y añade lo que falte. Ahí es donde decides tú.</li>
+        <li>Pide que genere la imagen. Si no sale bien, cambia el prompt; no empieces de cero.</li>
+      </ol>
+      <div class="prompt">
+        <div class="p-cab">Lo que escribe el docente <span class="modelo">ChatGPT</span></div>
+<pre>Estamos haciendo con alumnos de 11 años un videojuego de Scratch sobre la mascletà de las Fallas. Salen petardos por la plaza del Ayuntamiento y hay que hacer clic cuando se acaba la mecha.
+
+Escríbeme un prompt detallado para un generador de imágenes que dibuje el fondo del juego: la plaza con las cuerdas de masclets arriba, el público de espaldas abajo y el centro vacío, que es donde salen los petardos. Dibujo animado, contorno grueso, colores planos, formato 4:3 y sin texto. Después, genera la imagen.</pre>
+      </div>
+    </div>
+    <div class="caja ia"><span class="tt">Por qué así</span>La IA de texto se acuerda de lo hablado y sabe qué detalles necesita el generador. Tú decides leyendo el prompt, sin tener que escribirlo entero.</div>
+  </div>
+</section>
+
+<section class="s" data-label="Cómo pedir un buen fondo" data-seccion="Imágenes">
+  <div class="cab"><p class="etq">Para tu clase</p><h2>Cómo pedir un buen fondo</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="gap:56px">
+      <ol class="pasos peq">
+        <li>Di que es un <b>fondo de videojuego</b> y su formato: <b>4:3</b>, como el escenario de Scratch.</li>
+        <li>Describe la escena <b>por zonas</b>: el cielo, lo de detrás, la zona de juego y lo de delante.</li>
+        <li>Pide la <b>zona de juego vacía</b> y colores algo suaves: así destacan los objetos.</li>
+        <li>Pide <b>sin texto</b>: las IA escriben mal.</li>
+        <li>Copia siempre el mismo párrafo de <b>estilo</b> en todos los prompts.</li>
+      </ol>
+      <div class="prompt">
+        <div class="p-cab">Prompt para tu clase <span class="modelo">ChatGPT</span></div>
+<pre>Fondo para un videojuego 2D, formato 4:3. La plaza de mi pueblo en fiestas, con la iglesia al fondo y banderitas de colores colgadas arriba. La parte central y la de abajo, vacías: es donde se juega. Estilo dibujo animado, contorno oscuro grueso, colores planos y alegres pero suaves. Sin personas en primer plano. Sin texto.</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Los petardos: el problema de los fotogramas" data-seccion="Imágenes">
+  <div class="cab"><p class="etq">Los petardos</p><h2>Los petardos: el problema de los fotogramas</h2><p class="entrada">Para animar la mecha hacen falta 9 dibujos del <b>mismo</b> petardo. Una IA de imágenes no los dibuja 9 veces iguales: cambia la cara, el tamaño o el color.</p></div>
+  <div class="cuerpo">
+    <div class="tira">
+      <figure><img src="../assets/img/sprites/mecha1.png" alt=""><figcaption>1</figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha2.png" alt=""><figcaption>2</figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha3.png" alt=""><figcaption>3</figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha4.png" alt=""><figcaption>4</figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha5.png" alt=""><figcaption>5</figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha6.png" alt=""><figcaption>6</figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha7.png" alt=""><figcaption>7</figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha8.png" alt=""><figcaption>8</figcaption></figure>
+      <figure><img src="../assets/img/sprites/mecha9.png" alt=""><figcaption>9</figcaption></figure>
+    </div>
+    <div class="cols" style="gap:48px">
+      <div class="tarjeta"><h3>Lo que hicimos: dibujarlos con código</h3><p class="peq">Claude escribió un programa que pinta el petardo. Cambiando un solo número (lo que queda de mecha) salen los 9 dibujos idénticos. Igual la explosión y el petardo fallado.</p></div>
+      <div class="tarjeta"><h3>Lo que puedes hacer tú</h3><p class="peq">Generar <b>un</b> personaje con IA y hacer las variaciones en el editor de disfraces de Scratch: duplicar y borrar un trozo de mecha en cada copia.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Un petardo con un prompt sencillo" data-seccion="Imágenes">
+  <div class="cab"><p class="etq">Los petardos</p><h2>Un personaje con un prompt sencillo</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 520px 1fr; gap: 56px">
+      <figure class="t2-hoja"><img src="../assets/img/ejemplo-petardo.webp" alt="Petardo rojo de dibujo animado con brazos, piernas y la mecha encendida, sobre fondo transparente"></figure>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div class="prompt">
+          <div class="p-cab">Prompt corto, como el de un docente <span class="modelo">gpt-image · transparente · 1:1</span></div>
+<pre>Un personaje para un videojuego: un petardo rojo con una banda blanca, cara simpática y la mecha encendida. Estilo dibujo animado, con contorno oscuro grueso y colores planos. Un solo personaje, centrado. Fondo transparente. Sin texto.</pre>
+        </div>
+        <ul class="lista peq">
+          <li>Sale muy resultón… y con brazos y piernas que nadie pidió. Hay que repetir o retocar.</li>
+          <li>Este también lo escribió Claude, pero corto y en castellano a propósito: es como lo pediría una persona.</li>
+          <li><b>Fondo transparente</b> da un PNG que Scratch importa sin recuadro blanco. Si la herramienta no lo hace, quita el fondo con Canva o en el editor de Scratch (goma).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="De una imagen a 9 disfraces" data-seccion="Imágenes">
+  <div class="cab"><p class="etq">Los petardos</p><h2>De una imagen a 9 disfraces en Scratch</h2></div>
+  <div class="cuerpo">
+    <div class="cols centro" style="grid-template-columns: 1fr 1000px; gap: 48px">
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <ol class="pasos peq">
+          <li>Pestaña <b>Disfraces</b> › botón del gato › <b>Subir disfraz</b>. Elige el PNG.</li>
+          <li>Clic derecho sobre el disfraz › <b>duplicar</b>. Repite hasta tener 9.</li>
+          <li>En cada copia, borra un trozo más de mecha con la <b>goma</b>.</li>
+          <li>Ponles nombre: <b>mecha1</b> … <b>mecha9</b>.</li>
+        </ol>
+        <div class="caja examen"><span class="tt">En el aula</span>Este trabajo es perfecto para el rol de arte del equipo: no hace falta saber programar.</div>
+      </div>
+      <figure class="captura" style="aspect-ratio:16/10">
+        <img src="../assets/img/scratch/editor-disfraces.webp" alt="Pestaña Disfraces de Scratch con los disfraces mecha1 a mecha9 y el editor de dibujo">
+        <span class="num-mark" style="left:9%;top:93%">1</span>
+        <span class="num-mark" style="left:7%;top:14%">2</span>
+        <span class="num-mark" style="left:11.8%;top:39%">3</span>
+        <span class="num-mark" style="left:21%;top:12.1%">4</span>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Prompts para tu clase" data-seccion="Imágenes">
+  <div class="cab"><p class="etq">Para tu clase</p><h2>Más prompts para tu clase</h2><p class="entrada">Adáptalos a vuestro juego: cambia la tradición, el objeto o los colores.</p></div>
+  <div class="cuerpo">
+    <div class="tarjetas" style="--n:3">
+      <div class="prompt peq"><div class="p-cab">Una explosión</div>
+<pre>Una explosión de cómic, naranja y amarilla, con la palabra PUM en letras gruesas. Estilo dibujo animado con contorno oscuro grueso. Fondo transparente.</pre></div>
+      <div class="prompt peq"><div class="p-cab">Un objeto de la fiesta</div>
+<pre>Un ninot de falla pequeño y simpático, de cuerpo entero, mirando de frente. Estilo dibujo animado con contorno oscuro grueso y colores planos. Un solo personaje, centrado. Fondo transparente. Sin texto.</pre></div>
+      <div class="prompt peq"><div class="p-cab">A partir de un dibujo</div>
+<pre>Convierte este dibujo de un alumno en un personaje de videojuego. Mantén la forma y los colores del dibujo. Estilo dibujo animado con contorno oscuro grueso. Fondo transparente. Sin texto.</pre></div>
+    </div>
+    <p class="peq">El tercero adjunta la foto de un dibujo en papel. Así el diseño es del alumnado y la IA solo lo pasa a limpio. Nunca adjuntes fotos de personas.</p>
+  </div>
+</section>
+
+<section class="s" data-label="La música: un pasodoble original" data-seccion="Música" data-deck-section="Música">
+  <div class="cab"><p class="etq">Música y sonido</p><h2>La música: un pasodoble original</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="gap:56px">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <p>El pasodoble lo compuso Claude como <b>datos</b>: cada nota de la dolçaina con su compás, su golpe y su altura, más los acordes de la banda.</p>
+        <p>Después, un programa lo <b>sintetiza</b>: imita la dolçaina, el bajo, el bombo y el tabal, y lo graba en MP3.</p>
+        <audio class="t2-audio" controls preload="none" src="../assets/audio/pasodoble.mp3"></audio>
+        <div class="caja ok"><span class="tt">Sin problemas de derechos</span>Es música nueva, hecha para este juego. Se puede publicar en itch.io sin pedir permiso a nadie.</div>
+      </div>
+      <div class="tarjetas" style="--n:1">
+        <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/partitura.webp" alt=""><h3>120 BPM</h3><p class="peq">Un golpe cada 0,5 segundos. Saberlo es lo que permite cuadrar los petardos.</p></div>
+        <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/dolcaina.webp" alt=""><h3>Dolçaina y tabal</h3><p class="peq">Los instrumentos de la música de calle valenciana.</p></div>
+        <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/sonido.webp" alt=""><h3>«Pum» y «fsss»</h3><p class="peq">También sintetizados: ruido filtrado y un golpe grave.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="Música para vuestro juego" data-seccion="Música">
+  <div class="cab"><p class="etq">Música y sonido</p><h2>Música para vuestro juego</h2></div>
+  <div class="cuerpo">
+    <div class="tarjetas" style="--n:3">
+      <div class="tarjeta"><h3>La banda del pueblo</h3><p class="peq">Grabad a la banda, a un dolçainer o al profe de Música. Es lo más valenciano y lo más original.</p></div>
+      <div class="tarjeta"><h3>Extensión Música de Scratch</h3><p class="peq">Bloques para tocar notas y tambores con un tempo fijo. El alumnado programa la melodía.</p></div>
+      <div class="tarjeta"><h3>Biblioteca de Scratch</h3><p class="peq">Pestaña Sonidos › elige un sonido › categoría <b>Bucles</b>. Listos para usar en Scratch.</p></div>
+      <div class="tarjeta"><h3>Música con licencia libre</h3><p class="peq">Licencias CC0 o CC BY. Con CC BY hay que citar a la autora o autor en itch.io.</p></div>
+      <div class="tarjeta"><h3>Música con IA</h3><p class="peq">Hay generadores de canciones. Revisa sus condiciones de uso y la edad mínima. Los usa el docente.</p></div>
+      <div class="tarjeta c-ko"><h3>Lo que no</h3><p class="peq">Canciones comerciales (radio, plataformas): tienen derechos y el juego se publica.</p></div>
+    </div>
+    <p class="peq">Sea cual sea la música, necesitas sus <b>tiempos</b>: o sabes sus BPM o los grabas con el modo pirotécnico (módulo 4).</p>
+  </div>
+</section>
+
+<section class="s" data-label="Los iconos de esta formación" data-seccion="Extra" data-deck-section="Extra">
+  <div class="cab"><p class="etq">Extra</p><h2>Los iconos de esta formación</h2></div>
+  <div class="cuerpo">
+    <div class="cols" style="grid-template-columns: 860px 1fr; gap: 48px">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <figure class="t2-hoja"><img src="../assets/img/hoja-iconos.webp" alt="Hoja de 7 iconos generada: puntero, percha con disfraz, flechas en bucle, megáfono, bote de colores, señal de dos direcciones y cronómetro"></figure>
+        <p class="peq">El docente escribió: «usa replicate para generar la autoformacion, para que sea facil de leer, de usar», y aclaró: imágenes, diagramas, iconos. Claude decidió qué iconos hacían falta y escribió un prompt por hoja: varios en fila, con fondo transparente. Un pequeño programa los separa en archivos sueltos.</p>
+      </div>
+      <div class="prompt t2-larga peq">
+        <div class="p-cab">Prompt escrito por Claude <span class="modelo">hoja de iconos · gpt-image · 16:9 · transparente</span></div>
+<pre>A sheet of EXACTLY 7 separate icons in a single horizontal row, each centered in its own seventh of the width, with wide empty transparent gaps between them. Objects only, no people, no words, no letters, no labels, no numbers, no logos, no background, no floor, no frame. Only a very subtle soft contact shadow under each object.
+From left to right:
+1) a white computer mouse pointer arrow clicking, with three small click lines;
+2) a wooden coat hanger holding a small red firecracker costume;
+3) two thick circular arrows chasing each other to form a loop;
+4) a loudspeaker with sound waves;
+5) a glass jar with a lid, full of colourful round counters;
+6) a wooden road signpost with two arrows, one pointing left and one pointing right;
+7) a classic silver stopwatch with a red button.
+STYLE: bright, playful, polished casual indie-game art, like a modern cartoon mobile game. Bold dark navy outlines, flat cel shading with one soft highlight, saturated colours: firecracker red, fire orange, golden yellow, sky blue, cream, a little mint green and purple. Friendly, simple, readable at small size.</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-label="IA en primaria: normas básicas" data-seccion="Normas" data-deck-section="Normas">
+  <div class="cab"><p class="etq">Normas</p><h2>IA en primaria: normas básicas</h2></div>
+  <div class="cuerpo">
+    <div class="tarjetas" style="--n:3">
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/seguridad.webp" alt=""><h3>La usa el docente</h3><p class="peq">La mayoría de herramientas piden 13 o 14 años. En España, el consentimiento para tratar datos personales empieza a los 14.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/boceto.webp" alt=""><h3>El diseño es del alumnado</h3><p class="peq">Ellos dibujan y describen. El docente lo convierte en prompt y lo enseña en la pizarra.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/clic.webp" alt=""><h3>Nada personal</h3><p class="peq">Ni fotos de alumnos ni nombres en los prompts.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/licencia.webp" alt=""><h3>Sin marcas ni personajes ajenos</h3><p class="peq">Nada de personajes de películas o videojuegos con derechos.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/checklist.webp" alt=""><h3>Dilo</h3><p class="peq">En itch.io y en el vídeo: qué se hizo con IA y qué hizo el equipo.</p></div>
+      <div class="tarjeta sin-borde con-ico"><img src="../assets/img/ia/depurar.webp" alt=""><h3>Revisa siempre</h3><p class="peq">La IA se equivoca: textos mal escritos, manos raras, datos falsos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s oscura" data-label="Fin del módulo 2">
+  <div class="cab"><p class="etq">Fin del módulo 2</p><h2>Ya tenemos idea, imágenes y música</h2></div>
+  <div class="cuerpo" style="gap:36px">
+    <p>Ahora, a programar. El módulo 3 empieza desde cero: la pantalla de Scratch y el primer bloque.</p>
+    <div class="botones"><a class="btn sec" href="../">Portada de la formación</a><a class="btn ciruela" href="../tema3/">Módulo 3 · Scratch: un petardo</a></div>
+  </div>
+</section>
+
+</deck-stage>
+<script src="../assets/deck-stage.js"></script>
+<script src="../assets/cdc.js"></script>
+<script src="../assets/tro.js"></script>
+</body>
+</html>
